@@ -5,11 +5,12 @@
 @custom-variant light (&:where([data-theme="light"], [data-theme="light"] *));
 
 /* =====================================================================
-   Tokens que no dependen del tema
+   Tokens que no dependen del tema (DESIGN.md §4–§6)
    ===================================================================== */
 :root {
-  /* Tipografía. next/font define --font-chakra y --font-jetbrains en <html>. */
-  --font-family-display: var(--font-chakra), "Segoe UI", system-ui, sans-serif;
+  /* Tipografía. next/font define --font-archivo, --font-newsreader y --font-jetbrains en <html>. */
+  --font-family-display: var(--font-archivo), "Arial Black", "Segoe UI", system-ui, sans-serif;
+  --font-family-serif: var(--font-newsreader), Georgia, "Times New Roman", serif;
   --font-family-body: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
   --font-family-mono: var(--font-jetbrains), ui-monospace, "Cascadia Code", Consolas, monospace;
 
@@ -21,13 +22,21 @@
   --fs-2xl: clamp(1.375rem, 1.2rem + 0.8vw, 1.75rem);
   --fs-3xl: clamp(1.75rem, 1.4rem + 1.6vw, 2.5rem);
   --fs-4xl: clamp(2.25rem, 1.6rem + 3vw, 4rem);
-  --fs-hero: clamp(2.75rem, 9vw, 10rem);
+  --fs-hero: clamp(3rem, 10.8vw, 15rem);
+  --fs-display: clamp(3rem, 12vw, 10rem);
+  --fs-number: clamp(3rem, 10vw, 8.75rem);
+  --fs-band: clamp(2.25rem, 6vw, 5.5rem);
+  --fs-subtitle: clamp(1.5rem, 1rem + 2.4vw, 3rem);
+  --fs-lead: clamp(1.125rem, 1rem + 0.8vw, 1.5rem);
+  --fs-meta: 0.75rem; /* mínimo absoluto: 12 px */
 
+  --lh-display: 0.88;
   --lh-tight: 1.15;
   --lh-snug: 1.35;
   --lh-normal: 1.6;
-  --tracking-display: 0.02em;
+  --tracking-display: -0.01em;
   --tracking-mono: 0.04em;
+  --tracking-meta: 0.14em;
 
   /* Espaciado */
   --space-3xs: 0.25rem;
@@ -49,15 +58,32 @@
   --nav-offset: 5.5rem; /* scroll-margin de las anclas para que no queden debajo */
 
   /* Forma */
+  --corner-none: 0;
   --corner-sm: 2px;
   --corner-md: 6px;
+  --corner-card: clamp(1.5rem, 3vw, 2.5rem);
+  --corner-section: clamp(2.5rem, 5vw, 3.75rem);
+  --corner-pill: 9999px;
   --border-width: 1px;
+  --skew: clamp(0.75rem, 2.5vw, 2rem);
+  --stripe-height: 0.75rem;
+  --stripe-band: 12px; /* raya de 12 px + hueco de 12 px = periodo de 24 px */
+
+  /* Movimiento */
+  --ease-fade: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fade: 0.7s;
+  --dur-fast: 150ms;
+
+  /* Grano de papel: ruido estático (no se anima nunca). */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 /* =====================================================================
-   Tema oscuro (por defecto): cyberpunk
-   Contraste comprobado (WCAG): fg 16.48:1, fg-muted 8.50:1, primary 13.92:1,
-   accent 6.13:1, highlight 15.40:1 sobre --bg.
+   Tema oscuro (por defecto): cyberpunk "de noche"
+   Contraste (WCAG): fg 16.48:1, fg-muted 8.50:1, primary 13.92:1,
+   accent 6.13:1, highlight 15.40:1 sobre --bg. Degradado de títulos:
+   el tono más oscuro (#7FE9FF) da 14.01:1.
    ===================================================================== */
 :root,
 :root[data-theme="dark"] {
@@ -69,40 +95,62 @@
   --primary: #00f0ff; /* cian */
   --accent: #ff2bd6; /* magenta */
   --highlight: #f5e83a; /* amarillo */
+  --red: #ff2bd6; /* en oscuro el "bloque de acento" es magenta */
   --on-primary: #0a0b14;
   --on-accent: #0a0b14;
+  --on-red: #0a0b14;
   --border: #23264a; /* decorativo */
   --border-strong: #5a6094; /* controles: 3.30:1 */
   --focus: #f5e83a;
+  --title-from: #e8eaff;
+  --title-to: #7fe9ff;
+  --stripe: #ff2bd6;
+  --cta-bg: #00f0ff;
+  --cta-fg: #0a0b14;
+  --cta-hover-bg: #ff2bd6;
+  --cta-hover-fg: #0a0b14;
+  --grain-opacity: 0;
   --glow-primary: 0 0 18px color-mix(in srgb, var(--primary) 45%, transparent);
   --glow-accent: 0 0 18px color-mix(in srgb, var(--accent) 45%, transparent);
-  /* Neón del Hero: intensidad del halo cercano y del lejano */
+  /* Neón (Experiencia): intensidad del halo cercano y del lejano */
   --neon-near: 55%;
   --neon-far: 28%;
 }
 
 /* =====================================================================
-   Tema claro: fondo lavanda, textos azul noche, acentos más profundos
-   Contraste comprobado (WCAG): fg 16.32:1, fg-muted 8.34:1, primary 5.93:1,
-   accent 6.49:1, highlight 5.94:1 sobre --bg.
+   Tema claro: póster impreso en papel
+   Contraste (WCAG): fg 14.50:1, fg-muted 7.02:1, primary/accent 5.80:1,
+   highlight 5.42:1 sobre --bg. --red (#C8352B) da 4.23:1: NUNCA como texto,
+   solo como fondo con texto blanco (5.25:1) o como forma.
+   Mantener sincronizado con el bloque prefers-color-scheme de abajo.
    ===================================================================== */
 :root[data-theme="light"] {
   color-scheme: light;
-  --bg: #eef0ff;
-  --surface: #ffffff;
-  --fg: #0b1033; /* azul noche */
-  --fg-muted: #3b4275;
-  --primary: #006577; /* cian profundo */
-  --accent: #a3007e; /* magenta profundo */
-  --highlight: #6b5b00; /* amarillo oscurecido para texto */
+  --bg: #efe6d3;
+  --surface: #f7f1e5;
+  --fg: #1a1612; /* tinta */
+  --fg-muted: #524a40;
+  --primary: #a8231b; /* rojo profundo: el único rojo permitido como texto */
+  --accent: #a8231b;
+  --highlight: #6b5b00;
+  --red: #c8352b; /* rojo de imprenta */
   --on-primary: #ffffff;
   --on-accent: #ffffff;
-  --border: #d3d6f2;
-  --border-strong: #7a80ad; /* 3.36:1 */
-  --focus: #a3007e;
+  --on-red: #ffffff;
+  --border: #d8ccb3;
+  --border-strong: #7a7062; /* 3.92:1 */
+  --focus: #a8231b;
+  --title-from: #1a1612;
+  --title-to: #1a1612;
+  --stripe: #1a1612;
+  --cta-bg: #c8352b;
+  --cta-fg: #ffffff;
+  --cta-hover-bg: #a8231b;
+  --cta-hover-fg: #ffffff;
+  --grain-opacity: 0.07;
   --glow-primary: 0 0 0 transparent;
   --glow-accent: 0 0 0 transparent;
-  --neon-near: 22%;
+  --neon-near: 0%;
   --neon-far: 0%;
 }
 
@@ -110,28 +158,102 @@
 @media (prefers-color-scheme: light) {
   :root:not([data-theme]) {
     color-scheme: light;
-    --bg: #eef0ff;
-    --surface: #ffffff;
-    --fg: #0b1033;
-    --fg-muted: #3b4275;
-    --primary: #006577;
-    --accent: #a3007e;
+    --bg: #efe6d3;
+    --surface: #f7f1e5;
+    --fg: #1a1612;
+    --fg-muted: #524a40;
+    --primary: #a8231b;
+    --accent: #a8231b;
     --highlight: #6b5b00;
+    --red: #c8352b;
     --on-primary: #ffffff;
     --on-accent: #ffffff;
-    --border: #d3d6f2;
-    --border-strong: #7a80ad;
-    --focus: #a3007e;
+    --on-red: #ffffff;
+    --border: #d8ccb3;
+    --border-strong: #7a7062;
+    --focus: #a8231b;
+    --title-from: #1a1612;
+    --title-to: #1a1612;
+    --stripe: #1a1612;
+    --cta-bg: #c8352b;
+    --cta-fg: #ffffff;
+    --cta-hover-bg: #a8231b;
+    --cta-hover-fg: #ffffff;
+    --grain-opacity: 0.07;
     --glow-primary: 0 0 0 transparent;
     --glow-accent: 0 0 0 transparent;
-    --neon-near: 22%;
+    --neon-near: 0%;
     --neon-far: 0%;
   }
 }
 
 /* =====================================================================
+   Superficie invertida (sección "Qué hago"): el tono contrario al tema.
+   Oscuro → lavanda: fg 16.32:1, fg-muted 8.34:1, accent 6.49:1, primary 5.93:1.
+   Claro → tinta: fg 14.50:1, fg-muted 8.22:1, accent/primary 7.07:1.
+   ===================================================================== */
+.surface-inverse,
+:root[data-theme="dark"] .surface-inverse {
+  color-scheme: light;
+  --bg: #eef0ff;
+  --surface: #ffffff;
+  --fg: #0b1033;
+  --fg-muted: #3b4275;
+  --primary: #006577;
+  --accent: #a3007e;
+  --on-primary: #ffffff;
+  --on-accent: #ffffff;
+  --border: #d3d6f2;
+  --border-strong: #7a80ad;
+  --focus: #a3007e;
+  --title-from: #0b1033;
+  --title-to: #0b1033;
+  --stripe: #a3007e;
+  --glow-primary: 0 0 0 transparent;
+  --glow-accent: 0 0 0 transparent;
+}
+
+:root[data-theme="light"] .surface-inverse {
+  color-scheme: dark;
+  --bg: #1a1612;
+  --surface: #241f1a;
+  --fg: #efe6d3;
+  --fg-muted: #b9ae9b;
+  --primary: #ff7a6b;
+  --accent: #ff7a6b;
+  --on-primary: #1a1612;
+  --on-accent: #1a1612;
+  --border: #3a332b;
+  --border-strong: #a89d8a;
+  --focus: #ff7a6b;
+  --title-from: #efe6d3;
+  --title-to: #efe6d3;
+  --stripe: #ff7a6b;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) .surface-inverse {
+    color-scheme: dark;
+    --bg: #1a1612;
+    --surface: #241f1a;
+    --fg: #efe6d3;
+    --fg-muted: #b9ae9b;
+    --primary: #ff7a6b;
+    --accent: #ff7a6b;
+    --on-primary: #1a1612;
+    --on-accent: #1a1612;
+    --border: #3a332b;
+    --border-strong: #a89d8a;
+    --focus: #ff7a6b;
+    --title-from: #efe6d3;
+    --title-to: #efe6d3;
+    --stripe: #ff7a6b;
+  }
+}
+
+/* =====================================================================
    Tokens expuestos a Tailwind (bg-surface, text-fg-muted, font-display,
-   px-gutter, max-w-content, text-display…)
+   font-serif, text-display, rounded-card, ease-fade…)
    ===================================================================== */
 @theme inline {
   --color-bg: var(--bg);
@@ -141,20 +263,38 @@
   --color-primary: var(--primary);
   --color-accent: var(--accent);
   --color-highlight: var(--highlight);
+  --color-red: var(--red);
   --color-on-primary: var(--on-primary);
   --color-on-accent: var(--on-accent);
+  --color-on-red: var(--on-red);
   --color-border: var(--border);
   --color-border-strong: var(--border-strong);
   --color-focus: var(--focus);
+  --color-stripe: var(--stripe);
+  --color-cta: var(--cta-bg);
+  --color-on-cta: var(--cta-fg);
+  --color-cta-hover: var(--cta-hover-bg);
+  --color-on-cta-hover: var(--cta-hover-fg);
 
   --font-sans: var(--font-family-body);
   --font-display: var(--font-family-display);
+  --font-serif: var(--font-family-serif);
   --font-mono: var(--font-family-mono);
 
-  --text-display: var(--fs-4xl);
-  --text-display--line-height: var(--lh-tight);
+  --text-meta: var(--fs-meta);
+  --text-meta--line-height: 1.4;
+  --text-lead: var(--fs-lead);
+  --text-lead--line-height: var(--lh-normal);
+  --text-subtitle: var(--fs-subtitle);
+  --text-subtitle--line-height: 1.15;
+  --text-band: var(--fs-band);
+  --text-band--line-height: 1;
+  --text-number: var(--fs-number);
+  --text-number--line-height: var(--lh-display);
+  --text-display: var(--fs-display);
+  --text-display--line-height: var(--lh-display);
   --text-hero: var(--fs-hero);
-  --text-hero--line-height: 0.95;
+  --text-hero--line-height: var(--lh-display);
   --text-title: var(--fs-3xl);
   --text-title--line-height: var(--lh-tight);
 
@@ -166,6 +306,12 @@
 
   --radius-sm: var(--corner-sm);
   --radius-md: var(--corner-md);
+  --radius-card: var(--corner-card);
+  --radius-section: var(--corner-section);
+  --radius-pill: var(--corner-pill);
+
+  --ease-fade: var(--ease-fade);
+  --ease-out-soft: var(--ease-out);
 
   --shadow-glow-primary: var(--glow-primary);
   --shadow-glow-accent: var(--glow-accent);
@@ -180,11 +326,26 @@
   }
 
   body {
+    /* isolation: el grano (z-index -1) queda sobre el fondo y bajo el contenido. */
+    isolation: isolate;
     background-color: var(--bg);
     color: var(--fg);
     font-family: var(--font-family-body);
     font-size: var(--fs-base);
     line-height: var(--lh-normal);
+    overflow-x: clip;
+  }
+
+  /* Grano de papel: estático, sin mix-blend-mode (no repinta al hacer scroll). */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image: var(--grain);
+    background-size: 160px 160px;
+    opacity: var(--grain-opacity);
   }
 
   h1,
@@ -195,6 +356,10 @@
     line-height: var(--lh-tight);
     letter-spacing: var(--tracking-display);
     text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
   }
 
   code,
@@ -216,9 +381,116 @@
 }
 
 /* =====================================================================
-   Neón suave (Hero). Estático: no parpadea ni destella.
-   --neon: color de la línea. --neon-on (0–1): GSAP lo baja al hacer scroll
-   para apagar el halo de forma continua; sin JS o con movimiento reducido vale 1.
+   Piezas de identidad (DESIGN.md §3.3 y §7)
+   ===================================================================== */
+@layer components {
+  /* Títulos gigantes: Archivo 900 en mayúsculas. */
+  .display-title {
+    font-family: var(--font-family-display);
+    font-size: var(--fs-display);
+    font-weight: 900;
+    font-stretch: 88%;
+    line-height: var(--lh-display);
+    letter-spacing: var(--tracking-display);
+    text-transform: uppercase;
+  }
+
+  /* Degradado frío en oscuro; tinta plana en claro (--title-from = --title-to). */
+  .title-gradient {
+    color: var(--title-from);
+    background-image: linear-gradient(180deg, var(--title-from) 0%, var(--title-to) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .title-gradient::selection {
+    -webkit-text-fill-color: var(--on-accent);
+  }
+  /* Alto contraste de Windows: el texto recortado sería invisible. */
+  @media (forced-colors: active) {
+    .title-gradient {
+      background-image: none;
+      -webkit-text-fill-color: currentColor;
+    }
+  }
+
+  /* Metadatos pequeños: monoespaciada en mayúsculas (por CSS: los lectores no deletrean). */
+  .meta {
+    font-family: var(--font-family-mono);
+    font-size: var(--fs-meta);
+    line-height: 1.4;
+    letter-spacing: var(--tracking-meta);
+    text-transform: uppercase;
+  }
+
+  /* Franja de rayas diagonales (decorativa, estática). */
+  .stripes {
+    height: var(--stripe-height);
+    background-image: repeating-linear-gradient(
+      -45deg,
+      var(--stripe) 0 var(--stripe-band),
+      transparent var(--stripe-band) calc(var(--stripe-band) * 2)
+    );
+  }
+
+  /* Etiqueta vertical decorativa. */
+  .vertical-label {
+    writing-mode: vertical-rl;
+    font-family: var(--font-family-mono);
+    font-size: var(--fs-meta);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--fg-muted);
+    white-space: nowrap;
+  }
+
+  /* Panel inclinado: siempre en la capa de la imagen, nunca en un contenedor con enlaces. */
+  .panel-skew {
+    clip-path: polygon(var(--skew) 0, 100% 0, calc(100% - var(--skew)) 100%, 0 100%);
+  }
+
+  /* Marcador de imagen (producción o imagen pendiente): degradado plano + rayas del tema. */
+  .placeholder-surface {
+    background-color: var(--surface);
+    background-image:
+      repeating-linear-gradient(
+        -45deg,
+        color-mix(in srgb, var(--stripe) 14%, transparent) 0 10px,
+        transparent 10px 20px
+      ),
+      linear-gradient(160deg, var(--surface) 0%, color-mix(in srgb, var(--primary) 18%, var(--surface)) 100%);
+  }
+
+  /* Revelado por carácter (AnimatedText). --reveal va de 0 a 1 con el scroll;
+     sin JS o con movimiento reducido vale 1. Opacidad mínima 0.65: 4.5:1 en ambos temas. */
+  .reveal {
+    --reveal: 1;
+  }
+  .reveal-char {
+    opacity: calc(0.65 + 0.35 * clamp(0, var(--reveal) * var(--reveal-total) - var(--i), 1));
+  }
+}
+
+/* =====================================================================
+   Entrada escalonada (Hero y navbar). Es CSS para que el HTML del servidor
+   no salga oculto: sin JS también se ve, y con movimiento reducido no se anima.
+   Uso: class="enter [--enter-delay:0.15s] [--enter-y:40px]"
+   ===================================================================== */
+@keyframes enter {
+  from {
+    opacity: 0;
+    transform: translate3d(var(--enter-x, 0), var(--enter-y, 0), 0);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .enter {
+    animation: enter var(--dur-fade) var(--ease-fade) var(--enter-delay, 0s) backwards;
+  }
+}
+
+/* =====================================================================
+   Neón suave (línea de tiempo y halos). Estático: no parpadea ni destella.
    ===================================================================== */
 .neon {
   --neon-on: 1;

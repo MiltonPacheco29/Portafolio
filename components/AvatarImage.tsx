@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { PlaceholderImage } from "@/components/PlaceholderImage";
 import type { LocalImage } from "@/lib/images";
 
 type AvatarImageProps = {
@@ -8,36 +8,27 @@ type AvatarImageProps = {
   /** Texto del marco reservado mientras falta la imagen. */
   pending: string;
   className?: string;
+  /** Sin marco (avatar recortado con fondo transparente, p. ej. en el Hero). */
+  bare?: boolean;
+  preload?: boolean;
+  sizes?: string;
 };
 
-// Proporción del marco reservado cuando falta la imagen (la de los avatares: 4:5).
-const PENDING_ASPECT_RATIO = "4 / 5";
-
-export function AvatarImage({ image, alt, pending, className = "" }: AvatarImageProps) {
-  const frame = `overflow-hidden rounded-md border border-border-strong bg-surface shadow-glow-primary ${className}`;
-
-  if (!image) {
-    // Mismo tamaño que tendrá la imagen: al añadir el archivo no se mueve nada.
-    return (
-      <div
-        className={`${frame} flex items-center justify-center border-dashed p-6 text-center`}
-        style={{ aspectRatio: PENDING_ASPECT_RATIO }}
-      >
-        <p className="font-mono text-sm text-fg-muted">{pending}</p>
-      </div>
-    );
-  }
-
-  // width/height reales: el navegador reserva el espacio antes de descargarla (sin saltos).
+/**
+ * Avatar enmarcado. Si falta el archivo muestra una silueta con la misma
+ * proporción (4:5) que tendrá la imagen: al añadirla no se mueve nada.
+ */
+export function AvatarImage({ image, alt, pending, className = "", bare = false, preload, sizes }: AvatarImageProps) {
+  const frame = bare ? "" : "overflow-hidden rounded-card border border-border-strong bg-surface shadow-glow-primary";
   return (
-    <div className={frame}>
-      <Image
-        src={image.src}
-        alt={alt}
-        width={image.width}
-        height={image.height}
-        className="block h-auto w-full"
-      />
-    </div>
+    <PlaceholderImage
+      image={image}
+      alt={alt}
+      pending={pending}
+      variant="avatar"
+      preload={preload}
+      sizes={sizes}
+      className={`${frame} ${image ? "" : "aspect-[4/5]"} ${className}`}
+    />
   );
 }

@@ -78,3 +78,25 @@ export function whenMotionAllowed(
 export function useMotionTransition(transition: Transition): Transition {
   return usePrefersReducedMotion() ? instant : transition;
 }
+
+/** Curva y duración de FadeIn (DESIGN.md §6). */
+export const FADE_EASE = [0.25, 0.1, 0.25, 1] as const;
+export const FADE_DURATION = 0.7;
+
+/** Ratón o trackpad: hay hover real y puntero preciso. En táctil, Magnet se apaga. */
+export const FINE_POINTER_QUERY = "(hover: hover) and (pointer: fine)";
+
+function subscribeFinePointer(onChange: () => void) {
+  const media = window.matchMedia(FINE_POINTER_QUERY);
+  media.addEventListener("change", onChange);
+  return () => media.removeEventListener("change", onChange);
+}
+
+/** true con ratón o trackpad; false en el servidor, en la hidratación y en pantallas táctiles. */
+export function useFinePointer(): boolean {
+  return useSyncExternalStore(
+    subscribeFinePointer,
+    () => window.matchMedia(FINE_POINTER_QUERY).matches,
+    () => false,
+  );
+}
