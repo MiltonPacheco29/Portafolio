@@ -1,8 +1,8 @@
-import { PlaceholderImage } from "@/components/PlaceholderImage";
-import type { LocalImage } from "@/lib/images";
+import { PlaceholderImage } from "@/components/ui/PlaceholderImage";
+import type { LocalImage } from "@/lib/server/images";
 
 type AvatarImageProps = {
-  /** Imagen con dimensiones reales (lib/images.ts), o null si aún no existe el archivo. */
+  /** Imagen con dimensiones reales (lib/server/images.ts), o null si aún no existe el archivo. */
   image: LocalImage | null;
   alt: string;
   /** Texto del marco reservado mientras falta la imagen. */

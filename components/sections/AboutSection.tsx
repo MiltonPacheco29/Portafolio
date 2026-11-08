@@ -1,13 +1,13 @@
-import { AnimatedText } from "@/components/AnimatedText";
-import { AvatarImage } from "@/components/AvatarImage";
-import { ContactButton } from "@/components/ContactButton";
-import { FadeIn } from "@/components/FadeIn";
-import { PlaceholderImage, type PlaceholderVariant } from "@/components/PlaceholderImage";
-import { VerticalLabel } from "@/components/VerticalLabel";
-import { getDevPlaceholders } from "@/lib/devPlaceholders";
+import { AnimatedText } from "@/components/motion/AnimatedText";
+import { AvatarImage } from "@/components/ui/AvatarImage";
+import { ContactButton } from "@/components/ui/ContactButton";
+import { FadeIn } from "@/components/motion/FadeIn";
+import { PlaceholderImage, type PlaceholderVariant } from "@/components/ui/PlaceholderImage";
+import { VerticalLabel } from "@/components/ui/VerticalLabel";
+import { getDevPlaceholders } from "@/lib/server/devPlaceholders";
 import type { Dictionary } from "@/lib/i18n";
-import { getLocalImage } from "@/lib/images";
-import { sectionClass, sectionTitleClass } from "@/lib/ui";
+import { getLocalImage } from "@/lib/server/images";
+import { sectionClass, sectionTitleClass } from "@/components/sections/sectionStyles";
 
 type AboutSectionProps = {
   about: Dictionary["sections"]["about"];

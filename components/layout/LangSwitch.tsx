@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { switchLocalePath, type Locale, type SectionIds } from "@/lib/locales";
-import { useActiveSection } from "@/lib/useActiveSection";
+import { switchLocalePath, type Locale, type SectionIds } from "@/lib/i18n/locales";
+import { useActiveSection } from "@/lib/hooks/useActiveSection";
 
 export type LangSwitchProps = {
   current: Locale;

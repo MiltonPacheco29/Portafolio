@@ -2,9 +2,9 @@
 
 import { motion, useTransform, type MotionValue } from "motion/react";
 import { useRef, type FocusEvent } from "react";
-import { GhostButton } from "@/components/GhostButton";
-import { PlaceholderImage } from "@/components/PlaceholderImage";
-import type { ProjectMedia } from "@/components/ProjectList";
+import { GhostButton } from "@/components/ui/GhostButton";
+import { PlaceholderImage } from "@/components/ui/PlaceholderImage";
+import type { ProjectMedia } from "@/components/sections/projects/types";
 import type { Dictionary } from "@/lib/i18n";
 import { isPending } from "@/lib/text";
 

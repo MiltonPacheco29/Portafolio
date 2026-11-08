@@ -1,14 +1,14 @@
-import { AvatarImage } from "@/components/AvatarImage";
-import { ContactButton } from "@/components/ContactButton";
-import { ContactForm } from "@/components/ContactForm";
-import { CvBarcodeLink } from "@/components/CvBarcodeLink";
-import { FadeIn } from "@/components/FadeIn";
-import { VerticalLabel } from "@/components/VerticalLabel";
-import { fileFormat, formatFileSize, getPublicFile } from "@/lib/files";
+import { AvatarImage } from "@/components/ui/AvatarImage";
+import { ContactButton } from "@/components/ui/ContactButton";
+import { ContactForm } from "@/components/sections/contact/ContactForm";
+import { CvBarcodeLink } from "@/components/sections/contact/CvBarcodeLink";
+import { FadeIn } from "@/components/motion/FadeIn";
+import { VerticalLabel } from "@/components/ui/VerticalLabel";
+import { fileFormat, formatFileSize, getPublicFile } from "@/lib/server/files";
 import type { Dictionary, Locale } from "@/lib/i18n";
-import { getLocalImage } from "@/lib/images";
+import { getLocalImage } from "@/lib/server/images";
 import { fillTemplate, isPending } from "@/lib/text";
-import { labelClass, sectionClass, sectionTitleClass } from "@/lib/ui";
+import { labelClass, sectionClass, sectionTitleClass } from "@/components/sections/sectionStyles";
 
 type Contact = Dictionary["sections"]["contact"];
 type ContactSectionProps = { contact: Contact; locale: Locale; ctaLabel: string };

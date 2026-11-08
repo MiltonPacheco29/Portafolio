@@ -6,10 +6,10 @@ import {
   type Locale,
   type SectionIds,
   type SectionKey,
-} from "@/lib/locales";
+} from "@/lib/i18n/locales";
 
 // Reexporta la lógica de idiomas para que los componentes de servidor importen de un solo sitio.
-export * from "@/lib/locales";
+export * from "@/lib/i18n/locales";
 
 export type Dictionary = typeof es;
 

@@ -7,16 +7,16 @@ import {
   useScroll,
 } from "motion/react";
 import { useEffect, useId, useRef, useState, type ComponentProps } from "react";
-import { LangSwitch, type LangSwitchProps } from "@/components/LangSwitch";
-import { ThemeToggle } from "@/components/ThemeToggle";
+import { LangSwitch, type LangSwitchProps } from "@/components/layout/LangSwitch";
+import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import {
   instant,
   transitions,
   useMotionTransition,
   usePrefersReducedMotion,
 } from "@/lib/animations";
-import type { SectionKey } from "@/lib/locales";
-import { useActiveSection } from "@/lib/useActiveSection";
+import type { SectionKey } from "@/lib/i18n/locales";
+import { useActiveSection } from "@/lib/hooks/useActiveSection";
 
 type NavbarProps = {
   brand: { text: string; homeLabel: string };

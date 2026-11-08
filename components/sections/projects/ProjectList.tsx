@@ -2,14 +2,13 @@
 
 import { useScroll } from "motion/react";
 import { useId, useRef, useState, useSyncExternalStore } from "react";
-import { ProjectCard } from "@/components/ProjectCard";
+import { ProjectCard } from "@/components/sections/projects/ProjectCard";
+import type { ProjectMedia } from "@/components/sections/projects/types";
 import type { Dictionary } from "@/lib/i18n";
-import type { LocalImage } from "@/lib/images";
 import { usePrefersReducedMotion } from "@/lib/animations";
 import { fillTemplate } from "@/lib/text";
 
 type Projects = Dictionary["sections"]["projects"];
-export type ProjectMedia = { image: LocalImage | null; devSrc: string | null; alt: string };
 type ProjectListProps = Pick<Projects, "items" | "labels" | "filters"> & {
   media: Record<string, ProjectMedia[]>;
 };

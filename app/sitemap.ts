@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
-import { defaultLocale, localePath, locales } from "@/lib/locales";
-import { absoluteUrl } from "@/lib/site";
+import { defaultLocale, localePath, locales } from "@/lib/i18n/locales";
+import { absoluteUrl } from "@/lib/config/site";
 
 // Se genera una vez en el build como out/sitemap.xml (exportación estática).
 export const dynamic = "force-static";

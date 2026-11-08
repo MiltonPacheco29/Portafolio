@@ -1,10 +1,10 @@
 import Image from "next/image";
-import type { LocalImage } from "@/lib/images";
+import type { LocalImage } from "@/lib/server/images";
 
 export type PlaceholderVariant = "avatar" | "photo" | "circle" | "ring" | "block" | "bars";
 
 type PlaceholderImageProps = {
-  /** Imagen local con dimensiones reales (lib/images.ts), o null si aún no existe. */
+  /** Imagen local con dimensiones reales (lib/server/images.ts), o null si aún no existe. */
   image: LocalImage | null;
   /** Solo en desarrollo: URL de prueba TEMPORAL (content/dev-placeholders.ts). En producción llega null. */
   devSrc?: string | null;

@@ -509,7 +509,7 @@
 }
 
 /* =====================================================================
-   Preloader (components/Preloader.tsx, escenas y tiempos en lib/preloader.ts).
+   Preloader (components/preloader/, escenas y tiempos en lib/preloader/config.ts).
    La duración de punch y zoom es --frame-dur, que el JS fija en cada escena
    al activarla; `inline` hace que var() se resuelva en el elemento animado.
    Excepción documentada en DESIGN.md §6 (cortes rápidos); con movimiento

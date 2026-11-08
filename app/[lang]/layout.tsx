@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { MotionProvider } from "@/components/MotionProvider";
-import { Navbar } from "@/components/Navbar";
-import { Preloader } from "@/components/Preloader";
-import { ThemeScript } from "@/components/ThemeScript";
-import { fontVariables } from "@/lib/fonts";
+import { MotionProvider } from "@/components/providers/MotionProvider";
+import { Navbar } from "@/components/layout/Navbar";
+import { Preloader } from "@/components/preloader/Preloader";
+import { ThemeScript } from "@/components/providers/ThemeScript";
+import { fontVariables } from "@/lib/config/fonts";
 import {
   defaultLocale,
   getDictionary,
@@ -15,7 +15,7 @@ import {
   locales,
   sectionKeys,
 } from "@/lib/i18n";
-import { siteUrl } from "@/lib/site";
+import { siteUrl } from "@/lib/config/site";
 import "../globals.css";
 
 // Solo existen /es y /en; cualquier otro idioma da 404 (obligatorio para el export estático).

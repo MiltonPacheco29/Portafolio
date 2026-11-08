@@ -1,14 +1,14 @@
 import { notFound } from "next/navigation";
-import { AboutSection } from "@/components/AboutSection";
-import { ContactSection } from "@/components/ContactSection";
-import { ExperienceSection } from "@/components/ExperienceSection";
-import { Hero } from "@/components/Hero";
-import { ProjectsSection } from "@/components/ProjectsSection";
-import { ServicesSection } from "@/components/ServicesSection";
-import { SkillsMarquee } from "@/components/SkillsMarquee";
-import { StripeDivider } from "@/components/StripeDivider";
+import { AboutSection } from "@/components/sections/AboutSection";
+import { ContactSection } from "@/components/sections/contact/ContactSection";
+import { ExperienceSection } from "@/components/sections/experience/ExperienceSection";
+import { Hero } from "@/components/sections/Hero";
+import { ProjectsSection } from "@/components/sections/projects/ProjectsSection";
+import { ServicesSection } from "@/components/sections/ServicesSection";
+import { SkillsMarquee } from "@/components/sections/SkillsMarquee";
+import { StripeDivider } from "@/components/ui/StripeDivider";
 import { getDictionary, hasLocale } from "@/lib/i18n";
-import { getLocalImage } from "@/lib/images";
+import { getLocalImage } from "@/lib/server/images";
 
 export default async function HomePage({ params }: PageProps<"/[lang]">) {
   const { lang } = await params;

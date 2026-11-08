@@ -1,10 +1,10 @@
-import { AvatarImage } from "@/components/AvatarImage";
-import { ExperienceTimeline } from "@/components/ExperienceTimeline";
-import { FadeIn } from "@/components/FadeIn";
-import { VerticalLabel } from "@/components/VerticalLabel";
+import { AvatarImage } from "@/components/ui/AvatarImage";
+import { ExperienceTimeline } from "@/components/sections/experience/ExperienceTimeline";
+import { FadeIn } from "@/components/motion/FadeIn";
+import { VerticalLabel } from "@/components/ui/VerticalLabel";
 import type { Dictionary } from "@/lib/i18n";
-import { getLocalImage } from "@/lib/images";
-import { labelClass, sectionClass, sectionTitleClass } from "@/lib/ui";
+import { getLocalImage } from "@/lib/server/images";
+import { labelClass, sectionClass, sectionTitleClass } from "@/components/sections/sectionStyles";
 
 type ExperienceSectionProps = { experience: Dictionary["sections"]["experience"] };
 

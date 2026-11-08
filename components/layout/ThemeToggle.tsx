@@ -7,7 +7,7 @@ import {
   isTheme,
   type Theme,
 } from "@/lib/theme";
-import { getCurrentTheme, useTheme } from "@/lib/useTheme";
+import { getCurrentTheme, useTheme } from "@/lib/hooks/useTheme";
 
 type ThemeToggleProps = {
   labels: {

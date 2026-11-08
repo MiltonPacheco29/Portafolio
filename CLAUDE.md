@@ -14,6 +14,23 @@ Next.js (App Router, `output: "export"`), TypeScript, Tailwind CSS, Motion (`mot
 - `npm run lint`: revisión de código
 - `npm run build`: genera el sitio estático en `out/`
 
+## Estructura
+
+- `app/`: solo rutas, layouts y metadata (`[lang]` para /es y /en; `(root)` redirige).
+- `components/sections/`: una sección de la página por archivo. Las que tienen varias piezas van en subcarpeta (`experience/`, `projects/`, `contact/`). `sectionStyles.ts` guarda las clases compartidas.
+- `components/layout/`: chrome fijo del sitio (navbar, idioma, tema).
+- `components/providers/`: configuración global sin UI propia (`MotionProvider`, `ThemeScript`).
+- `components/ui/`: piezas reutilizables sin lógica de página (botones, imágenes, decorativos).
+- `components/motion/`: envoltorios de animación reutilizables (`FadeIn`, `AnimatedText`, `Magnet`).
+- `components/preloader/`: vista (`Preloader.tsx`), motor DOM (`engine.ts`) y bloqueo de scroll (`scrollLock.ts`).
+- `lib/server/`: solo build (`node:fs`). Un componente cliente solo puede hacer `import type` de aquí.
+- `lib/config/`: configuración del sitio (URL, variables `NEXT_PUBLIC_`, fuentes).
+- `lib/i18n/`: diccionarios (`@/lib/i18n`) y lógica de idiomas apta para cliente (`@/lib/i18n/locales`).
+- `lib/hooks/`: hooks de cliente.
+- `lib/preloader/`: `config.ts` (escenas y tiempos editables) y `timeline.ts` (cálculo).
+- `lib/animations.ts`, `lib/theme.ts`, `lib/text.ts`: utilidades compartidas entre servidor y cliente.
+- `content/`: textos (JSON por idioma). `public/`: estáticos. `scripts/`: comprobaciones del build.
+
 ## Reglas
 
 - Los textos viven en `content/es.json` y `content/en.json`, nunca dentro de los componentes.

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ThemeScript } from "@/components/ThemeScript";
-import { fontVariables } from "@/lib/fonts";
+import { ThemeScript } from "@/components/providers/ThemeScript";
+import { fontVariables } from "@/lib/config/fonts";
 import { defaultLocale, getDictionary, localePath, locales } from "@/lib/i18n";
 import "./globals.css";
 

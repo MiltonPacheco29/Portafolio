@@ -2,12 +2,12 @@
 
 import Script from "next/script";
 import { useEffect, useId, useRef, useState, type FormEvent, type Ref } from "react";
-import { AvatarImage } from "@/components/AvatarImage";
+import { AvatarImage } from "@/components/ui/AvatarImage";
 import type { Dictionary, Locale } from "@/lib/i18n";
-import type { LocalImage } from "@/lib/images";
-import { contactFormConfigured, formspreeEndpoint, turnstileKey } from "@/lib/publicConfig";
+import type { LocalImage } from "@/lib/server/images";
+import { contactFormConfigured, formspreeEndpoint, turnstileKey } from "@/lib/config/publicConfig";
 import { fillTemplate } from "@/lib/text";
-import { useTheme } from "@/lib/useTheme";
+import { useTheme } from "@/lib/hooks/useTheme";
 
 type FormTexts = Dictionary["sections"]["contact"]["form"];
 type ContactFormProps = {

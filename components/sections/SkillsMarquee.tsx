@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { StripeDivider } from "@/components/StripeDivider";
+import { StripeDivider } from "@/components/ui/StripeDivider";
 import { usePrefersReducedMotion } from "@/lib/animations";
 
 type SkillsMarqueeProps = {

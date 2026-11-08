@@ -1,8 +1,8 @@
-import { AvatarImage } from "@/components/AvatarImage";
-import { ContactButton } from "@/components/ContactButton";
-import { Magnet } from "@/components/Magnet";
+import { AvatarImage } from "@/components/ui/AvatarImage";
+import { ContactButton } from "@/components/ui/ContactButton";
+import { Magnet } from "@/components/motion/Magnet";
 import type { Dictionary } from "@/lib/i18n";
-import type { LocalImage } from "@/lib/images";
+import type { LocalImage } from "@/lib/server/images";
 import { fillTemplate, isPending } from "@/lib/text";
 
 type HeroProps = {

@@ -1,7 +1,7 @@
-import { FadeIn } from "@/components/FadeIn";
-import { VerticalLabel } from "@/components/VerticalLabel";
+import { FadeIn } from "@/components/motion/FadeIn";
+import { VerticalLabel } from "@/components/ui/VerticalLabel";
 import type { Dictionary } from "@/lib/i18n";
-import { sectionTitleClass } from "@/lib/ui";
+import { sectionTitleClass } from "@/components/sections/sectionStyles";
 
 type ServicesSectionProps = { services: Dictionary["sections"]["services"] };
 

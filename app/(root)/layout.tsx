@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { ThemeScript } from "@/components/ThemeScript";
-import { fontVariables } from "@/lib/fonts";
+import { ThemeScript } from "@/components/providers/ThemeScript";
+import { fontVariables } from "@/lib/config/fonts";
 import { defaultLocale, getDictionary, localePath } from "@/lib/i18n";
-import { siteUrl } from "@/lib/site";
+import { siteUrl } from "@/lib/config/site";
 import "../globals.css";
 
 const dict = getDictionary(defaultLocale);

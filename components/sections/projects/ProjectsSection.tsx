@@ -1,10 +1,11 @@
-import { FadeIn } from "@/components/FadeIn";
-import { ProjectList, type ProjectMedia } from "@/components/ProjectList";
-import { VerticalLabel } from "@/components/VerticalLabel";
-import { getDevPlaceholders } from "@/lib/devPlaceholders";
+import { FadeIn } from "@/components/motion/FadeIn";
+import { ProjectList } from "@/components/sections/projects/ProjectList";
+import type { ProjectMedia } from "@/components/sections/projects/types";
+import { VerticalLabel } from "@/components/ui/VerticalLabel";
+import { getDevPlaceholders } from "@/lib/server/devPlaceholders";
 import type { Dictionary } from "@/lib/i18n";
-import { getLocalImage } from "@/lib/images";
-import { sectionClass, sectionTitleClass } from "@/lib/ui";
+import { getLocalImage } from "@/lib/server/images";
+import { sectionClass, sectionTitleClass } from "@/components/sections/sectionStyles";
 
 type ProjectsSectionProps = { projects: Dictionary["sections"]["projects"] };
 
