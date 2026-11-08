@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: [main, "feat/**"]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      # postbuild: calcula los hashes de la CSP y comprueba out/.
+      - name: Build
+        run: npm run build
+
+      - name: Sin URLs de prueba en out/ (higgs.ai, figma.site, cloudfront)
+        run: npm run check:placeholders
+
+      - name: Auditoría de dependencias
+        run: npm audit --audit-level=high

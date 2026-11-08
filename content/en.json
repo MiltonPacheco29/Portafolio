@@ -249,6 +249,7 @@
       "id": "contact",
       "title": "Contact",
       "intro": "[POR COMPLETAR] An invitation to reach out and for which kind of projects.",
+      "ctaIntro": "Got a project or an opening? Tell me about it.",
       "linksTitle": "Where to find me",
       "links": [
         { "kind": "email", "label": "Email", "value": "[POR COMPLETAR] email@example.com" },
@@ -259,6 +260,8 @@
       "cv": {
         "file": "/cv/cv-en.pdf",
         "fileLang": "en",
+        "button": "Download CV",
+        "langShort": "EN",
         "languageName": "English",
         "label": "Download CV ({format}, {language})",
         "labelWithSize": "Download CV ({format}, {language}, {size})",
@@ -266,7 +269,7 @@
       },
       "image": {
         "src": "/avatar/avatar-laptop-cerrada.webp",
-        "alt": "[POR COMPLETAR] Cyberpunk-style illustration of Your name next to a closed laptop",
+        "alt": "[POR COMPLETAR] Cyberpunk-style illustration of Milton next to a closed laptop",
         "pending": "[POR COMPLETAR] Missing image public/avatar/avatar-laptop-cerrada.webp"
       },
       "form": {
@@ -299,7 +302,7 @@
           "again": "Send another message",
           "image": {
             "src": "/avatar/avatar-pulgar.webp",
-            "alt": "[POR COMPLETAR] Cyberpunk-style illustration of Your name giving a thumbs up",
+            "alt": "[POR COMPLETAR] Cyberpunk-style illustration of Milton giving a thumbs up",
             "pending": "[POR COMPLETAR] Missing image public/avatar/avatar-pulgar.webp"
           }
         },

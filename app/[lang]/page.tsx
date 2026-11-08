@@ -6,6 +6,7 @@ import { Hero } from "@/components/Hero";
 import { ProjectsSection } from "@/components/ProjectsSection";
 import { ServicesSection } from "@/components/ServicesSection";
 import { SkillsMarquee } from "@/components/SkillsMarquee";
+import { StripeDivider } from "@/components/StripeDivider";
 import { getDictionary, hasLocale } from "@/lib/i18n";
 import { getLocalImage } from "@/lib/images";
 
@@ -38,8 +39,11 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
       <AboutSection about={s.about} contactHref={contactHref} contactLabel={cta.contact} />
       <ServicesSection services={s.services} />
       <ExperienceSection experience={s.experience} />
+      {/* Separadores decorativos: rayas diagonales estáticas (aria-hidden). */}
+      <StripeDivider />
       <ProjectsSection projects={s.projects} />
-      <ContactSection contact={s.contact} locale={lang} />
+      <StripeDivider />
+      <ContactSection contact={s.contact} locale={lang} ctaLabel={cta.contact} />
     </>
   );
 }

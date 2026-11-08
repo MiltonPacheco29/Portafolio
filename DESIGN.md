@@ -82,7 +82,7 @@ Reglas del rojo: el rojo vivo `--red` solo aparece como bloque con texto blanco 
 
 ### 3.3 Grano y marcadores
 
-- **Grano:** `body::before` fijo, ruido SVG `feTurbulence` en un *data URI* del CSS, opacidad `--grain-opacity`, sin `mix-blend-mode` y sin animación.
+- **Grano:** `body::before` fijo por encima del contenido (`z-index` 60, sin eventos de puntero) para que también cubra las secciones con fondo propio; ruido SVG `feTurbulence` en un *data URI* del CSS, opacidad `--grain-opacity`, sin `mix-blend-mode` y sin animación.
 - **Marcador de imagen** (producción, cuando falta la imagen): degradado plano entre `--surface` y una mezcla con `--primary`, más rayas diagonales de `--stripe` al 14 %. El texto de aviso va en una etiqueta de fondo sólido `--surface` para mantener 4.5:1.
 - **Silueta de avatar:** SVG en línea con `currentColor` (`--fg-muted`) sobre el marcador.
 
@@ -101,7 +101,7 @@ Máximo tres familias, todas con `next/font/google` (se sirven desde el propio d
 
 | Token | Valor | Uso |
 |---|---|---|
-| `--fs-hero` | `clamp(3rem, 10.8vw, 15rem)` | Nombre del Hero, una línea, `wdth` 80 % |
+| `--fs-hero` | `clamp(3.5rem, 17vw, 17rem)` | Nombre del Hero en dos líneas ("HOLA, SOY" / "MILTON"), `font-stretch` 75 %, interlineado 0.86 |
 | `--fs-display` | `clamp(3rem, 12vw, 10rem)` | Títulos de sección |
 | `--fs-number` | `clamp(3rem, 10vw, 8.75rem)` | Números de Qué hago y de proyectos |
 | `--fs-band` | `clamp(2.25rem, 6vw, 5.5rem)` | Franja de skills |
@@ -177,6 +177,13 @@ El 0.65 inicial del revelado garantiza 4.5:1 en ambos temas en todo momento (a 0
 | `avatar-laptop-cerrada.webp` | Contacto | **Falta**: silueta SVG |
 | `avatar-pulgar.webp` | Mensaje enviado | **Falta**: silueta SVG |
 
+Los avatares `avatar-senalando.webp` y `avatar-codigo.webp` ya no se usan (se eliminaron sus secciones).
+
+### Otros pendientes
+
+- `public/cv/cv-es.pdf` y `public/cv/cv-en.pdf` (el botón queda desactivado hasta que existan).
+- Imagen para `og:image` (redes sociales): falta diseñarla.
+
 ### Imágenes de prueba TEMPORALES (pendientes de reemplazar por las mías)
 
 `content/dev-placeholders.ts` guarda 9 URLs de higgs.ai (3 por proyecto) y 4 de figma.site (decorativos de Sobre mí). Solo se leen con `NODE_ENV === "development"` desde componentes de servidor; en producción se muestra el marcador CSS. El build y la CI fallan si `out/` contiene `higgs.ai`, `figma.site` o `cloudfront`.
@@ -197,3 +204,8 @@ Capturas: solo trabajos personales o públicos, sin datos de clientes, exportada
 - Las tarjetas apiladas desplazan su contenedor a la vista al recibir foco (no quedan tapadas).
 - Navegación con teclado completa; foco visible en ambos temas.
 - Ciudad y país como máximo; sin coordenadas, dirección ni datos de clientes o sistemas internos.
+
+## 10. Seguridad y CI
+
+- `public/_headers`: CSP sin `'unsafe-inline'` en `script-src` (hashes SHA-256 calculados en `postbuild` por `scripts/csp-hashes.mjs`), Turnstile en `script-src` y `frame-src`, Formspree en `connect-src` y `form-action`, `img-src 'self' data:`, `frame-ancestors 'none'` y cabeceras `nosniff`, `Referrer-Policy`, `Permissions-Policy`, COOP y HSTS. `style-src` necesita `'unsafe-inline'` por los atributos `style` que escriben React y Motion.
+- `.github/workflows/ci.yml`: lint, build (con CSP y chequeo de URLs de prueba), `npm run check:placeholders` y `npm audit --audit-level=high`.

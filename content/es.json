@@ -249,6 +249,7 @@
       "id": "contacto",
       "title": "Contacto",
       "intro": "[POR COMPLETAR] Invitación a escribirte y para qué tipo de proyectos.",
+      "ctaIntro": "¿Tienes un proyecto o una vacante? Cuéntamelo.",
       "linksTitle": "Dónde encontrarme",
       "links": [
         { "kind": "email", "label": "Correo", "value": "[POR COMPLETAR] correo@ejemplo.com" },
@@ -259,6 +260,8 @@
       "cv": {
         "file": "/cv/cv-es.pdf",
         "fileLang": "es",
+        "button": "Descargar CV",
+        "langShort": "ES",
         "languageName": "español",
         "label": "Descargar CV ({format}, {language})",
         "labelWithSize": "Descargar CV ({format}, {language}, {size})",
@@ -266,7 +269,7 @@
       },
       "image": {
         "src": "/avatar/avatar-laptop-cerrada.webp",
-        "alt": "[POR COMPLETAR] Ilustración estilo cyberpunk de Tu nombre junto a un portátil cerrado",
+        "alt": "[POR COMPLETAR] Ilustración estilo cyberpunk de Milton junto a un portátil cerrado",
         "pending": "[POR COMPLETAR] Falta la imagen public/avatar/avatar-laptop-cerrada.webp"
       },
       "form": {
@@ -299,7 +302,7 @@
           "again": "Enviar otro mensaje",
           "image": {
             "src": "/avatar/avatar-pulgar.webp",
-            "alt": "[POR COMPLETAR] Ilustración estilo cyberpunk de Tu nombre con el pulgar hacia arriba",
+            "alt": "[POR COMPLETAR] Ilustración estilo cyberpunk de Milton con el pulgar hacia arriba",
             "pending": "[POR COMPLETAR] Falta la imagen public/avatar/avatar-pulgar.webp"
           }
         },
