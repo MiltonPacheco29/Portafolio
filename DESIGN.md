@@ -171,7 +171,7 @@ El 0.65 inicial del revelado garantiza 4.5:1 en ambos temas en todo momento (a 0
 
 | Archivo | Dónde | Estado |
 |---|---|---|
-| `avatar-hola.webp` | Hero (fondo transparente) | **Falta**: silueta SVG |
+| `avatar-hola.webp` | Hero (fondo transparente) | **Falta uno propio**: el archivo local actual viene de la referencia, está en `.gitignore` y no debe publicarse |
 | `avatar-brazos-cruzados.webp` | Sobre mí | **Falta**: silueta SVG |
 | `avatar-laptop.webp` | Experiencia | Existe |
 | `avatar-laptop-cerrada.webp` | Contacto | **Falta**: silueta SVG |

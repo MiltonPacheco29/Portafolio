@@ -41,3 +41,6 @@ yarn-error.log*
 next-env.d.ts
 
 docs/
+# Avatar del Hero de prueba (es el retrato de la referencia): no se versiona.
+# Quitar esta línea cuando se sustituya por un avatar propio.
+public/avatar/avatar-hola.webp
