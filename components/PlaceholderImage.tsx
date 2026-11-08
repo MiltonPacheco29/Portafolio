@@ -20,6 +20,8 @@ type PlaceholderImageProps = {
   /** Precarga (solo para la imagen principal del Hero). */
   preload?: boolean;
   sizes?: string;
+  /** false: marcador sin fondo (silueta sobre lo que haya detrás, p. ej. el título del Hero). */
+  surface?: boolean;
 };
 
 /** Silueta de persona para los avatares que faltan. */
@@ -63,6 +65,7 @@ export function PlaceholderImage({
   imgClassName = "block h-auto w-full",
   preload = false,
   sizes,
+  surface = true,
 }: PlaceholderImageProps) {
   const decorative = alt === "";
 
@@ -105,7 +108,7 @@ export function PlaceholderImage({
       role={decorative ? undefined : "img"}
       aria-label={decorative ? undefined : alt}
       aria-hidden={decorative ? true : undefined}
-      className={`placeholder-surface relative flex items-end justify-center overflow-hidden ${className}`}
+      className={`${surface ? "placeholder-surface" : ""} relative flex items-end justify-center overflow-hidden ${className}`}
     >
       {variant === "avatar" && <Silhouette />}
       {pending && (

@@ -26,19 +26,30 @@
   "langSwitch": {
     "label": "Language"
   },
+  "cta": {
+    "contact": "Let's talk about your project"
+  },
   "hero": {
-    "lang": "en",
-    "line1": "STABLE SYSTEMS.",
-    "line2": "SECURE CODE."
+    "title": "HI, I'M MILTON",
+    "subtitle": "Stable systems. Secure code.",
+    "subtitleLang": "en",
+    "tagline": "Backend development with Java, Spring Boot and Elixir, from API to deployment.",
+    "meta": {
+      "label": "Quick facts",
+      "city": "[POR COMPLETAR] City, country",
+      "since": "Since {year}",
+      "year": "[POR COMPLETAR] Year you started"
+    },
+    "avatar": {
+      "src": "/avatar/avatar-hola.webp",
+      "alt": "[POR COMPLETAR] Cyberpunk-style illustration of Milton waving hello",
+      "pending": "[POR COMPLETAR] Missing image public/avatar/avatar-hola.webp"
+    }
   },
   "sections": {
     "home": {
       "id": "home",
-      "eyebrow": "[POR COMPLETAR] Main role, e.g. Frontend developer",
-      "title": "[POR COMPLETAR] Your name",
-      "intro": "[POR COMPLETAR] Two or three sentences about what you do and what sets you apart.",
-      "primaryCta": "View projects",
-      "secondaryCta": "Get in touch"
+      "title": "Home"
     },
     "about": {
       "id": "about",

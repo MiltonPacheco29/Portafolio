@@ -126,7 +126,7 @@ export function Navbar({
     <header
       ref={headerRef}
       // La franja exterior no captura clics: en modo cápsula se ve el contenido a los lados.
-      className="pointer-events-none fixed inset-x-0 top-0 z-40 flex flex-col items-center"
+      className="enter pointer-events-none fixed inset-x-0 top-0 z-40 flex flex-col items-center [--enter-y:-20px]"
     >
       <motion.div
         layout={layoutBar}

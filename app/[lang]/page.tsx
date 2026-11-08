@@ -6,12 +6,13 @@ import { Hero } from "@/components/Hero";
 import { ProjectsSection } from "@/components/ProjectsSection";
 import { SkillsSection } from "@/components/SkillsSection";
 import { getDictionary, hasLocale } from "@/lib/i18n";
-import { innerClass } from "@/lib/ui";
+import { getLocalImage } from "@/lib/images";
 
 export default async function HomePage({ params }: PageProps<"/[lang]">) {
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
-  const { sections: s, hero } = getDictionary(lang);
+  const { sections: s, hero, cta } = getDictionary(lang);
+  const contactHref = `#${s.contact.id}`;
 
   return (
     <>
@@ -22,25 +23,13 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
         className="scroll-mt-nav-offset"
       >
         <Hero
-          line1={hero.line1}
-          line2={hero.line2}
-          lang={hero.lang !== lang ? hero.lang : undefined}
+          hero={hero}
+          titleId={`${s.home.id}-title`}
+          lang={lang}
+          avatar={getLocalImage(hero.avatar.src)}
+          contactHref={contactHref}
+          contactLabel={cta.contact}
         />
-        <div className={`${innerClass} px-gutter py-section`}>
-          <p className="font-mono text-sm text-accent">{s.home.eyebrow}</p>
-          <h1 id={`${s.home.id}-title`} className="font-display text-display font-bold text-primary">
-            {s.home.title}
-          </h1>
-          <p className="max-w-prose text-lg text-fg-muted">{s.home.intro}</p>
-          <p className="flex flex-wrap gap-4">
-            <a href={`#${s.projects.id}`} className="underline underline-offset-4">
-              {s.home.primaryCta}
-            </a>
-            <a href={`#${s.contact.id}`} className="underline underline-offset-4">
-              {s.home.secondaryCta}
-            </a>
-          </p>
-        </div>
       </section>
 
       <AboutSection about={s.about} />

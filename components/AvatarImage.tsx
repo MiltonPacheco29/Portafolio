@@ -28,6 +28,7 @@ export function AvatarImage({ image, alt, pending, className = "", bare = false,
       variant="avatar"
       preload={preload}
       sizes={sizes}
+      surface={!bare}
       className={`${frame} ${image ? "" : "aspect-[4/5]"} ${className}`}
     />
   );
