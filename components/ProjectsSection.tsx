@@ -1,34 +1,45 @@
-import { AvatarImage } from "@/components/AvatarImage";
-import { ProjectList } from "@/components/ProjectList";
+import { FadeIn } from "@/components/FadeIn";
+import { ProjectList, type ProjectMedia } from "@/components/ProjectList";
+import { VerticalLabel } from "@/components/VerticalLabel";
+import { getDevPlaceholders } from "@/lib/devPlaceholders";
 import type { Dictionary } from "@/lib/i18n";
 import { getLocalImage } from "@/lib/images";
 import { sectionClass, sectionTitleClass } from "@/lib/ui";
 
 type ProjectsSectionProps = { projects: Dictionary["sections"]["projects"] };
 
-export function ProjectsSection({ projects }: ProjectsSectionProps) {
+export async function ProjectsSection({ projects }: ProjectsSectionProps) {
   const titleId = `${projects.id}-title`;
-  const image = getLocalImage(projects.image.src);
+  const dev = await getDevPlaceholders();
+
+  // Las imágenes se resuelven en el servidor: el componente cliente solo recibe
+  // datos ya listos (y en producción, ninguna URL de prueba).
+  const media: Record<string, ProjectMedia[]> = Object.fromEntries(
+    projects.items.map((project, p) => [
+      project.slug,
+      project.images.map((img, i) => ({
+        image: getLocalImage(img.src),
+        devSrc: dev?.devProjectImages[p]?.[i] ?? null,
+        alt: img.alt,
+      })),
+    ]),
+  );
 
   return (
     <section id={projects.id} data-section="projects" aria-labelledby={titleId} className={sectionClass}>
+      <VerticalLabel text={projects.title} className="top-section right-3" />
+
       <div className="mx-auto flex w-full max-w-content flex-col gap-10">
-        <div className="grid items-center gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,16rem)]">
-          <div>
+        <div>
+          <FadeIn y={40}>
             <h2 id={titleId} className={sectionTitleClass}>
               {projects.title}
             </h2>
-            <p className="mt-4 max-w-prose text-lg text-fg-muted">{projects.intro}</p>
-          </div>
-          <AvatarImage
-            image={image}
-            alt={projects.image.alt}
-            pending={projects.image.pending}
-            className="mx-auto w-full max-w-60 md:max-w-none"
-          />
+          </FadeIn>
+          <p className="mt-6 max-w-prose text-lg text-fg-muted">{projects.intro}</p>
         </div>
 
-        <ProjectList items={projects.items} labels={projects.labels} filters={projects.filters} />
+        <ProjectList items={projects.items} labels={projects.labels} filters={projects.filters} media={media} />
       </div>
     </section>
   );

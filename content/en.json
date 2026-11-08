@@ -151,17 +151,11 @@
       "id": "projects",
       "title": "Projects",
       "intro": "[POR COMPLETAR] A selection of personal or public work (no client names or internal systems).",
-      "image": {
-        "src": "/avatar/avatar-senalando.webp",
-        "alt": "[POR COMPLETAR] Cyberpunk-style illustration of Your name pointing towards the projects",
-        "pending": "[POR COMPLETAR] Missing image public/avatar/avatar-senalando.webp"
-      },
       "labels": {
-        "problem": "Problem",
         "stack": "Stack",
-        "repo": "View repository",
+        "view": "View project",
         "repoOf": "for",
-        "repoPending": "[POR COMPLETAR] Add the repository link"
+        "repoPending": "[POR COMPLETAR] Add the project link"
       },
       "filters": {
         "label": "Filter by technology",
@@ -171,25 +165,83 @@
       },
       "items": [
         {
-          "slug": "project-1",
-          "title": "[POR COMPLETAR] Project name 1",
-          "problem": "[POR COMPLETAR] What problem it solves and what your role was.",
-          "stack": ["[POR COMPLETAR] Technology A", "[POR COMPLETAR] Technology B"],
-          "repo": ""
+          "slug": "portafolio",
+          "category": "Personal project",
+          "title": "This portfolio",
+          "problem": "Bilingual static site with light and dark themes, fully keyboard navigable and with no backend of its own, deployed on Cloudflare Pages.",
+          "stack": [
+            "Next.js",
+            "TypeScript",
+            "Tailwind CSS",
+            "Motion",
+            "GSAP"
+          ],
+          "repo": "",
+          "images": [
+            {
+              "src": "/projects/portafolio-1.webp",
+              "alt": "[POR COMPLETAR] Screenshot of the portfolio home in dark theme"
+            },
+            {
+              "src": "/projects/portafolio-2.webp",
+              "alt": "[POR COMPLETAR] Screenshot of the portfolio in light theme"
+            },
+            {
+              "src": "/projects/portafolio-3.webp",
+              "alt": "[POR COMPLETAR] Screenshot of the portfolio on a phone"
+            }
+          ]
         },
         {
-          "slug": "project-2",
-          "title": "[POR COMPLETAR] Project name 2",
-          "problem": "[POR COMPLETAR] What problem it solves and what your role was.",
-          "stack": ["[POR COMPLETAR] Technology B", "[POR COMPLETAR] Technology C"],
-          "repo": ""
+          "slug": "api-rest",
+          "category": "Sample project",
+          "title": "Sample REST API",
+          "problem": "[POR COMPLETAR] What the API solves, what it exposes and what your role was.",
+          "stack": [
+            "Java",
+            "Spring Boot",
+            "SQL",
+            "Docker"
+          ],
+          "repo": "",
+          "images": [
+            {
+              "src": "/projects/api-rest-1.webp",
+              "alt": "[POR COMPLETAR] Diagram of the API architecture"
+            },
+            {
+              "src": "/projects/api-rest-2.webp",
+              "alt": "[POR COMPLETAR] Screenshot of the endpoint documentation"
+            },
+            {
+              "src": "/projects/api-rest-3.webp",
+              "alt": "[POR COMPLETAR] Screenshot of the automated tests"
+            }
+          ]
         },
         {
-          "slug": "project-3",
+          "slug": "proyecto-3",
+          "category": "[POR COMPLETAR] Category",
           "title": "[POR COMPLETAR] Project name 3",
           "problem": "[POR COMPLETAR] What problem it solves and what your role was.",
-          "stack": ["[POR COMPLETAR] Technology A", "[POR COMPLETAR] Technology C", "[POR COMPLETAR] Technology D"],
-          "repo": ""
+          "stack": [
+            "[POR COMPLETAR] Technology"
+          ],
+          "repo": "",
+          "images": [
+            {
+              "src": "/projects/proyecto-3-1.webp",
+              "alt": "[POR COMPLETAR] Image 1 description"
+            },
+            {
+              "src": "/projects/proyecto-3-2.webp",
+              "alt": "[POR COMPLETAR] Image 2 description"
+            },
+            {
+              "src": "/projects/proyecto-3-3.webp",
+              "alt": "[POR COMPLETAR] Image 3 description"
+            }
+          ]
         }
       ]
     },
