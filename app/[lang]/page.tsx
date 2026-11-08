@@ -4,6 +4,7 @@ import { ContactSection } from "@/components/ContactSection";
 import { ExperienceSection } from "@/components/ExperienceSection";
 import { Hero } from "@/components/Hero";
 import { ProjectsSection } from "@/components/ProjectsSection";
+import { SkillsMarquee } from "@/components/SkillsMarquee";
 import { SkillsSection } from "@/components/SkillsSection";
 import { getDictionary, hasLocale } from "@/lib/i18n";
 import { getLocalImage } from "@/lib/images";
@@ -11,7 +12,7 @@ import { getLocalImage } from "@/lib/images";
 export default async function HomePage({ params }: PageProps<"/[lang]">) {
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
-  const { sections: s, hero, cta } = getDictionary(lang);
+  const { sections: s, hero, cta, skillsBand } = getDictionary(lang);
   const contactHref = `#${s.contact.id}`;
 
   return (
@@ -31,6 +32,8 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
           contactLabel={cta.contact}
         />
       </section>
+
+      <SkillsMarquee label={skillsBand.label} items={skillsBand.items} />
 
       <AboutSection about={s.about} />
       <ExperienceSection experience={s.experience} />

@@ -46,6 +46,10 @@
       "pending": "[POR COMPLETAR] Missing image public/avatar/avatar-hola.webp"
     }
   },
+  "skillsBand": {
+    "label": "Technologies I work with",
+    "items": ["Java", "Spring Boot", "Elixir", "Microservices", "REST APIs", "CI/CD", "AWS", "Docker", "SQL"]
+  },
   "sections": {
     "home": {
       "id": "home",

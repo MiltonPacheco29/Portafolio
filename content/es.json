@@ -46,6 +46,10 @@
       "pending": "[POR COMPLETAR] Falta la imagen public/avatar/avatar-hola.webp"
     }
   },
+  "skillsBand": {
+    "label": "Tecnologías con las que trabajo",
+    "items": ["Java", "Spring Boot", "Elixir", "Microservicios", "APIs REST", "CI/CD", "AWS", "Docker", "SQL"]
+  },
   "sections": {
     "home": {
       "id": "inicio",

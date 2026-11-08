@@ -397,8 +397,7 @@
     line-height: 0.86;
     letter-spacing: -0.02em;
     text-transform: uppercase;
-    /* Sin nowrap: si una línea no cabe (p. ej. 320 px), se parte en vez de desbordar. */
-    overflow-wrap: anywhere;
+    /* Sin nowrap: si una línea no cabe, se parte por los espacios (nunca dentro de una palabra). */
   }
 
   /* Degradado frío en oscuro; tinta plana en claro (--title-from = --title-to). */
@@ -475,6 +474,13 @@
   .reveal-char {
     opacity: calc(0.65 + 0.35 * clamp(0, var(--reveal) * var(--reveal-total) - var(--i), 1));
   }
+}
+
+/* Franja de skills: posición base (una copia a la izquierda) para que no
+   queden huecos. Con JS y sin movimiento reducido, SkillsMarquee la sustituye
+   por un desplazamiento en px ligado al scroll. */
+.marquee-row {
+  transform: translate3d(-33.333%, 0, 0);
 }
 
 /* =====================================================================
