@@ -97,6 +97,8 @@ Máximo tres familias, todas con `next/font/google` (se sirven desde el propio d
 | Metadatos, etiquetas, filtros, botones | **JetBrains Mono** | 400–600 |
 | Texto corrido | pila del sistema | sin descarga |
 
+**Excepción: Anton.** Solo para las palabras del preloader (peso 400, `--font-anton`). Esa variable se aplica en la capa del preloader y no en `<html>`, así que la landing sigue usando únicamente las tres familias de arriba.
+
 ### Escala
 
 | Token | Valor | Uso |
@@ -149,6 +151,13 @@ Paneles inclinados: `clip-path: polygon(var(--skew) 0, 100% 0, calc(100% - var(-
 
 Prohibido: parpadeos, destellos, *glitch*, grano o rayas animados, autoplay sin control y cualquier cambio de luminancia más de 3 veces por segundo. Solo se animan `transform` y `opacity`. Sin JS todo se ve.
 
+**Excepción consciente: el preloader** (`components/Preloader.tsx`, escenas y tiempos en `lib/preloader.ts`). Al cargar la página hace cortes secos a pantalla completa: palabras sobre negro y fotos en blanco y negro. El color de las palabras depende del tema mediante los tokens `--preloader-ink-from` y `--preloader-ink-to`. En oscuro es el mismo degradado #E8EAFF → #7FE9FF del título del Hero; en claro, rojo plano #E33529. La intro y dos pasadas de montaje, cada una más rápida, suman entre 4 y 14 cortes por segundo durante unos 3,9 s. Desde el final de la intro la franja se cierra hacia el centro con `clip-path` mientras sigue el montaje, y después dos cortinas negras se abren en 650 ms. **Incumple WCAG 2.3.1** (umbral de destellos y de destello rojo) y su propietario lo ha aceptado de forma explícita. Mitigaciones:
+- con `prefers-reduced-motion: reduce` no se muestra nada: la capa tiene `display: none` desde el HTML y se quita del DOM;
+- solo se reproduce en una carga completa o una recarga, nunca al navegar dentro del sitio;
+- sin JS no se muestra.
+
+Cualquier otro componente sigue la prohibición de arriba.
+
 El 0.65 inicial del revelado garantiza 4.5:1 en ambos temas en todo momento (a 0.6: 6.29:1 en oscuro y 4.38:1 en claro; a 0.65 ambos cumplen).
 
 ## 7. Componentes
@@ -161,6 +170,7 @@ El 0.65 inicial del revelado garantiza 4.5:1 en ambos temas en todo momento (a 0
 | `ContactButton` | servidor | enlace al ancla de contacto, píldora: cian con tinta en oscuro, `--red` con blanco en claro |
 | `GhostButton` | servidor | píldora de borde 2px; sin destino se muestra desactivado (no es enlace) |
 | `PlaceholderImage` | servidor | imagen local → `next/image`; en desarrollo, URL de prueba → `<img>`; si no, marcador CSS (rayas, silueta o forma decorativa) |
+| `Preloader` | cliente | capa negra en el HTML estático; cortes con un bucle rAF sobre una timeline calculada; cierre solapado con el montaje (`clip-path` en el stage) y apertura con cortinas, ambos con WAAPI anclada a sus labels; bloquea el scroll compensando la barra en `body` y en `[data-scroll-lock-compensate]`; `?debug` imprime la timeline y los tiempos reales |
 | `StripeDivider` | servidor | rayas diagonales de 12px, periodo 24px, `aria-hidden` |
 | `VerticalLabel` | servidor | `writing-mode: vertical-rl`, `aria-hidden`, solo desde `lg` |
 | `CvBarcodeLink` | servidor | barras SVG `aria-hidden` sin datos reales, texto visible "Descargar CV · PDF · ES" y nombre accesible con formato, idioma y tamaño |

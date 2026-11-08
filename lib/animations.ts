@@ -20,7 +20,8 @@ function subscribeReducedMotion(onChange: () => void) {
   return () => media.removeEventListener("change", onChange);
 }
 
-function getReducedMotion(): boolean {
+/** Lectura puntual (para efectos que no necesitan reaccionar a cambios). */
+export function getReducedMotion(): boolean {
   return window.matchMedia(REDUCED_MOTION_QUERY).matches;
 }
 

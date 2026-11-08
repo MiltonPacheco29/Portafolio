@@ -104,6 +104,9 @@
   --focus: #f5e83a;
   --title-from: #e8eaff;
   --title-to: #7fe9ff;
+  /* Palabras del preloader: el mismo degradado que el título del Hero. */
+  --preloader-ink-from: var(--title-from);
+  --preloader-ink-to: var(--title-to);
   --stripe: #ff2bd6;
   --cta-bg: #00f0ff;
   --cta-fg: #0a0b14;
@@ -139,6 +142,9 @@
   --focus: #a8231b;
   --title-from: #1a1612;
   --title-to: #1a1612;
+  /* Palabras del preloader (siempre sobre negro): rojo plano. */
+  --preloader-ink-from: #e33529;
+  --preloader-ink-to: #e33529;
   --stripe: #1a1612;
   --cta-bg: #c8352b;
   --cta-fg: #ffffff;
@@ -169,6 +175,8 @@
     --focus: #a8231b;
     --title-from: #1a1612;
     --title-to: #1a1612;
+    --preloader-ink-from: #e33529;
+    --preloader-ink-to: #e33529;
     --stripe: #1a1612;
     --cta-bg: #c8352b;
     --cta-fg: #ffffff;
@@ -497,6 +505,82 @@
 @media (prefers-reduced-motion: no-preference) {
   .enter {
     animation: enter var(--dur-fade) var(--ease-fade) var(--enter-delay, 0s) backwards;
+  }
+}
+
+/* =====================================================================
+   Preloader (components/Preloader.tsx, escenas y tiempos en lib/preloader.ts).
+   La duración de punch y zoom es --frame-dur, que el JS fija en cada escena
+   al activarla; `inline` hace que var() se resuelva en el elemento animado.
+   Excepción documentada en DESIGN.md §6 (cortes rápidos); con movimiento
+   reducido no se muestra.
+   ===================================================================== */
+@theme inline {
+  --animate-preloader-punch: preloader-punch var(--frame-dur) ease-out both;
+  --animate-preloader-zoom: preloader-zoom var(--frame-dur) linear both;
+
+  /* Propiedad `scale` (no transform) para no pisar el scaleX del estiramiento. */
+  @keyframes preloader-punch {
+    from {
+      scale: 1.12;
+    }
+    to {
+      scale: 1;
+    }
+  }
+
+  @keyframes preloader-zoom {
+    from {
+      transform: scale(1.06);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+}
+
+.preloader-word {
+  --stretch: 1.08; /* lo lee el ajuste al ancho del JS */
+  display: inline-block;
+  font-family: var(--font-anton), Impact, "Arial Narrow Bold", sans-serif;
+  font-size: 68vh;
+  line-height: 1;
+  white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  transform: scaleX(var(--stretch));
+  /* Color según el tema (tokens --preloader-ink-*): rojo plano en claro,
+     degradado del título del Hero en oscuro. El trazo es transparente para que
+     el degradado también rellene la zona del trazo y las letras sigan engrosadas
+     (un trazo de color sólido dibujaría un contorno). */
+  color: var(--preloader-ink-from);
+  background-image: linear-gradient(
+    180deg,
+    var(--preloader-ink-from) 0%,
+    var(--preloader-ink-to) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 0.012em transparent;
+}
+
+/* Scroll bloqueado desde el primer pintado (antes de hidratar). Cuando el
+   componente toma el control pone data-preloader-started y pasa a bloquearlo con
+   estilo inline más la compensación de la barra. Con movimiento reducido la capa
+   no se muestra y no se bloquea. Sin JS lo anula el <noscript> del componente. */
+@media (prefers-reduced-motion: no-preference) {
+  body:has(> [data-preloader]:not([data-preloader-started])) {
+    overflow: hidden;
+  }
+}
+
+/* Alto contraste de Windows: el texto recortado sería invisible. */
+@media (forced-colors: active) {
+  .preloader-word {
+    background-image: none;
+    -webkit-text-fill-color: currentColor;
+    -webkit-text-stroke-color: currentColor;
   }
 }
 

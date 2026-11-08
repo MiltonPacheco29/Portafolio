@@ -125,6 +125,8 @@ export function Navbar({
   return (
     <header
       ref={headerRef}
+      // Fija: el Preloader le suma el ancho de la barra de scroll mientras bloquea el scroll.
+      data-scroll-lock-compensate=""
       // La franja exterior no captura clics: en modo cápsula se ve el contenido a los lados.
       className="enter pointer-events-none fixed inset-x-0 top-0 z-40 flex flex-col items-center [--enter-y:-20px]"
     >

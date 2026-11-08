@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { MotionProvider } from "@/components/MotionProvider";
 import { Navbar } from "@/components/Navbar";
+import { Preloader } from "@/components/Preloader";
 import { ThemeScript } from "@/components/ThemeScript";
 import { fontVariables } from "@/lib/fonts";
 import {
@@ -84,6 +85,8 @@ export default async function LangLayout({
         <ThemeScript />
       </head>
       <body className="min-h-full flex flex-col">
+        {/* Primero en el <body>: la capa negra llega en el HTML antes que la landing. */}
+        <Preloader />
         <MotionProvider>
           <a
             href={`#${MAIN_ID}`}
