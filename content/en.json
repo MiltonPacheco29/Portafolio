@@ -65,6 +65,32 @@
         "pending": "[POR COMPLETAR] Missing image public/avatar/avatar-brazos-cruzados.webp"
       }
     },
+    "services": {
+      "id": "services",
+      "title": "What I do",
+      "items": [
+        {
+          "title": "API and microservice development",
+          "description": "I design and build REST APIs and independent services with clear contracts, automated tests and documentation other teams can use without asking."
+        },
+        {
+          "title": "Databases and optimization",
+          "description": "I model data, write efficient SQL queries and review indexes and query plans when a query starts slowing the system down."
+        },
+        {
+          "title": "Vulnerability and tech debt management",
+          "description": "I update dependencies, fix the vulnerabilities flagged by security scans and pay down technical debt without stopping deliveries."
+        },
+        {
+          "title": "Incident response",
+          "description": "I diagnose production failures from logs and metrics, ship the fix and document the root cause so it doesn't happen again."
+        },
+        {
+          "title": "CI/CD and deployment",
+          "description": "I automate tests, builds and deployments with pipelines and Docker containers to ship small changes often and without surprises."
+        }
+      ]
+    },
     "experience": {
       "id": "experience",
       "title": "Experience",
@@ -165,22 +191,6 @@
           "stack": ["[POR COMPLETAR] Technology A", "[POR COMPLETAR] Technology C", "[POR COMPLETAR] Technology D"],
           "repo": ""
         }
-      ]
-    },
-    "skills": {
-      "id": "skills",
-      "title": "Skills",
-      "intro": "[POR COMPLETAR] The tools you work with every day.",
-      "image": {
-        "src": "/avatar/avatar-codigo.webp",
-        "alt": "[POR COMPLETAR] Cyberpunk-style illustration of Your name surrounded by code",
-        "pending": "[POR COMPLETAR] Missing image public/avatar/avatar-codigo.webp"
-      },
-      "groups": [
-        { "key": "languages", "title": "Languages", "items": ["[POR COMPLETAR] Language 1", "[POR COMPLETAR] Language 2"] },
-        { "key": "frameworks", "title": "Frameworks", "items": ["[POR COMPLETAR] Framework 1", "[POR COMPLETAR] Framework 2"] },
-        { "key": "cloud", "title": "Cloud and CI/CD", "items": ["[POR COMPLETAR] Cloud service", "[POR COMPLETAR] CI/CD tool"] },
-        { "key": "databases", "title": "Databases", "items": ["[POR COMPLETAR] Database 1", "[POR COMPLETAR] Database 2"] }
       ]
     },
     "contact": {

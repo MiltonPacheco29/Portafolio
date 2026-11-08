@@ -319,8 +319,6 @@
   }
 
   body {
-    /* isolation: el grano (z-index -1) queda sobre el fondo y bajo el contenido. */
-    isolation: isolate;
     background-color: var(--bg);
     color: var(--fg);
     font-family: var(--font-family-body);
@@ -329,12 +327,13 @@
     overflow-x: clip;
   }
 
-  /* Grano de papel: estático, sin mix-blend-mode (no repinta al hacer scroll). */
+  /* Grano de papel: capa fija por encima de todo (así también cubre las secciones
+     con fondo propio), sin eventos de puntero, estática y sin mix-blend-mode. */
   body::before {
     content: "";
     position: fixed;
     inset: 0;
-    z-index: -1;
+    z-index: 60;
     pointer-events: none;
     background-image: var(--grain);
     background-size: 160px 160px;

@@ -4,8 +4,8 @@ import { ContactSection } from "@/components/ContactSection";
 import { ExperienceSection } from "@/components/ExperienceSection";
 import { Hero } from "@/components/Hero";
 import { ProjectsSection } from "@/components/ProjectsSection";
+import { ServicesSection } from "@/components/ServicesSection";
 import { SkillsMarquee } from "@/components/SkillsMarquee";
-import { SkillsSection } from "@/components/SkillsSection";
 import { getDictionary, hasLocale } from "@/lib/i18n";
 import { getLocalImage } from "@/lib/images";
 
@@ -36,9 +36,9 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
       <SkillsMarquee label={skillsBand.label} items={skillsBand.items} />
 
       <AboutSection about={s.about} contactHref={contactHref} contactLabel={cta.contact} />
+      <ServicesSection services={s.services} />
       <ExperienceSection experience={s.experience} />
       <ProjectsSection projects={s.projects} />
-      <SkillsSection skills={s.skills} />
       <ContactSection contact={s.contact} locale={lang} />
     </>
   );

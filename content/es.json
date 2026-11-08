@@ -65,6 +65,32 @@
         "pending": "[POR COMPLETAR] Falta la imagen public/avatar/avatar-brazos-cruzados.webp"
       }
     },
+    "services": {
+      "id": "que-hago",
+      "title": "Qué hago",
+      "items": [
+        {
+          "title": "Desarrollo de APIs y microservicios",
+          "description": "Diseño y construyo APIs REST y servicios independientes con contratos claros, pruebas automatizadas y documentación que otros equipos pueden usar sin preguntar."
+        },
+        {
+          "title": "Bases de datos y optimización",
+          "description": "Modelo datos, escribo consultas SQL eficientes y reviso índices y planes de ejecución cuando una consulta empieza a frenar el sistema."
+        },
+        {
+          "title": "Gestión de vulnerabilidades y deuda técnica",
+          "description": "Actualizo dependencias, corrijo las vulnerabilidades que detectan los análisis de seguridad y reduzco la deuda técnica sin detener las entregas."
+        },
+        {
+          "title": "Atención de incidentes",
+          "description": "Diagnostico fallos en producción a partir de logs y métricas, aplico la corrección y documento la causa para que no se repita."
+        },
+        {
+          "title": "CI/CD y despliegue",
+          "description": "Automatizo pruebas, compilación y despliegues con pipelines y contenedores Docker para publicar cambios pequeños con frecuencia y sin sobresaltos."
+        }
+      ]
+    },
     "experience": {
       "id": "experiencia",
       "title": "Experiencia",
@@ -165,22 +191,6 @@
           "stack": ["[POR COMPLETAR] Tecnología A", "[POR COMPLETAR] Tecnología C", "[POR COMPLETAR] Tecnología D"],
           "repo": ""
         }
-      ]
-    },
-    "skills": {
-      "id": "skills",
-      "title": "Skills",
-      "intro": "[POR COMPLETAR] Las herramientas con las que trabajas a diario.",
-      "image": {
-        "src": "/avatar/avatar-codigo.webp",
-        "alt": "[POR COMPLETAR] Ilustración estilo cyberpunk de Tu nombre rodeado de código",
-        "pending": "[POR COMPLETAR] Falta la imagen public/avatar/avatar-codigo.webp"
-      },
-      "groups": [
-        { "key": "languages", "title": "Lenguajes", "items": ["[POR COMPLETAR] Lenguaje 1", "[POR COMPLETAR] Lenguaje 2"] },
-        { "key": "frameworks", "title": "Frameworks", "items": ["[POR COMPLETAR] Framework 1", "[POR COMPLETAR] Framework 2"] },
-        { "key": "cloud", "title": "Nube y CI/CD", "items": ["[POR COMPLETAR] Servicio en la nube", "[POR COMPLETAR] Herramienta de CI/CD"] },
-        { "key": "databases", "title": "Bases de datos", "items": ["[POR COMPLETAR] Base de datos 1", "[POR COMPLETAR] Base de datos 2"] }
       ]
     },
     "contact": {

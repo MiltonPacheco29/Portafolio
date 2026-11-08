@@ -8,9 +8,9 @@ export const defaultLocale: Locale = "es";
 export const sectionKeys = [
   "home",
   "about",
+  "services",
   "experience",
   "projects",
-  "skills",
   "contact",
 ] as const;
 export type SectionKey = (typeof sectionKeys)[number];
