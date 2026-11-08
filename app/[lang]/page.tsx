@@ -35,7 +35,7 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
 
       <SkillsMarquee label={skillsBand.label} items={skillsBand.items} />
 
-      <AboutSection about={s.about} />
+      <AboutSection about={s.about} contactHref={contactHref} contactLabel={cta.contact} />
       <ExperienceSection experience={s.experience} />
       <ProjectsSection projects={s.projects} />
       <SkillsSection skills={s.skills} />

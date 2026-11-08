@@ -58,16 +58,19 @@
     "about": {
       "id": "sobre-mi",
       "title": "Sobre mí",
-      "bioTitle": "Bio",
-      "paragraphs": [
-        "[POR COMPLETAR] Quién eres y cómo empezaste en el desarrollo.",
-        "[POR COMPLETAR] Qué tipo de problemas te gusta resolver y cómo trabajas en equipo."
-      ],
-      "facts": [
-        { "label": "Ubicación", "value": "[POR COMPLETAR] Ciudad, país" },
-        { "label": "Experiencia", "value": "[POR COMPLETAR] N años" },
-        { "label": "Idiomas", "value": "[POR COMPLETAR] Español, inglés (nivel)" }
-      ],
+      "lead": "[POR COMPLETAR] Dos o tres frases sobre quién eres, cómo llegaste al desarrollo backend y qué tipo de problemas te gusta resolver en equipo.",
+      "image": {
+        "src": "/avatar/avatar-brazos-cruzados.webp",
+        "alt": "[POR COMPLETAR] Ilustración estilo cyberpunk de Milton de pie con los brazos cruzados",
+        "pending": "[POR COMPLETAR] Falta la imagen public/avatar/avatar-brazos-cruzados.webp"
+      }
+    },
+    "experience": {
+      "id": "experiencia",
+      "title": "Experiencia",
+      "intro": "[POR COMPLETAR] Resumen breve de tu trayectoria.",
+      "achievementsLabel": "Logros",
+      "stackLabel": "Tecnologías",
       "educationTitle": "Formación",
       "education": [
         {
@@ -83,18 +86,6 @@
           "detail": "[POR COMPLETAR] Qué aprendiste o aplicaste."
         }
       ],
-      "image": {
-        "src": "/avatar/avatar-brazos-cruzados.webp",
-        "alt": "[POR COMPLETAR] Ilustración estilo cyberpunk de Tu nombre de pie con los brazos cruzados",
-        "pending": "[POR COMPLETAR] Falta la imagen public/avatar/avatar-brazos-cruzados.webp"
-      }
-    },
-    "experience": {
-      "id": "experiencia",
-      "title": "Experiencia",
-      "intro": "[POR COMPLETAR] Resumen breve de tu trayectoria.",
-      "achievementsLabel": "Logros",
-      "stackLabel": "Tecnologías",
       "image": {
         "src": "/avatar/avatar-laptop.webp",
         "alt": "Ilustración estilo cyberpunk de una persona con gafas translúcidas y chaqueta negra con detalles cian y magenta, concentrada mientras teclea en un portátil",

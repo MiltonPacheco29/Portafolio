@@ -58,16 +58,19 @@
     "about": {
       "id": "about",
       "title": "About me",
-      "bioTitle": "Bio",
-      "paragraphs": [
-        "[POR COMPLETAR] Who you are and how you got into development.",
-        "[POR COMPLETAR] What kind of problems you enjoy solving and how you work with a team."
-      ],
-      "facts": [
-        { "label": "Location", "value": "[POR COMPLETAR] City, country" },
-        { "label": "Experience", "value": "[POR COMPLETAR] N years" },
-        { "label": "Languages", "value": "[POR COMPLETAR] Spanish, English (level)" }
-      ],
+      "lead": "[POR COMPLETAR] Two or three sentences about who you are, how you got into backend development and what kind of problems you enjoy solving with a team.",
+      "image": {
+        "src": "/avatar/avatar-brazos-cruzados.webp",
+        "alt": "[POR COMPLETAR] Cyberpunk-style illustration of Milton standing with arms crossed",
+        "pending": "[POR COMPLETAR] Missing image public/avatar/avatar-brazos-cruzados.webp"
+      }
+    },
+    "experience": {
+      "id": "experience",
+      "title": "Experience",
+      "intro": "[POR COMPLETAR] A short summary of your career.",
+      "achievementsLabel": "Achievements",
+      "stackLabel": "Technologies",
       "educationTitle": "Education",
       "education": [
         {
@@ -83,18 +86,6 @@
           "detail": "[POR COMPLETAR] What you learned or applied."
         }
       ],
-      "image": {
-        "src": "/avatar/avatar-brazos-cruzados.webp",
-        "alt": "[POR COMPLETAR] Cyberpunk-style illustration of Your name standing with arms crossed",
-        "pending": "[POR COMPLETAR] Missing image public/avatar/avatar-brazos-cruzados.webp"
-      }
-    },
-    "experience": {
-      "id": "experience",
-      "title": "Experience",
-      "intro": "[POR COMPLETAR] A short summary of your career.",
-      "achievementsLabel": "Achievements",
-      "stackLabel": "Technologies",
       "image": {
         "src": "/avatar/avatar-laptop.webp",
         "alt": "Cyberpunk-style illustration of a person wearing translucent glasses and a black jacket with cyan and magenta accents, focused while typing on a laptop",
