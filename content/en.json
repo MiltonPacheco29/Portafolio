@@ -1,0 +1,258 @@
+{
+  "languageName": "English",
+  "languageShort": "EN",
+  "meta": {
+    "siteName": "[POR COMPLETAR] Your name",
+    "ogLocale": "en_US",
+    "title": "[POR COMPLETAR] Your name · Portfolio",
+    "description": "[POR COMPLETAR] One sentence that sums up your professional profile (150 characters max)."
+  },
+  "a11y": {
+    "skipToContent": "Skip to content"
+  },
+  "brand": {
+    "text": "[POR COMPLETAR] YN",
+    "homeLabel": "Go to top"
+  },
+  "nav": {
+    "label": "Main",
+    "menu": "Menu"
+  },
+  "theme": {
+    "toggle": "Change color theme",
+    "toLight": "Switch to light theme",
+    "toDark": "Switch to dark theme"
+  },
+  "langSwitch": {
+    "label": "Language"
+  },
+  "hero": {
+    "lang": "en",
+    "line1": "STABLE SYSTEMS.",
+    "line2": "SECURE CODE."
+  },
+  "sections": {
+    "home": {
+      "id": "home",
+      "eyebrow": "[POR COMPLETAR] Main role, e.g. Frontend developer",
+      "title": "[POR COMPLETAR] Your name",
+      "intro": "[POR COMPLETAR] Two or three sentences about what you do and what sets you apart.",
+      "primaryCta": "View projects",
+      "secondaryCta": "Get in touch"
+    },
+    "about": {
+      "id": "about",
+      "title": "About me",
+      "bioTitle": "Bio",
+      "paragraphs": [
+        "[POR COMPLETAR] Who you are and how you got into development.",
+        "[POR COMPLETAR] What kind of problems you enjoy solving and how you work with a team."
+      ],
+      "facts": [
+        { "label": "Location", "value": "[POR COMPLETAR] City, country" },
+        { "label": "Experience", "value": "[POR COMPLETAR] N years" },
+        { "label": "Languages", "value": "[POR COMPLETAR] Spanish, English (level)" }
+      ],
+      "educationTitle": "Education",
+      "education": [
+        {
+          "degree": "[POR COMPLETAR] University or technical degree",
+          "institution": "[POR COMPLETAR] Institution",
+          "period": "[POR COMPLETAR] 2016 — 2021",
+          "detail": "[POR COMPLETAR] Focus area or standout project."
+        },
+        {
+          "degree": "[POR COMPLETAR] Certification or course",
+          "institution": "[POR COMPLETAR] Issuing organization",
+          "period": "[POR COMPLETAR] 2023",
+          "detail": "[POR COMPLETAR] What you learned or applied."
+        }
+      ],
+      "image": {
+        "src": "/avatar/avatar-brazos-cruzados.webp",
+        "alt": "[POR COMPLETAR] Cyberpunk-style illustration of Your name standing with arms crossed",
+        "pending": "[POR COMPLETAR] Missing image public/avatar/avatar-brazos-cruzados.webp"
+      }
+    },
+    "experience": {
+      "id": "experience",
+      "title": "Experience",
+      "intro": "[POR COMPLETAR] A short summary of your career.",
+      "achievementsLabel": "Achievements",
+      "stackLabel": "Technologies",
+      "image": {
+        "src": "/avatar/avatar-laptop.webp",
+        "alt": "Cyberpunk-style illustration of a person wearing translucent glasses and a black jacket with cyan and magenta accents, focused while typing on a laptop",
+        "pending": "[POR COMPLETAR] Missing image public/avatar/avatar-laptop.webp"
+      },
+      "items": [
+        {
+          "role": "[POR COMPLETAR] Job title",
+          "organization": "[POR COMPLETAR] Type of company or industry (no client names)",
+          "period": "[POR COMPLETAR] 2023 — Present",
+          "summary": "[POR COMPLETAR] What you did and the impact it had (no client names or internal systems).",
+          "achievements": [
+            "[POR COMPLETAR] Measurable achievement 1",
+            "[POR COMPLETAR] Measurable achievement 2"
+          ],
+          "stack": ["[POR COMPLETAR] Public technology", "[POR COMPLETAR] Public technology"]
+        },
+        {
+          "role": "[POR COMPLETAR] Previous job title",
+          "organization": "[POR COMPLETAR] Type of company or industry (no client names)",
+          "period": "[POR COMPLETAR] 2021 — 2023",
+          "summary": "[POR COMPLETAR] What you did and the impact it had (no client names or internal systems).",
+          "achievements": ["[POR COMPLETAR] Measurable achievement"],
+          "stack": ["[POR COMPLETAR] Public technology"]
+        },
+        {
+          "role": "[POR COMPLETAR] First job or internship",
+          "organization": "[POR COMPLETAR] Type of company or industry (no client names)",
+          "period": "[POR COMPLETAR] 2020 — 2021",
+          "summary": "[POR COMPLETAR] What you learned and worked on.",
+          "achievements": ["[POR COMPLETAR] Measurable achievement"],
+          "stack": ["[POR COMPLETAR] Public technology"]
+        }
+      ]
+    },
+    "projects": {
+      "id": "projects",
+      "title": "Projects",
+      "intro": "[POR COMPLETAR] A selection of personal or public work (no client names or internal systems).",
+      "image": {
+        "src": "/avatar/avatar-senalando.webp",
+        "alt": "[POR COMPLETAR] Cyberpunk-style illustration of Your name pointing towards the projects",
+        "pending": "[POR COMPLETAR] Missing image public/avatar/avatar-senalando.webp"
+      },
+      "labels": {
+        "problem": "Problem",
+        "stack": "Stack",
+        "repo": "View repository",
+        "repoOf": "for",
+        "repoPending": "[POR COMPLETAR] Add the repository link"
+      },
+      "filters": {
+        "label": "Filter by technology",
+        "all": "All",
+        "status": "Showing {count} of {total} projects",
+        "statusFiltered": "Showing {count} of {total} projects using {tech}"
+      },
+      "items": [
+        {
+          "slug": "project-1",
+          "title": "[POR COMPLETAR] Project name 1",
+          "problem": "[POR COMPLETAR] What problem it solves and what your role was.",
+          "stack": ["[POR COMPLETAR] Technology A", "[POR COMPLETAR] Technology B"],
+          "repo": ""
+        },
+        {
+          "slug": "project-2",
+          "title": "[POR COMPLETAR] Project name 2",
+          "problem": "[POR COMPLETAR] What problem it solves and what your role was.",
+          "stack": ["[POR COMPLETAR] Technology B", "[POR COMPLETAR] Technology C"],
+          "repo": ""
+        },
+        {
+          "slug": "project-3",
+          "title": "[POR COMPLETAR] Project name 3",
+          "problem": "[POR COMPLETAR] What problem it solves and what your role was.",
+          "stack": ["[POR COMPLETAR] Technology A", "[POR COMPLETAR] Technology C", "[POR COMPLETAR] Technology D"],
+          "repo": ""
+        }
+      ]
+    },
+    "skills": {
+      "id": "skills",
+      "title": "Skills",
+      "intro": "[POR COMPLETAR] The tools you work with every day.",
+      "image": {
+        "src": "/avatar/avatar-codigo.webp",
+        "alt": "[POR COMPLETAR] Cyberpunk-style illustration of Your name surrounded by code",
+        "pending": "[POR COMPLETAR] Missing image public/avatar/avatar-codigo.webp"
+      },
+      "groups": [
+        { "key": "languages", "title": "Languages", "items": ["[POR COMPLETAR] Language 1", "[POR COMPLETAR] Language 2"] },
+        { "key": "frameworks", "title": "Frameworks", "items": ["[POR COMPLETAR] Framework 1", "[POR COMPLETAR] Framework 2"] },
+        { "key": "cloud", "title": "Cloud and CI/CD", "items": ["[POR COMPLETAR] Cloud service", "[POR COMPLETAR] CI/CD tool"] },
+        { "key": "databases", "title": "Databases", "items": ["[POR COMPLETAR] Database 1", "[POR COMPLETAR] Database 2"] }
+      ]
+    },
+    "contact": {
+      "id": "contact",
+      "title": "Contact",
+      "intro": "[POR COMPLETAR] An invitation to reach out and for which kind of projects.",
+      "linksTitle": "Where to find me",
+      "links": [
+        { "kind": "email", "label": "Email", "value": "[POR COMPLETAR] email@example.com" },
+        { "kind": "linkedin", "label": "LinkedIn", "value": "[POR COMPLETAR] https://www.linkedin.com/in/your-username" },
+        { "kind": "github", "label": "GitHub", "value": "[POR COMPLETAR] https://github.com/your-username" }
+      ],
+      "pendingLink": "pending",
+      "cv": {
+        "file": "/cv/cv-en.pdf",
+        "fileLang": "en",
+        "languageName": "English",
+        "label": "Download CV ({format}, {language})",
+        "labelWithSize": "Download CV ({format}, {language}, {size})",
+        "pending": "[POR COMPLETAR] Missing file public/cv/cv-en.pdf"
+      },
+      "image": {
+        "src": "/avatar/avatar-laptop-cerrada.webp",
+        "alt": "[POR COMPLETAR] Cyberpunk-style illustration of Your name next to a closed laptop",
+        "pending": "[POR COMPLETAR] Missing image public/avatar/avatar-laptop-cerrada.webp"
+      },
+      "form": {
+        "title": "Contact form",
+        "intro": "All fields are required.",
+        "fields": {
+          "name": "Name",
+          "email": "Email",
+          "message": "Message"
+        },
+        "messageCount": "{count} of {max} characters",
+        "honeypot": "Leave this field empty",
+        "turnstile": "Security check",
+        "errors": {
+          "summary": "The form has errors. Please review the highlighted fields.",
+          "nameRequired": "Enter your name.",
+          "emailRequired": "Enter your email address.",
+          "emailInvalid": "Enter a valid email address, for example name@domain.com.",
+          "messageRequired": "Enter your message.",
+          "messageShort": "Your message must be at least {min} characters long.",
+          "messageLong": "Your message can't be longer than {max} characters.",
+          "turnstile": "Complete the security check before sending.",
+          "turnstileFailed": "The security check couldn't load. Reload the page and try again."
+        },
+        "submit": "Send message",
+        "sending": "Sending message…",
+        "success": {
+          "title": "Message sent!",
+          "body": "Thanks for reaching out. I'll get back to you as soon as possible.",
+          "again": "Send another message",
+          "image": {
+            "src": "/avatar/avatar-pulgar.webp",
+            "alt": "[POR COMPLETAR] Cyberpunk-style illustration of Your name giving a thumbs up",
+            "pending": "[POR COMPLETAR] Missing image public/avatar/avatar-pulgar.webp"
+          }
+        },
+        "failure": {
+          "title": "Your message couldn't be sent",
+          "body": "Your message isn't lost: it's still in the form. Try again in a few minutes or reach me through any of the links."
+        },
+        "notConfigured": "The form isn't available right now. Reach me through any of the links."
+      }
+    }
+  },
+  "footer": {
+    "note": "[POR COMPLETAR] © Year Your name"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "body": "This address doesn't exist or has moved.",
+    "back": "Back to home"
+  },
+  "root": {
+    "title": "Choose a language",
+    "redirecting": "Redirecting to the Spanish version…"
+  }
+}

@@ -1,0 +1,258 @@
+{
+  "languageName": "Español",
+  "languageShort": "ES",
+  "meta": {
+    "siteName": "[POR COMPLETAR] Tu nombre",
+    "ogLocale": "es_ES",
+    "title": "[POR COMPLETAR] Tu nombre · Portafolio",
+    "description": "[POR COMPLETAR] Una frase que resuma tu perfil profesional (150 caracteres como máximo)."
+  },
+  "a11y": {
+    "skipToContent": "Saltar al contenido"
+  },
+  "brand": {
+    "text": "[POR COMPLETAR] TN",
+    "homeLabel": "Ir al inicio"
+  },
+  "nav": {
+    "label": "Principal",
+    "menu": "Menú"
+  },
+  "theme": {
+    "toggle": "Cambiar tema de color",
+    "toLight": "Cambiar a tema claro",
+    "toDark": "Cambiar a tema oscuro"
+  },
+  "langSwitch": {
+    "label": "Idioma"
+  },
+  "hero": {
+    "lang": "en",
+    "line1": "STABLE SYSTEMS.",
+    "line2": "SECURE CODE."
+  },
+  "sections": {
+    "home": {
+      "id": "inicio",
+      "eyebrow": "[POR COMPLETAR] Rol principal, p. ej. Desarrollador frontend",
+      "title": "[POR COMPLETAR] Tu nombre",
+      "intro": "[POR COMPLETAR] Dos o tres frases sobre lo que haces y qué te diferencia.",
+      "primaryCta": "Ver proyectos",
+      "secondaryCta": "Contactar"
+    },
+    "about": {
+      "id": "sobre-mi",
+      "title": "Sobre mí",
+      "bioTitle": "Bio",
+      "paragraphs": [
+        "[POR COMPLETAR] Quién eres y cómo empezaste en el desarrollo.",
+        "[POR COMPLETAR] Qué tipo de problemas te gusta resolver y cómo trabajas en equipo."
+      ],
+      "facts": [
+        { "label": "Ubicación", "value": "[POR COMPLETAR] Ciudad, país" },
+        { "label": "Experiencia", "value": "[POR COMPLETAR] N años" },
+        { "label": "Idiomas", "value": "[POR COMPLETAR] Español, inglés (nivel)" }
+      ],
+      "educationTitle": "Formación",
+      "education": [
+        {
+          "degree": "[POR COMPLETAR] Título universitario o técnico",
+          "institution": "[POR COMPLETAR] Institución",
+          "period": "[POR COMPLETAR] 2016 — 2021",
+          "detail": "[POR COMPLETAR] Enfoque o proyecto destacado."
+        },
+        {
+          "degree": "[POR COMPLETAR] Certificación o curso",
+          "institution": "[POR COMPLETAR] Entidad emisora",
+          "period": "[POR COMPLETAR] 2023",
+          "detail": "[POR COMPLETAR] Qué aprendiste o aplicaste."
+        }
+      ],
+      "image": {
+        "src": "/avatar/avatar-brazos-cruzados.webp",
+        "alt": "[POR COMPLETAR] Ilustración estilo cyberpunk de Tu nombre de pie con los brazos cruzados",
+        "pending": "[POR COMPLETAR] Falta la imagen public/avatar/avatar-brazos-cruzados.webp"
+      }
+    },
+    "experience": {
+      "id": "experiencia",
+      "title": "Experiencia",
+      "intro": "[POR COMPLETAR] Resumen breve de tu trayectoria.",
+      "achievementsLabel": "Logros",
+      "stackLabel": "Tecnologías",
+      "image": {
+        "src": "/avatar/avatar-laptop.webp",
+        "alt": "Ilustración estilo cyberpunk de una persona con gafas translúcidas y chaqueta negra con detalles cian y magenta, concentrada mientras teclea en un portátil",
+        "pending": "[POR COMPLETAR] Falta la imagen public/avatar/avatar-laptop.webp"
+      },
+      "items": [
+        {
+          "role": "[POR COMPLETAR] Puesto",
+          "organization": "[POR COMPLETAR] Tipo de empresa o sector (sin nombres de clientes)",
+          "period": "[POR COMPLETAR] 2023 — Actualidad",
+          "summary": "[POR COMPLETAR] Qué hacías y con qué impacto (sin nombres de clientes ni de sistemas internos).",
+          "achievements": [
+            "[POR COMPLETAR] Logro medible 1",
+            "[POR COMPLETAR] Logro medible 2"
+          ],
+          "stack": ["[POR COMPLETAR] Tecnología pública", "[POR COMPLETAR] Tecnología pública"]
+        },
+        {
+          "role": "[POR COMPLETAR] Puesto anterior",
+          "organization": "[POR COMPLETAR] Tipo de empresa o sector (sin nombres de clientes)",
+          "period": "[POR COMPLETAR] 2021 — 2023",
+          "summary": "[POR COMPLETAR] Qué hacías y con qué impacto (sin nombres de clientes ni de sistemas internos).",
+          "achievements": ["[POR COMPLETAR] Logro medible"],
+          "stack": ["[POR COMPLETAR] Tecnología pública"]
+        },
+        {
+          "role": "[POR COMPLETAR] Primer puesto o prácticas",
+          "organization": "[POR COMPLETAR] Tipo de empresa o sector (sin nombres de clientes)",
+          "period": "[POR COMPLETAR] 2020 — 2021",
+          "summary": "[POR COMPLETAR] Qué aprendiste y en qué participaste.",
+          "achievements": ["[POR COMPLETAR] Logro medible"],
+          "stack": ["[POR COMPLETAR] Tecnología pública"]
+        }
+      ]
+    },
+    "projects": {
+      "id": "proyectos",
+      "title": "Proyectos",
+      "intro": "[POR COMPLETAR] Una selección de trabajos personales o públicos (sin nombres de clientes ni de sistemas internos).",
+      "image": {
+        "src": "/avatar/avatar-senalando.webp",
+        "alt": "[POR COMPLETAR] Ilustración estilo cyberpunk de Tu nombre señalando hacia los proyectos",
+        "pending": "[POR COMPLETAR] Falta la imagen public/avatar/avatar-senalando.webp"
+      },
+      "labels": {
+        "problem": "Problema",
+        "stack": "Stack",
+        "repo": "Ver repositorio",
+        "repoOf": "de",
+        "repoPending": "[POR COMPLETAR] Añade el enlace al repositorio"
+      },
+      "filters": {
+        "label": "Filtrar por tecnología",
+        "all": "Todas",
+        "status": "Mostrando {count} de {total} proyectos",
+        "statusFiltered": "Mostrando {count} de {total} proyectos con {tech}"
+      },
+      "items": [
+        {
+          "slug": "proyecto-1",
+          "title": "[POR COMPLETAR] Nombre del proyecto 1",
+          "problem": "[POR COMPLETAR] Qué problema resuelve y cuál fue tu papel.",
+          "stack": ["[POR COMPLETAR] Tecnología A", "[POR COMPLETAR] Tecnología B"],
+          "repo": ""
+        },
+        {
+          "slug": "proyecto-2",
+          "title": "[POR COMPLETAR] Nombre del proyecto 2",
+          "problem": "[POR COMPLETAR] Qué problema resuelve y cuál fue tu papel.",
+          "stack": ["[POR COMPLETAR] Tecnología B", "[POR COMPLETAR] Tecnología C"],
+          "repo": ""
+        },
+        {
+          "slug": "proyecto-3",
+          "title": "[POR COMPLETAR] Nombre del proyecto 3",
+          "problem": "[POR COMPLETAR] Qué problema resuelve y cuál fue tu papel.",
+          "stack": ["[POR COMPLETAR] Tecnología A", "[POR COMPLETAR] Tecnología C", "[POR COMPLETAR] Tecnología D"],
+          "repo": ""
+        }
+      ]
+    },
+    "skills": {
+      "id": "skills",
+      "title": "Skills",
+      "intro": "[POR COMPLETAR] Las herramientas con las que trabajas a diario.",
+      "image": {
+        "src": "/avatar/avatar-codigo.webp",
+        "alt": "[POR COMPLETAR] Ilustración estilo cyberpunk de Tu nombre rodeado de código",
+        "pending": "[POR COMPLETAR] Falta la imagen public/avatar/avatar-codigo.webp"
+      },
+      "groups": [
+        { "key": "languages", "title": "Lenguajes", "items": ["[POR COMPLETAR] Lenguaje 1", "[POR COMPLETAR] Lenguaje 2"] },
+        { "key": "frameworks", "title": "Frameworks", "items": ["[POR COMPLETAR] Framework 1", "[POR COMPLETAR] Framework 2"] },
+        { "key": "cloud", "title": "Nube y CI/CD", "items": ["[POR COMPLETAR] Servicio en la nube", "[POR COMPLETAR] Herramienta de CI/CD"] },
+        { "key": "databases", "title": "Bases de datos", "items": ["[POR COMPLETAR] Base de datos 1", "[POR COMPLETAR] Base de datos 2"] }
+      ]
+    },
+    "contact": {
+      "id": "contacto",
+      "title": "Contacto",
+      "intro": "[POR COMPLETAR] Invitación a escribirte y para qué tipo de proyectos.",
+      "linksTitle": "Dónde encontrarme",
+      "links": [
+        { "kind": "email", "label": "Correo", "value": "[POR COMPLETAR] correo@ejemplo.com" },
+        { "kind": "linkedin", "label": "LinkedIn", "value": "[POR COMPLETAR] https://www.linkedin.com/in/tu-usuario" },
+        { "kind": "github", "label": "GitHub", "value": "[POR COMPLETAR] https://github.com/tu-usuario" }
+      ],
+      "pendingLink": "pendiente",
+      "cv": {
+        "file": "/cv/cv-es.pdf",
+        "fileLang": "es",
+        "languageName": "español",
+        "label": "Descargar CV ({format}, {language})",
+        "labelWithSize": "Descargar CV ({format}, {language}, {size})",
+        "pending": "[POR COMPLETAR] Falta el archivo public/cv/cv-es.pdf"
+      },
+      "image": {
+        "src": "/avatar/avatar-laptop-cerrada.webp",
+        "alt": "[POR COMPLETAR] Ilustración estilo cyberpunk de Tu nombre junto a un portátil cerrado",
+        "pending": "[POR COMPLETAR] Falta la imagen public/avatar/avatar-laptop-cerrada.webp"
+      },
+      "form": {
+        "title": "Formulario de contacto",
+        "intro": "Todos los campos son obligatorios.",
+        "fields": {
+          "name": "Nombre",
+          "email": "Correo electrónico",
+          "message": "Mensaje"
+        },
+        "messageCount": "{count} de {max} caracteres",
+        "honeypot": "No rellenes este campo",
+        "turnstile": "Verificación de seguridad",
+        "errors": {
+          "summary": "El formulario tiene errores. Revisa los campos marcados.",
+          "nameRequired": "Escribe tu nombre.",
+          "emailRequired": "Escribe tu correo electrónico.",
+          "emailInvalid": "Escribe un correo válido, por ejemplo nombre@dominio.com.",
+          "messageRequired": "Escribe tu mensaje.",
+          "messageShort": "El mensaje debe tener al menos {min} caracteres.",
+          "messageLong": "El mensaje no puede superar los {max} caracteres.",
+          "turnstile": "Completa la verificación de seguridad antes de enviar.",
+          "turnstileFailed": "No se pudo cargar la verificación de seguridad. Recarga la página e inténtalo de nuevo."
+        },
+        "submit": "Enviar mensaje",
+        "sending": "Enviando mensaje…",
+        "success": {
+          "title": "¡Mensaje enviado!",
+          "body": "Gracias por escribir. Te responderé lo antes posible.",
+          "again": "Enviar otro mensaje",
+          "image": {
+            "src": "/avatar/avatar-pulgar.webp",
+            "alt": "[POR COMPLETAR] Ilustración estilo cyberpunk de Tu nombre con el pulgar hacia arriba",
+            "pending": "[POR COMPLETAR] Falta la imagen public/avatar/avatar-pulgar.webp"
+          }
+        },
+        "failure": {
+          "title": "No se pudo enviar el mensaje",
+          "body": "Tu mensaje no se ha perdido: sigue en el formulario. Inténtalo de nuevo en unos minutos o escríbeme por cualquiera de los enlaces."
+        },
+        "notConfigured": "El formulario no está disponible ahora mismo. Escríbeme por cualquiera de los enlaces."
+      }
+    }
+  },
+  "footer": {
+    "note": "[POR COMPLETAR] © Año Tu nombre"
+  },
+  "notFound": {
+    "title": "Página no encontrada",
+    "body": "La dirección no existe o cambió de lugar.",
+    "back": "Volver al inicio"
+  },
+  "root": {
+    "title": "Elige un idioma",
+    "redirecting": "Redirigiendo a la versión en español…"
+  }
+}

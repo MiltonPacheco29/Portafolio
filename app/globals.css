@@ -1,26 +1,246 @@
 @import "tailwindcss";
 
+/* Las variantes dark: y light: de Tailwind siguen el atributo data-theme de <html>. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+@custom-variant light (&:where([data-theme="light"], [data-theme="light"] *));
+
+/* =====================================================================
+   Tokens que no dependen del tema
+   ===================================================================== */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Tipografía. next/font define --font-chakra y --font-jetbrains en <html>. */
+  --font-family-display: var(--font-chakra), "Segoe UI", system-ui, sans-serif;
+  --font-family-body: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  --font-family-mono: var(--font-jetbrains), ui-monospace, "Cascadia Code", Consolas, monospace;
+
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.875rem;
+  --fs-base: 1rem;
+  --fs-lg: 1.125rem;
+  --fs-xl: 1.25rem;
+  --fs-2xl: clamp(1.375rem, 1.2rem + 0.8vw, 1.75rem);
+  --fs-3xl: clamp(1.75rem, 1.4rem + 1.6vw, 2.5rem);
+  --fs-4xl: clamp(2.25rem, 1.6rem + 3vw, 4rem);
+  --fs-hero: clamp(2.75rem, 9vw, 10rem);
+
+  --lh-tight: 1.15;
+  --lh-snug: 1.35;
+  --lh-normal: 1.6;
+  --tracking-display: 0.02em;
+  --tracking-mono: 0.04em;
+
+  /* Espaciado */
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs: 0.75rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+  --gutter: clamp(1rem, 4vw, 2.5rem);
+  --section-gap: clamp(4rem, 10vw, 8rem);
+  --content-max: 72rem;
+
+  /* Barra de navegación fija */
+  --nav-height: 4.5rem; /* alto de la barra expandida: espacio reservado arriba */
+  --nav-float-gap: 0.75rem; /* separación de la cápsula respecto al borde superior */
+  --nav-offset: 5.5rem; /* scroll-margin de las anclas para que no queden debajo */
+
+  /* Forma */
+  --corner-sm: 2px;
+  --corner-md: 6px;
+  --border-width: 1px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* =====================================================================
+   Tema oscuro (por defecto): cyberpunk
+   Contraste comprobado (WCAG): fg 16.48:1, fg-muted 8.50:1, primary 13.92:1,
+   accent 6.13:1, highlight 15.40:1 sobre --bg.
+   ===================================================================== */
+:root,
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0a0b14;
+  --surface: #12142a;
+  --fg: #e8eaff;
+  --fg-muted: #a3a9cc;
+  --primary: #00f0ff; /* cian */
+  --accent: #ff2bd6; /* magenta */
+  --highlight: #f5e83a; /* amarillo */
+  --on-primary: #0a0b14;
+  --on-accent: #0a0b14;
+  --border: #23264a; /* decorativo */
+  --border-strong: #5a6094; /* controles: 3.30:1 */
+  --focus: #f5e83a;
+  --glow-primary: 0 0 18px color-mix(in srgb, var(--primary) 45%, transparent);
+  --glow-accent: 0 0 18px color-mix(in srgb, var(--accent) 45%, transparent);
+  /* Neón del Hero: intensidad del halo cercano y del lejano */
+  --neon-near: 55%;
+  --neon-far: 28%;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* =====================================================================
+   Tema claro: fondo lavanda, textos azul noche, acentos más profundos
+   Contraste comprobado (WCAG): fg 16.32:1, fg-muted 8.34:1, primary 5.93:1,
+   accent 6.49:1, highlight 5.94:1 sobre --bg.
+   ===================================================================== */
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #eef0ff;
+  --surface: #ffffff;
+  --fg: #0b1033; /* azul noche */
+  --fg-muted: #3b4275;
+  --primary: #006577; /* cian profundo */
+  --accent: #a3007e; /* magenta profundo */
+  --highlight: #6b5b00; /* amarillo oscurecido para texto */
+  --on-primary: #ffffff;
+  --on-accent: #ffffff;
+  --border: #d3d6f2;
+  --border-strong: #7a80ad; /* 3.36:1 */
+  --focus: #a3007e;
+  --glow-primary: 0 0 0 transparent;
+  --glow-accent: 0 0 0 transparent;
+  --neon-near: 22%;
+  --neon-far: 0%;
+}
+
+/* Sin JavaScript no hay data-theme: se sigue la preferencia del sistema. */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+    color-scheme: light;
+    --bg: #eef0ff;
+    --surface: #ffffff;
+    --fg: #0b1033;
+    --fg-muted: #3b4275;
+    --primary: #006577;
+    --accent: #a3007e;
+    --highlight: #6b5b00;
+    --on-primary: #ffffff;
+    --on-accent: #ffffff;
+    --border: #d3d6f2;
+    --border-strong: #7a80ad;
+    --focus: #a3007e;
+    --glow-primary: 0 0 0 transparent;
+    --glow-accent: 0 0 0 transparent;
+    --neon-near: 22%;
+    --neon-far: 0%;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* =====================================================================
+   Tokens expuestos a Tailwind (bg-surface, text-fg-muted, font-display,
+   px-gutter, max-w-content, text-display…)
+   ===================================================================== */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-primary: var(--primary);
+  --color-accent: var(--accent);
+  --color-highlight: var(--highlight);
+  --color-on-primary: var(--on-primary);
+  --color-on-accent: var(--on-accent);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-focus: var(--focus);
+
+  --font-sans: var(--font-family-body);
+  --font-display: var(--font-family-display);
+  --font-mono: var(--font-family-mono);
+
+  --text-display: var(--fs-4xl);
+  --text-display--line-height: var(--lh-tight);
+  --text-hero: var(--fs-hero);
+  --text-hero--line-height: 0.95;
+  --text-title: var(--fs-3xl);
+  --text-title--line-height: var(--lh-tight);
+
+  --spacing-gutter: var(--gutter);
+  --spacing-section: var(--section-gap);
+  --spacing-nav: var(--nav-height);
+  --spacing-nav-offset: var(--nav-offset);
+  --container-content: var(--content-max);
+
+  --radius-sm: var(--corner-sm);
+  --radius-md: var(--corner-md);
+
+  --shadow-glow-primary: var(--glow-primary);
+  --shadow-glow-accent: var(--glow-accent);
+}
+
+/* =====================================================================
+   Estilos base
+   ===================================================================== */
+@layer base {
+  html {
+    background-color: var(--bg);
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-family-body);
+    font-size: var(--fs-base);
+    line-height: var(--lh-normal);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-family-display);
+    line-height: var(--lh-tight);
+    letter-spacing: var(--tracking-display);
+    text-wrap: balance;
+  }
+
+  code,
+  kbd,
+  samp,
+  pre {
+    font-family: var(--font-family-mono);
+  }
+
+  ::selection {
+    background-color: var(--accent);
+    color: var(--on-accent);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
+  }
+}
+
+/* =====================================================================
+   Neón suave (Hero). Estático: no parpadea ni destella.
+   --neon: color de la línea. --neon-on (0–1): GSAP lo baja al hacer scroll
+   para apagar el halo de forma continua; sin JS o con movimiento reducido vale 1.
+   ===================================================================== */
+.neon {
+  --neon-on: 1;
+  color: var(--neon);
+  text-shadow:
+    0 0 0.03em color-mix(in srgb, var(--neon) calc(var(--neon-near) * var(--neon-on)), transparent),
+    0 0 0.12em color-mix(in srgb, var(--neon) calc(var(--neon-near) * var(--neon-on)), transparent),
+    0 0 0.4em color-mix(in srgb, var(--neon) calc(var(--neon-far) * var(--neon-on)), transparent);
+}
+
+/* Movimiento reducido: sin animaciones ni transiciones.
+   transition-duration va a 0s (no 0.01ms): con 0.01ms y transition-property: all
+   (valor inicial) el navegador crea transiciones nuevas y pinta un fotograma
+   intermedio antes de saltar al valor final. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
+    scroll-behavior: auto !important;
+  }
 }
