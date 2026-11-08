@@ -28,4 +28,4 @@ Next.js (App Router, `output: "export"`), TypeScript, Tailwind CSS, Motion (`mot
 
 ## Diseño
 
-Tema oscuro y claro con variables CSS. Oscuro: fondo #0A0B14, cian #00F0FF, magenta #FF2BD6, amarillo #F5E83A. Títulos en Chakra Petch y detalles en JetBrains Mono.
+Tema oscuro y claro con variables CSS; la dirección de arte y los tokens completos están en `DESIGN.md`. Oscuro: fondo #0A0B14, cian #00F0FF, magenta #FF2BD6, amarillo #F5E83A. Claro (papel): fondo #EFE6D3, tinta #1A1612 y rojo #A8231B para texto (el rojo vivo #C8352B solo como fondo con texto blanco). Títulos en Archivo (800–900), subtítulos en Newsreader cursiva y detalles en JetBrains Mono; máximo tres familias.
