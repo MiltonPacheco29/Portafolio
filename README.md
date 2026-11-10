@@ -2,7 +2,7 @@
 
 Portafolio personal estático con tema cyberpunk (oscuro) y de papel impreso (claro), en español.
 
-- **Stack:** Next.js 16 (App Router, `output: "export"`), React 19, TypeScript, Tailwind CSS v4, Motion y GSAP.
+- **Stack:** Next.js 16 (App Router, `output: "export"`), React 19, TypeScript, Tailwind CSS v4 y Motion.
 - **Sin backend propio:** el formulario de contacto usa Formspree con Cloudflare Turnstile.
 - **Publicación:** Cloudflare Pages, con un pipeline de release dev → qa → pdn (ver [CI/CD](#cicd)).
 

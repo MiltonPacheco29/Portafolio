@@ -6,7 +6,7 @@ Portafolio estático con tema cyberpunk, solo en español (página única en "/"
 
 ## Stack
 
-Next.js (App Router, `output: "export"`), TypeScript, Tailwind CSS, Motion (`motion/react`) y GSAP (`gsap`, `@gsap/react`). Sin backend propio. Se publica en Cloudflare Pages.
+Next.js (App Router, `output: "export"`), TypeScript, Tailwind CSS y Motion (`motion/react`). Sin backend propio. Se publica en Cloudflare Pages.
 
 ## Comandos
 

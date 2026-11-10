@@ -147,7 +147,7 @@ Paneles inclinados: `clip-path: polygon(var(--skew) 0, 100% 0, calc(100% - var(-
 | Franja de skills | `translateX` = ±(scrollY − topSección + altoVentana) × 0.3 − 200; listener pasivo, agrupado por `requestAnimationFrame`, `will-change: transform` | Estática |
 | `AnimatedText` | Opacidad por carácter de **0.65** a 1 (offset "start 0.8" → "end 0.2"); una sola variable CSS de progreso | Opacidad 1 |
 | Proyectos | `sticky` y escala hacia `1 − (total − 1 − i) × 0.03`, `top` + i × 28px, contenedor 85vh por tarjeta, solo desde `md` | Lista normal, sin `sticky` ni escala |
-| Experiencia | Línea de progreso y aparición actuales (GSAP) | Sin animación |
+| Experiencia | Línea de progreso ligada al scroll (`useScroll`, "start 0.7" → "end 0.7") y aparición de cada puesto con `FadeIn` (y 24, 0.6s) | Línea completa, sin animación |
 
 Prohibido: parpadeos, destellos, *glitch*, grano o rayas animados, autoplay sin control y cualquier cambio de luminancia más de 3 veces por segundo. Solo se animan `transform` y `opacity`. Sin JS todo se ve.
 

@@ -2,7 +2,6 @@ import type { Transition } from "motion/react";
 import { useSyncExternalStore } from "react";
 
 export const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
-export const MOTION_OK_QUERY = "(prefers-reduced-motion: no-preference)";
 
 export const reducedMotionConfig = "user" as const;
 
@@ -35,22 +34,6 @@ export const transitions = {
 } satisfies Record<string, Transition>;
 
 export const MENU_LINK_STAGGER = 0.06;
-
-type GsapWithMatchMedia = {
-  matchMedia: () => {
-    add: (query: string, setup: () => void | (() => void)) => unknown;
-    revert: () => void;
-  };
-};
-
-export function whenMotionAllowed(
-  gsap: GsapWithMatchMedia,
-  setup: () => void | (() => void),
-): () => void {
-  const mm = gsap.matchMedia();
-  mm.add(MOTION_OK_QUERY, setup);
-  return () => mm.revert();
-}
 
 export function useMotionTransition(transition: Transition): Transition {
   return usePrefersReducedMotion() ? instant : transition;
