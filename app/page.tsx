@@ -1,4 +1,3 @@
-import { notFound } from "next/navigation";
 import { AboutSection } from "@/components/sections/AboutSection";
 import { ContactSection } from "@/components/sections/contact/ContactSection";
 import { ExperienceSection } from "@/components/sections/experience/ExperienceSection";
@@ -7,13 +6,11 @@ import { ProjectsSection } from "@/components/sections/projects/ProjectsSection"
 import { ServicesSection } from "@/components/sections/ServicesSection";
 import { SkillsMarquee } from "@/components/sections/SkillsMarquee";
 import { StripeDivider } from "@/components/ui/StripeDivider";
-import { getDictionary, hasLocale } from "@/lib/i18n";
+import { getDictionary } from "@/lib/i18n";
 import { getLocalImage } from "@/lib/server/images";
 
-export default async function HomePage({ params }: PageProps<"/[lang]">) {
-  const { lang } = await params;
-  if (!hasLocale(lang)) notFound();
-  const { sections: s, hero, cta, skillsBand } = getDictionary(lang);
+export default function HomePage() {
+  const { sections: s, hero, cta, skillsBand } = getDictionary();
   const contactHref = `#${s.contact.id}`;
 
   return (
@@ -27,7 +24,6 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
         <Hero
           hero={hero}
           titleId={`${s.home.id}-title`}
-          lang={lang}
           avatar={getLocalImage(hero.avatar.src)}
           contactHref={contactHref}
           contactLabel={cta.contact}
@@ -43,7 +39,7 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
       <StripeDivider />
       <ProjectsSection projects={s.projects} />
       <StripeDivider />
-      <ContactSection contact={s.contact} locale={lang} ctaLabel={cta.contact} />
+      <ContactSection contact={s.contact} ctaLabel={cta.contact} />
     </>
   );
 }

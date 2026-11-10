@@ -54,11 +54,9 @@ jobs:
           URL: ${{ steps.deploy.outputs.deployment-url }}
         run: |
           set -euo pipefail
-          for path in /es/ /en/; do
-            curl -fsS --retry 5 --retry-all-errors --retry-delay 5 -o /dev/null "$URL$path"
-            echo "✓ $URL$path responde 200"
-          done
-          if curl -fsSI "$URL/es/" | grep -qi '^content-security-policy:'; then
+          curl -fsS --retry 5 --retry-all-errors --retry-delay 5 -o /dev/null "$URL/"
+          echo "✓ $URL/ responde 200"
+          if curl -fsSI "$URL/" | grep -qi '^content-security-policy:'; then
             echo "✓ cabecera Content-Security-Policy presente"
           else
             echo "✗ falta la cabecera Content-Security-Policy (¿se subió out/_headers?)"

@@ -8,7 +8,7 @@ const raw =
 
 export const siteUrl = new URL(raw.endsWith("/") ? raw : `${raw}/`);
 
-/** URL absoluta de una ruta del sitio: absoluteUrl("/es/") → "https://dominio/es/". */
+/** URL absoluta de una ruta del sitio: absoluteUrl("/sitemap.xml") → "https://dominio/sitemap.xml". */
 export function absoluteUrl(path: string): string {
   return new URL(path.replace(/^\//, ""), siteUrl).toString();
 }

@@ -1,6 +1,4 @@
 {
-  "languageName": "Español",
-  "languageShort": "ES",
   "meta": {
     "siteName": "[POR COMPLETAR] Tu nombre",
     "ogLocale": "es_ES",
@@ -22,9 +20,6 @@
     "toggle": "Cambiar tema de color",
     "toLight": "Cambiar a tema claro",
     "toDark": "Cambiar a tema oscuro"
-  },
-  "langSwitch": {
-    "label": "Idioma"
   },
   "cta": {
     "contact": "Hablemos de tu proyecto"
@@ -168,7 +163,7 @@
           "slug": "portafolio",
           "category": "Proyecto personal",
           "title": "Este portafolio",
-          "problem": "Sitio estático bilingüe con tema claro y oscuro, navegable con teclado y sin backend propio, publicado en Cloudflare Pages.",
+          "problem": "Sitio estático con tema claro y oscuro, navegable con teclado y sin backend propio, publicado en Cloudflare Pages.",
           "stack": [
             "Next.js",
             "TypeScript",
@@ -323,9 +318,5 @@
     "title": "Página no encontrada",
     "body": "La dirección no existe o cambió de lugar.",
     "back": "Volver al inicio"
-  },
-  "root": {
-    "title": "Elige un idioma",
-    "redirecting": "Redirigiendo a la versión en español…"
   }
 }

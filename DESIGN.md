@@ -20,17 +20,17 @@ El resto (Sobre mí, Qué hago, Experiencia, Contacto) se apoya en la misma esca
 
 ## 2. Estructura de la página
 
-Objetivo único (de `landing-page-design`): **que me contacten**. El botón de contacto repite el mismo texto en todas partes: "Hablemos de tu proyecto" / "Let's talk about your project".
+Objetivo único (de `landing-page-design`): **que me contacten**. El botón de contacto repite el mismo texto en todas partes: "Hablemos de tu proyecto".
 
-| Orden | Bloque | Ancla es / en | Notas |
+| Orden | Bloque | Ancla | Notas |
 |---|---|---|---|
-| 1 | Hero | `inicio` / `home` | `h1` "HOLA, SOY MILTON", subtítulo "Stable systems. Secure code." (`lang="en"`), metadatos, frase corta y botón de contacto |
+| 1 | Hero | `inicio` | `h1` "HOLA, SOY MILTON", subtítulo "Stable systems. Secure code." (`lang="en"`), metadatos, frase corta y botón de contacto |
 | 2 | Franja de skills | sin ancla | Decorativa en movimiento, con una lista accesible única |
-| 3 | Sobre mí | `sobre-mi` / `about` | Revelado por carácter, avatar y botón de contacto |
-| 4 | Qué hago | `que-hago` / `services` | Fondo invertido, 5 servicios numerados |
-| 5 | Experiencia | `experiencia` / `experience` | Línea de tiempo actual más formación |
-| 6 | Proyectos | `proyectos` / `projects` | Tarjetas apiladas con filtros |
-| 7 | Contacto | `contacto` / `contact` | Formulario, enlaces, CV en código de barras |
+| 3 | Sobre mí | `sobre-mi` | Revelado por carácter, avatar y botón de contacto |
+| 4 | Qué hago | `que-hago` | Fondo invertido, 5 servicios numerados |
+| 5 | Experiencia | `experiencia` | Línea de tiempo actual más formación |
+| 6 | Proyectos | `proyectos` | Tarjetas apiladas con filtros |
+| 7 | Contacto | `contacto` | Formulario, enlaces, CV en código de barras |
 
 Se elimina la sección Skills (la sustituye la franja). Los datos de "Sobre mí" (ubicación, experiencia) pasan a los metadatos del Hero y la formación pasa a Experiencia.
 

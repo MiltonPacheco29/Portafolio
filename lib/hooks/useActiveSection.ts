@@ -4,7 +4,7 @@ import { useSyncExternalStore } from "react";
 import { isSectionKey, type SectionKey } from "@/lib/i18n/locales";
 
 // Sección visible: la última cuyo borde superior pasó el 40 % de la ventana.
-// Las secciones se marcan con data-section="<clave>" en app/[lang]/page.tsx.
+// Las secciones se marcan con data-section="<clave>" en app/page.tsx.
 
 function subscribe(onChange: () => void) {
   let frame = 0;

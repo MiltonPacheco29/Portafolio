@@ -5,7 +5,8 @@ import { useEffect, useId, useRef, useState, type FormEvent, type Ref } from "re
 import { AvatarImage } from "@/components/ui/AvatarImage";
 import { ctaClass } from "@/components/ui/ContactButton";
 import { ghostClass } from "@/components/ui/GhostButton";
-import type { Dictionary, Locale } from "@/lib/i18n";
+import type { Dictionary } from "@/lib/i18n";
+import { siteLang } from "@/lib/i18n/locales";
 import type { LocalImage } from "@/lib/server/images";
 import { contactFormConfigured, formspreeEndpoint, turnstileKey } from "@/lib/config/publicConfig";
 import { fillTemplate } from "@/lib/text";
@@ -14,7 +15,6 @@ import { useTheme } from "@/lib/hooks/useTheme";
 type FormTexts = Dictionary["sections"]["contact"]["form"];
 type ContactFormProps = {
   texts: FormTexts;
-  locale: Locale;
   /** Imagen del estado de éxito (leída en el build), o null si aún falta el archivo. */
   successImage: LocalImage | null;
 };
@@ -63,7 +63,7 @@ function validate(values: Values, token: string | null, t: FormTexts["errors"]):
  * - Antispam: honeypot _gotcha (Formspree descarta el envío si viene relleno) y
  *   Cloudflare Turnstile; Formspree verifica el token con la clave secreta guardada en su panel.
  */
-export function ContactForm({ texts, locale, successImage }: ContactFormProps) {
+export function ContactForm({ texts, successImage }: ContactFormProps) {
   const id = useId();
   const [values, setValues] = useState<Values>(EMPTY);
   const [errors, setErrors] = useState<Errors>({});
@@ -86,7 +86,7 @@ export function ContactForm({ texts, locale, successImage }: ContactFormProps) {
     const widget = window.turnstile.render(container, {
       sitekey: turnstileKey,
       theme: theme ?? "auto",
-      language: locale,
+      language: siteLang,
       size: "flexible",
       callback: (newToken: string) => {
         setToken(newToken);
@@ -104,7 +104,7 @@ export function ContactForm({ texts, locale, successImage }: ContactFormProps) {
       window.turnstile?.remove(widget);
       widgetId.current = null;
     };
-  }, [scriptReady, theme, locale, showForm]);
+  }, [scriptReady, theme, showForm]);
 
   // Al enviar con éxito, el foco va al título del mensaje de éxito (lo anuncian los lectores).
   useEffect(() => {

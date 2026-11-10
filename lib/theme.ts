@@ -13,8 +13,8 @@ export function isTheme(value: unknown): value is Theme {
  * Orden: elección guardada → prefers-color-scheme del sistema → oscuro.
  * Si localStorage no está disponible (modo privado, bloqueado), sigue al sistema.
  *
- * Además vigila data-theme: al cambiar de idioma (/es ↔ /en) Next vuelve a montar
- * el layout raíz y React limpia los atributos de <html> que no controla. El
+ * Además vigila data-theme: si Next vuelve a montar el layout raíz, React
+ * limpia los atributos de <html> que no controla. El
  * observador lo restaura con el último tema conocido antes del siguiente pintado.
  */
 export const themeInitScript = `(function(){var d=document.documentElement,t=null;try{t=localStorage.getItem(${JSON.stringify(

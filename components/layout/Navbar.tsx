@@ -7,7 +7,6 @@ import {
   useScroll,
 } from "motion/react";
 import { useEffect, useId, useRef, useState, type ComponentProps } from "react";
-import { LangSwitch, type LangSwitchProps } from "@/components/layout/LangSwitch";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import {
   instant,
@@ -25,7 +24,6 @@ type NavbarProps = {
   navLabel: string;
   menuLabel: string;
   links: { key: SectionKey; id: string; title: string }[];
-  langSwitch: Omit<LangSwitchProps, "className">;
   themeLabels: ComponentProps<typeof ThemeToggle>["labels"];
 };
 
@@ -41,7 +39,6 @@ export function Navbar({
   navLabel,
   menuLabel,
   links,
-  langSwitch,
   themeLabels,
 }: NavbarProps) {
   const [bar, setBar] = useState({ compact: false, animate: false });
@@ -180,9 +177,9 @@ export function Navbar({
           </ul>
         </motion.nav>
 
-        {/* Idioma y tema solo con la barra expandida (arriba del todo). Al compactar
-            salen del DOM al instante, antes de la animación, y Tab no puede caer en
-            ellos. Al volver arriba reaparecen con un fundido tras la expansión. */}
+        {/* El cambio de tema solo está con la barra expandida (arriba del todo). Al
+            compactar sale del DOM al instante, antes de la animación, y Tab no puede
+            caer en él. Al volver arriba reaparece con un fundido tras la expansión. */}
         {!compact && (
           <motion.div
             key="nav-controls"
@@ -191,7 +188,6 @@ export function Navbar({
             transition={controlsIn}
             className="flex items-center gap-1"
           >
-            <LangSwitch {...langSwitch} className="hidden md:block" />
             <ThemeToggle labels={themeLabels} />
           </motion.div>
         )}
@@ -284,7 +280,6 @@ export function Navbar({
                   ))}
                 </motion.ul>
               </nav>
-              <LangSwitch {...langSwitch} className="border-t border-border pt-3" />
             </motion.div>
           )}
         </AnimatePresence>

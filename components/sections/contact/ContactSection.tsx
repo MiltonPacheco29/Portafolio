@@ -5,13 +5,13 @@ import { CvBarcodeLink } from "@/components/sections/contact/CvBarcodeLink";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { VerticalLabel } from "@/components/ui/VerticalLabel";
 import { fileFormat, formatFileSize, getPublicFile } from "@/lib/server/files";
-import type { Dictionary, Locale } from "@/lib/i18n";
+import { siteLang, type Dictionary } from "@/lib/i18n";
 import { getLocalImage } from "@/lib/server/images";
 import { fillTemplate, isPending } from "@/lib/text";
 import { blockTitleClass, sectionClass, sectionTitleClass } from "@/components/sections/sectionStyles";
 
 type Contact = Dictionary["sections"]["contact"];
-type ContactSectionProps = { contact: Contact; locale: Locale; ctaLabel: string };
+type ContactSectionProps = { contact: Contact; ctaLabel: string };
 
 /** href de un enlace de contacto, o null si el valor sigue pendiente o no es válido. */
 function contactHref(link: Contact["links"][number]): string | null {
@@ -20,7 +20,7 @@ function contactHref(link: Contact["links"][number]): string | null {
   return link.value.startsWith("https://") ? link.value : null;
 }
 
-export function ContactSection({ contact, locale, ctaLabel }: ContactSectionProps) {
+export function ContactSection({ contact, ctaLabel }: ContactSectionProps) {
   const titleId = `${contact.id}-title`;
   const formTitleId = `${contact.id}-form-title`;
   const image = getLocalImage(contact.image.src);
@@ -32,7 +32,7 @@ export function ContactSection({ contact, locale, ctaLabel }: ContactSectionProp
     ? fillTemplate(contact.cv.labelWithSize, {
         format,
         language: contact.cv.languageName,
-        size: formatFileSize(cvFile.bytes, locale),
+        size: formatFileSize(cvFile.bytes, siteLang),
       })
     : fillTemplate(contact.cv.label, { format, language: contact.cv.languageName });
 
@@ -116,7 +116,6 @@ export function ContactSection({ contact, locale, ctaLabel }: ContactSectionProp
             </h3>
             <ContactForm
               texts={contact.form}
-              locale={locale}
               successImage={getLocalImage(contact.form.success.image.src)}
             />
           </div>

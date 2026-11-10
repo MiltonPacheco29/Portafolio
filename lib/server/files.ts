@@ -27,7 +27,7 @@ export function getPublicFile(src: string): PublicFile | null {
   return { src, bytes: statSync(file).size, format, mime: MIME_TYPES[format.toLowerCase()] };
 }
 
-/** Tamaño legible en el idioma de la página: "120 KB", "1,4 MB". */
+/** Tamaño legible en el idioma del sitio: "120 KB", "1,4 MB". */
 export function formatFileSize(bytes: number, locale: string): string {
   const mb = bytes / (1024 * 1024);
   if (mb >= 1) {

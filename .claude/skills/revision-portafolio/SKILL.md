@@ -11,7 +11,7 @@ Revisa solo los archivos modificados en la etapa actual (usa git status y git di
 
 1. Accesibilidad: navegación con teclado, foco visible, etiquetas y alt en las imágenes, contraste mínimo de 4.5:1 en texto.
 2. Movimiento: toda animación respeta prefers-reduced-motion y nada parpadea rápido.
-3. Idiomas: cada texto visible existe en content/es.json y content/en.json, y ninguno está escrito dentro de un componente.
+3. Textos: cada texto visible está en content/es.json y ninguno está escrito dentro de un componente.
 4. Confidencialidad: no hay nombres de clientes, sistemas internos ni datos de trabajo. Lista aparte los textos marcados con [POR COMPLETAR].
 5. Sitio estático: no hay server actions, rutas de API ni middleware.
 6. Secretos: no hay claves, tokens ni archivos .env en el cambio.

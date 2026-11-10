@@ -5,11 +5,11 @@ const nextConfig: NextConfig = {
   output: "export",
   // La optimización de imágenes por defecto necesita servidor.
   images: { unoptimized: true },
-  // Genera `/es/index.html` en lugar de `/es.html`.
+  // Rutas con barra final (`/ruta/index.html` en lugar de `/ruta.html`).
   trailingSlash: true,
   experimental: {
-    // Habilita app/global-not-found.tsx: con el root layout en app/[lang]
-    // no hay un layout único para la 404 (así tendrá lang, estilos y tema).
+    // Habilita app/global-not-found.tsx: la 404 no pasa por el layout raíz
+    // (sin barra ni preloader) y trae sus propios lang, estilos y tema.
     globalNotFound: true,
   },
   turbopack: {

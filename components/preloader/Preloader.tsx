@@ -8,8 +8,8 @@ import { fontPreloader } from "@/lib/config/fonts";
 import { IMAGE_SOURCES, SCENES } from "@/lib/preloader/config";
 
 /**
- * Sobrevive a la navegación del cliente (incluido /es ↔ /en, que vuelve a montar
- * el layout raíz) y se reinicia al recargar: el preloader se ve una vez por carga.
+ * Sobrevive a la navegación del cliente (aunque se vuelva a montar el layout
+ * raíz) y se reinicia al recargar: el preloader se ve una vez por carga.
  * La capa viene en el HTML estático y solo se omite en montajes posteriores del
  * cliente, así que la hidratación siempre coincide.
  */

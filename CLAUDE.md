@@ -2,7 +2,7 @@
 
 ## Proyecto
 
-Portafolio estático con tema cyberpunk, en español e inglés (rutas /es y /en).
+Portafolio estático con tema cyberpunk, solo en español (página única en "/"; /es y /en redirigen a "/").
 
 ## Stack
 
@@ -16,24 +16,24 @@ Next.js (App Router, `output: "export"`), TypeScript, Tailwind CSS, Motion (`mot
 
 ## Estructura
 
-- `app/`: solo rutas, layouts y metadata (`[lang]` para /es y /en; `(root)` redirige).
+- `app/`: solo rutas, layouts y metadata (`layout.tsx` y `page.tsx` en la raíz; `global-not-found.tsx` para la 404).
 - `components/sections/`: una sección de la página por archivo. Las que tienen varias piezas van en subcarpeta (`experience/`, `projects/`, `contact/`). `sectionStyles.ts` guarda las clases compartidas.
-- `components/layout/`: chrome fijo del sitio (navbar, idioma, tema).
+- `components/layout/`: chrome fijo del sitio (navbar, tema).
 - `components/providers/`: configuración global sin UI propia (`MotionProvider`, `ThemeScript`).
 - `components/ui/`: piezas reutilizables sin lógica de página (botones, imágenes, decorativos).
 - `components/motion/`: envoltorios de animación reutilizables (`FadeIn`, `AnimatedText`, `Magnet`).
 - `components/preloader/`: vista (`Preloader.tsx`), motor DOM (`engine.ts`) y bloqueo de scroll (`scrollLock.ts`).
 - `lib/server/`: solo build (`node:fs`). Un componente cliente solo puede hacer `import type` de aquí.
 - `lib/config/`: configuración del sitio (URL, variables `NEXT_PUBLIC_`, fuentes).
-- `lib/i18n/`: diccionarios (`@/lib/i18n`) y lógica de idiomas apta para cliente (`@/lib/i18n/locales`).
+- `lib/i18n/`: textos (`@/lib/i18n`) e idioma y secciones aptos para cliente (`@/lib/i18n/locales`).
 - `lib/hooks/`: hooks de cliente.
 - `lib/preloader/`: `config.ts` (escenas y tiempos editables) y `timeline.ts` (cálculo).
 - `lib/animations.ts`, `lib/theme.ts`, `lib/text.ts`: utilidades compartidas entre servidor y cliente.
-- `content/`: textos (JSON por idioma). `public/`: estáticos. `scripts/`: comprobaciones del build.
+- `content/`: textos (`es.json`). `public/`: estáticos. `scripts/`: comprobaciones del build.
 
 ## Reglas
 
-- Los textos viven en `content/es.json` y `content/en.json`, nunca dentro de los componentes.
+- Los textos viven en `content/es.json`, nunca dentro de los componentes.
 - Todo componente animado respeta `prefers-reduced-motion`.
 - Nada parpadea rápido; el texto cumple contraste mínimo de 4.5:1.
 - Navegación completa con teclado y etiquetas accesibles.

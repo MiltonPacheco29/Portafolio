@@ -1,6 +1,6 @@
 # Portafolio
 
-Portafolio personal estático con tema cyberpunk (oscuro) y de papel impreso (claro), en español e inglés (`/es` y `/en`).
+Portafolio personal estático con tema cyberpunk (oscuro) y de papel impreso (claro), en español.
 
 - **Stack:** Next.js 16 (App Router, `output: "export"`), React 19, TypeScript, Tailwind CSS v4, Motion y GSAP.
 - **Sin backend propio:** el formulario de contacto usa Formspree con Cloudflare Turnstile.
@@ -88,10 +88,10 @@ El formulario solo se activa si están definidas las dos primeras.
 ## Estructura
 
 ```
-app/                  Rutas, layouts y metadata ([lang] = /es y /en)
+app/                  Layout, página, 404, sitemap y robots
 components/
   sections/           Una sección de la página por archivo (experience/, projects/, contact/)
-  layout/             Navbar, selector de idioma y de tema
+  layout/             Navbar y selector de tema
   providers/          Configuración global sin UI (Motion, script del tema)
   ui/                 Piezas reutilizables (botones, imágenes, decorativos)
   motion/             Envoltorios de animación (FadeIn, AnimatedText, Magnet)
@@ -99,10 +99,10 @@ components/
 lib/
   server/             Solo build (lee public/ con node:fs)
   config/             URL del sitio, variables públicas y fuentes
-  i18n/               Diccionarios y lógica de idiomas
+  i18n/               Textos, idioma del sitio y lista de secciones
   hooks/              Hooks de cliente
   preloader/          Escenas y tiempos (config.ts) y cálculo de la timeline
-content/              Textos en es.json y en.json
+content/              Textos en es.json
 public/               Estáticos (WebP, cabeceras y redirecciones de Cloudflare)
 scripts/              Comprobaciones del build
 ```
@@ -111,6 +111,6 @@ Las reglas del proyecto están en `CLAUDE.md` y la dirección de arte y los toke
 
 ## Editar contenido
 
-- **Textos:** `content/es.json` y `content/en.json` deben tener las mismas claves; si no, el build falla. Los valores con `[POR COMPLETAR]` se muestran como pendientes.
+- **Textos:** todos en `content/es.json`. Los valores con `[POR COMPLETAR]` se muestran como pendientes.
 - **Imágenes:** en WebP dentro de `public/`. Sus dimensiones se leen en el build.
 - **Preloader:** las escenas, el montaje, el cierre y la apertura están en `lib/preloader/config.ts`. Abre la página con `?debug` para ver en consola la timeline y los tiempos reales. Con `prefers-reduced-motion` no se muestra.

@@ -13,8 +13,7 @@ const onServer = () => true;
  * `beforeInteractive` lo ejecuta el runtime de Next y llegaría tarde.
  *
  * Solo se renderiza en el HTML del servidor (y al hidratarlo). Si React lo
- * monta en el navegador, por ejemplo al cambiar /es ↔ /en (Next vuelve a montar
- * el layout raíz), devuelve null: un <script> creado por React no se ejecuta y
+ * monta en el navegador (si Next vuelve a montar el layout raíz), devuelve null: un <script> creado por React no se ejecuta y
  * React 19 avisa por ello. No hace falta: el script ya corrió al cargar la
  * página y su MutationObserver sigue activo.
  */

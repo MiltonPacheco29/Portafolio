@@ -1,15 +1,13 @@
 import { AvatarImage } from "@/components/ui/AvatarImage";
 import { ContactButton } from "@/components/ui/ContactButton";
 import { Magnet } from "@/components/motion/Magnet";
-import type { Dictionary } from "@/lib/i18n";
+import { siteLang, type Dictionary } from "@/lib/i18n";
 import type { LocalImage } from "@/lib/server/images";
 import { fillTemplate, isPending } from "@/lib/text";
 
 type HeroProps = {
   hero: Dictionary["hero"];
   titleId: string;
-  /** Idioma de la página: el subtítulo lleva lang propio si difiere. */
-  lang: string;
   avatar: LocalImage | null;
   contactHref: string;
   contactLabel: string;
@@ -32,7 +30,7 @@ function splitTitle(title: string): [string, string] {
  * sin JS se ve todo y con movimiento reducido no se anima.
  * Por debajo de lg el avatar entra en el flujo (no tapa la barra inferior).
  */
-export function Hero({ hero, titleId, lang, avatar, contactHref, contactLabel }: HeroProps) {
+export function Hero({ hero, titleId, avatar, contactHref, contactLabel }: HeroProps) {
   const [line1, line2] = splitTitle(hero.title);
   const since = isPending(hero.meta.year) ? hero.meta.year : fillTemplate(hero.meta.since, { year: hero.meta.year });
   const meta = [hero.meta.city, since];
@@ -62,7 +60,7 @@ export function Hero({ hero, titleId, lang, avatar, contactHref, contactLabel }:
 
       <div className="relative z-20 mt-auto flex flex-col gap-6 px-gutter pt-8 pb-7 sm:pb-8 md:pb-10 lg:flex-row lg:items-end lg:justify-between">
         <div className="enter flex flex-col gap-3 [--enter-delay:0.35s] [--enter-y:20px] lg:max-w-[calc(50%-13rem)] xl:max-w-[calc(50%-15.5rem)]">
-          <p lang={hero.subtitleLang !== lang ? hero.subtitleLang : undefined} className="font-serif text-subtitle text-fg italic">
+          <p lang={hero.subtitleLang !== siteLang ? hero.subtitleLang : undefined} className="font-serif text-subtitle text-fg italic">
             {hero.subtitle}
           </p>
           <p className="max-w-sm text-base text-fg md:text-lg">{hero.tagline}</p>

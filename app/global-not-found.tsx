@@ -2,23 +2,22 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ThemeScript } from "@/components/providers/ThemeScript";
 import { fontVariables } from "@/lib/config/fonts";
-import { defaultLocale, getDictionary, localePath, locales } from "@/lib/i18n";
+import { getDictionary, siteLang } from "@/lib/i18n";
 import "./globals.css";
 
-// 404 para cualquier URL sin ruta (p. ej. /fr/). No pasa por ningún layout,
-// así que carga aquí estilos, fuentes y tema. Idioma principal: español;
-// el bloque en inglés va marcado con su propio lang.
-const main = getDictionary(defaultLocale);
+// 404 para cualquier URL sin ruta. No pasa por el layout raíz (no carga la
+// barra ni el preloader), así que trae aquí estilos, fuentes y tema.
+const { notFound } = getDictionary();
 
 export const metadata: Metadata = {
-  title: main.notFound.title,
+  title: notFound.title,
   robots: { index: false },
 };
 
 export default function GlobalNotFound() {
   return (
     <html
-      lang={defaultLocale}
+      lang={siteLang}
       className={`${fontVariables} h-full antialiased`}
       suppressHydrationWarning
     >
@@ -30,25 +29,13 @@ export default function GlobalNotFound() {
           <p className="font-mono text-display font-bold text-accent" aria-hidden="true">
             404
           </p>
-          {locales.map((locale) => {
-            const dict = getDictionary(locale);
-            const Heading = locale === defaultLocale ? "h1" : "h2";
-            return (
-              <div key={locale} lang={locale} className="flex flex-col items-center gap-2">
-                <Heading className="font-display text-title font-bold">
-                  {dict.notFound.title}
-                </Heading>
-                <p className="text-fg-muted">{dict.notFound.body}</p>
-                <Link
-                  href={localePath(locale)}
-                  hrefLang={locale}
-                  className="text-primary underline underline-offset-4"
-                >
-                  {dict.notFound.back}
-                </Link>
-              </div>
-            );
-          })}
+          <div className="flex flex-col items-center gap-2">
+            <h1 className="font-display text-title font-bold">{notFound.title}</h1>
+            <p className="text-fg-muted">{notFound.body}</p>
+            <Link href="/" className="text-primary underline underline-offset-4">
+              {notFound.back}
+            </Link>
+          </div>
         </main>
       </body>
     </html>
