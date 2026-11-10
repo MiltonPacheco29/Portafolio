@@ -13,7 +13,6 @@ type ProjectListProps = Pick<Projects, "items" | "labels" | "filters"> & {
   media: Record<string, ProjectMedia[]>;
 };
 
-// Apilado solo desde md: en móvil las tarjetas son más altas que la pantalla.
 const STACK_QUERY = "(min-width: 48rem)";
 
 function subscribeStack(onChange: () => void) {
@@ -22,12 +21,6 @@ function subscribeStack(onChange: () => void) {
   return () => media.removeEventListener("change", onChange);
 }
 
-/**
- * Proyectos con filtro por tecnología y tarjetas apiladas.
- * - Filtros: botones nativos con aria-pressed; el recuento vive en role="status".
- * - Apilado (sticky + escala con useScroll/useTransform) solo desde md y sin
- *   movimiento reducido; si no, es una lista normal. Sin JS se ven todos.
- */
 export function ProjectList({ items, labels, filters, media }: ProjectListProps) {
   const [active, setActive] = useState<string | null>(null);
   const labelId = useId();
@@ -57,7 +50,6 @@ export function ProjectList({ items, labels, filters, media }: ProjectListProps)
             : "border-border-strong text-fg hover:border-primary hover:text-primary"
         }`}
       >
-        {/* Además del relleno, una marca visible indica el filtro activo (no solo el color). */}
         <span aria-hidden="true">{pressed ? "■" : "□"}</span>
         {text}
       </button>

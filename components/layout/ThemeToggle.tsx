@@ -30,7 +30,6 @@ function storeTheme(theme: Theme) {
   try {
     window.localStorage.setItem(THEME_STORAGE_KEY, theme);
   } catch {
-    // Almacenamiento bloqueado o lleno: el cambio solo dura esta visita.
   }
 }
 
@@ -41,7 +40,6 @@ function applyTheme(theme: Theme) {
 export function ThemeToggle({ labels }: ThemeToggleProps) {
   const theme = useTheme();
 
-  // Mientras la persona no elija, el sitio sigue los cambios del sistema.
   useEffect(() => {
     let media: MediaQueryList;
     try {
@@ -75,7 +73,6 @@ export function ThemeToggle({ labels }: ThemeToggleProps) {
       title={label}
       className="inline-flex size-11 items-center justify-center rounded-sm border border-border-strong text-fg hover:border-primary hover:text-primary motion-safe:transition-colors"
     >
-      {/* Los iconos dependen del CSS (data-theme), así no parpadean antes de hidratar. */}
       <svg
         aria-hidden="true"
         focusable="false"

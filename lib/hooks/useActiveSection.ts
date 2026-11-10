@@ -3,9 +3,6 @@
 import { useSyncExternalStore } from "react";
 import { isSectionKey, type SectionKey } from "@/lib/i18n/locales";
 
-// Sección visible: la última cuyo borde superior pasó el 40 % de la ventana.
-// Las secciones se marcan con data-section="<clave>" en app/page.tsx.
-
 function subscribe(onChange: () => void) {
   let frame = 0;
   const schedule = () => {
@@ -32,7 +29,6 @@ function getActiveSection(): SectionKey | null {
   for (const section of sections) {
     if (section.getBoundingClientRect().top <= line) active = section.dataset.section;
   }
-  // Al llegar al final, la última sección cuenta aunque sea corta.
   const atBottom =
     window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
   if (atBottom) active = sections[sections.length - 1].dataset.section;

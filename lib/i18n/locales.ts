@@ -1,9 +1,5 @@
-// Idioma y secciones sin diccionario: se puede importar desde componentes cliente.
-
-/** Idioma del sitio (atributo lang, Intl y widgets externos). */
 export const siteLang = "es";
 
-// Orden en que aparecen las secciones en la página de inicio.
 export const sectionKeys = [
   "home",
   "about",

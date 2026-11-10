@@ -1,15 +1,8 @@
-/**
- * Timeline del preloader calculada a partir de config.ts: inicios absolutos de
- * cada escena y labels. Pura (sin DOM): nunca se escribe un tiempo a mano.
- */
 import { PRELOADER, type PreloaderConfig } from "@/lib/preloader/config";
 
 export type TimelineEntry = {
-  /** Índice en SCENES. */
   scene: number;
-  /** "intro", "pass2", "pass3"… */
   pass: string;
-  /** Inicio absoluto en ms desde el primer corte. */
   start: number;
   duration: number;
 };
@@ -18,7 +11,6 @@ type Phase = { start: number; duration: number; easing: string };
 
 export type Timeline = {
   entries: TimelineEntry[];
-  /** intro, montage, pass2…, collapse, open (si hay apertura) y complete. */
   labels: Record<string, number>;
   totalDuration: number;
   collapse: Phase;
@@ -48,7 +40,6 @@ export function buildTimeline(config: PreloaderConfig = PRELOADER): Timeline {
   });
   const scenesEnd = t;
 
-  // Sin montaje el cierre solapado no tiene sentido: se usa siempre "end".
   const overlap = config.collapse.start === "montage" && config.montage.length > 0;
   const collapse: Phase = overlap
     ? { start: introEnd, duration: scenesEnd - introEnd, easing: config.collapse.overlapEasing }

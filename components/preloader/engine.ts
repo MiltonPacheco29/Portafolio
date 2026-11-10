@@ -2,39 +2,23 @@ import { lockScroll } from "@/components/preloader/scrollLock";
 import { PRELOADER, SCENES } from "@/lib/preloader/config";
 import { buildTimeline, type TimelineEntry } from "@/lib/preloader/timeline";
 
-/** Lo pone el motor al tomar el control: desde ahí el bloqueo de scroll del CSS deja de aplicarse. */
 export const PRELOADER_STARTED_ATTR = "data-preloader-started";
 
 export type PreloaderElements = {
   overlay: HTMLElement;
-  /** Franja que se cierra; contiene las escenas. */
   stage: HTMLElement;
   curtains: [top: HTMLElement, bottom: HTMLElement];
-  /** Una por escena de SCENES, en el mismo orden. */
   scenes: (HTMLElement | null)[];
   words: HTMLElement[];
   images: HTMLImageElement[];
 };
 
 export type PlayOptions = {
-  /** font-family de las palabras, para cargarla antes de empezar. */
   fontFamily: string;
-  /** Imprime la timeline y los tiempos reales en consola. */
   debug: boolean;
-  /** Solo si la secuencia termina (no al llamar a la función de limpieza). */
   onComplete: () => void;
 };
 
-/**
- * Motor imperativo del preloader (sin React):
- * - Un único bucle de requestAnimationFrame recorre una timeline de inicios
- *   absolutos (lib/preloader/timeline.ts) y activa una escena por corte.
- * - El cierre (clip-path de la franja) y la apertura (cortinas) son Web
- *   Animations ancladas a sus labels con startTime, en el mismo reloj que rAF.
- * - Espera fuentes, `load` e imágenes decodificadas (con tope) antes de empezar,
- *   nunca durante; pausa todo si la pestaña se oculta.
- * Devuelve la limpieza: cancela todo y restaura el DOM y el scroll.
- */
 export function playPreloader(elements: PreloaderElements, options: PlayOptions): () => void {
   const { overlay, stage, curtains, scenes, words, images } = elements;
   const [curtainTop, curtainBottom] = curtains;
@@ -84,20 +68,16 @@ export function playPreloader(elements: PreloaderElements, options: PlayOptions)
     );
   }
 
-  // --- Bloqueo de scroll ---
-  // Hasta aquí lo bloqueaba el CSS (body:has(> [data-preloader]…)); desde ahora
-  // lo lleva el estilo inline, que se quita junto con la compensación.
   const unlock = lockScroll();
   overlay.setAttribute(PRELOADER_STARTED_ATTR, "");
 
-  // --- Ajuste al ancho: ningún texto pasa del 90 % de la ventana ---
   const fitWords = () => {
     const max = 0.9 * window.innerWidth;
     for (const word of words) word.style.fontSize = "";
     const sizes = words.map((word) => {
       const style = getComputedStyle(word);
       const stretch = parseFloat(style.getPropertyValue("--stretch")) || 1;
-      const width = word.offsetWidth * stretch; // offsetWidth ignora transform y scale
+      const width = word.offsetWidth * stretch;
       return width > max ? (parseFloat(style.fontSize) * max) / width : 0;
     });
     words.forEach((word, i) => {
@@ -107,11 +87,9 @@ export function playPreloader(elements: PreloaderElements, options: PlayOptions)
   fitWords();
   listen(window, "resize", fitWords);
 
-  // --- Cortes ---
   const show = (entry: TimelineEntry) => {
     const scene = scenes[entry.scene];
     if (!scene) return;
-    // Quitar y poner en la misma tarea: nunca hay 0 ni 2 escenas visibles.
     if (active && active !== scene) active.removeAttribute("data-active");
     scene.style.setProperty("--frame-dur", `${entry.duration}ms`);
     scene.setAttribute("data-active", "");
@@ -121,8 +99,6 @@ export function playPreloader(elements: PreloaderElements, options: PlayOptions)
   const finish = () => {
     if (cancelled) return;
     if (debug) {
-      // Fotograma en que terminó la última animación (mismo reloj que t0 y los
-      // cortes) y, aparte, el momento en que se resolvió la promesa.
       const frameTime = Number(document.timeline.currentTime ?? performance.now());
       console.table(
         entries.map((entry, i) => ({
@@ -145,9 +121,6 @@ export function playPreloader(elements: PreloaderElements, options: PlayOptions)
     onComplete();
   };
 
-  // Cierre: la franja (stage) se cierra hacia el centro. El bucle de cortes
-  // sigue, así que con start "montage" el montaje se ve dentro de la franja.
-  // Fuera de ella queda el fondo negro del overlay si hay apertura.
   const startCollapse = (t: number) => {
     detected.collapse = t;
     const target = open ? stage : overlay;
@@ -155,12 +128,10 @@ export function playPreloader(elements: PreloaderElements, options: PlayOptions)
       [{ clipPath: "inset(0 0 0 0)" }, { clipPath: "inset(50% 0 50% 0)" }],
       { duration: collapse.duration, easing: collapse.easing, fill: "forwards" },
     );
-    // Mismo reloj que el timestamp de rAF: empieza justo en el label, no en este fotograma.
     collapseAnim.startTime = t0 + collapse.start;
     if (!open) collapseAnim.finished.then(finish, () => {});
   };
 
-  // Apertura: el overlay se vuelve transparente y dos cortinas negras se separan.
   const startOpen = (t: number) => {
     if (!open) return;
     detected.open = t;
@@ -195,13 +166,11 @@ export function playPreloader(elements: PreloaderElements, options: PlayOptions)
     }
     if (!collapseAnim && t >= collapse.start) startCollapse(t);
     if (open && openAnims.length === 0 && t >= open.start) startOpen(t);
-    // El bucle sigue hasta que no quedan cortes ni animaciones por lanzar.
     const pending =
       current < lastIndex || !collapseAnim || (open !== null && openAnims.length === 0);
     if (pending) raf = requestAnimationFrame(frame);
   };
 
-  // --- Pestaña oculta: timeline, cierre y apertura se pausan ---
   listen(document, "visibilitychange", () => {
     if (document.hidden) {
       if (t0 < 0 || hiddenAt >= 0) return;
@@ -228,7 +197,6 @@ export function playPreloader(elements: PreloaderElements, options: PlayOptions)
     else raf = requestAnimationFrame(frame);
   };
 
-  // --- Espera de recursos (solo antes de empezar) ---
   const markFailed = (img: HTMLImageElement) => {
     img.closest("[data-scene]")?.setAttribute("data-failed", "");
   };
@@ -245,7 +213,6 @@ export function playPreloader(elements: PreloaderElements, options: PlayOptions)
           img.decode().then(resolve, resolve);
         }
       };
-      // La imagen puede haber terminado antes de hidratar: no basta con onLoad.
       if (img.complete) settle();
       else {
         listen(img, "load", settle, { once: true });

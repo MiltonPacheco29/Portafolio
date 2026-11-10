@@ -16,12 +16,6 @@ type ExperienceTimelineProps = {
   stackLabel: string;
 };
 
-/**
- * Línea de tiempo vertical. Animaciones sutiles (solo sin prefers-reduced-motion):
- * - la línea de acento se rellena al ritmo del scroll;
- * - cada puesto aparece una vez con un leve fundido y desplazamiento al entrar.
- * El HTML del servidor muestra todo visible: sin JS o con movimiento reducido no se oculta nada.
- */
 export function ExperienceTimeline({ items, achievementsLabel, stackLabel }: ExperienceTimelineProps) {
   const root = useRef<HTMLDivElement>(null);
 
@@ -42,7 +36,6 @@ export function ExperienceTimeline({ items, achievementsLabel, stackLabel }: Exp
         );
 
         for (const item of gsap.utils.toArray<HTMLElement>("[data-timeline-item]")) {
-          // Lo que ya está en pantalla al cargar (p. ej. entrando por #experiencia) no se oculta.
           if (item.getBoundingClientRect().top < window.innerHeight * 0.85) continue;
           const trigger = { trigger: item, start: "top 85%", once: true };
           gsap.from(item, { opacity: 0, y: 24, duration: 0.6, ease: "power2.out", scrollTrigger: trigger });
@@ -60,7 +53,6 @@ export function ExperienceTimeline({ items, achievementsLabel, stackLabel }: Exp
 
   return (
     <div ref={root} className="relative pl-10">
-      {/* Línea base y línea de progreso (decorativas) */}
       <span aria-hidden="true" className="absolute top-2 bottom-2 left-[0.6875rem] w-0.5 bg-border-strong" />
       <span
         aria-hidden="true"

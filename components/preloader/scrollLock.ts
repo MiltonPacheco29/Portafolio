@@ -1,4 +1,3 @@
-/** Elementos `position: fixed` que reciben la misma compensación de la barra de scroll. */
 export const SCROLL_LOCK_COMPENSATE_SELECTOR = "[data-scroll-lock-compensate]";
 
 function measureScrollbar(): number {
@@ -10,13 +9,6 @@ function measureScrollbar(): number {
   return width;
 }
 
-/**
- * Bloquea el scroll de la página sin salto horizontal: si la página tiene
- * scroll, suma el ancho de la barra como padding-right en <body> y en los
- * elementos fijos marcados. No usa `scrollbar-gutter: stable` (ese hueco se
- * pinta por encima de las capas fijas).
- * Devuelve `unlock`, que quita padding y bloqueo en el mismo paso; es idempotente.
- */
 export function lockScroll(): () => void {
   const { body, documentElement: root } = document;
   const compensated = [

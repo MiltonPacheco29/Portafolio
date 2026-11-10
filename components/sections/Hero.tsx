@@ -13,23 +13,11 @@ type HeroProps = {
   contactLabel: string;
 };
 
-/** "HOLA, SOY MILTON" → ["HOLA, SOY", "MILTON"]: la última palabra va en su propia línea. */
 function splitTitle(title: string): [string, string] {
   const at = title.trimEnd().lastIndexOf(" ");
   return at > 0 ? [title.slice(0, at), title.slice(at + 1)] : [title, ""];
 }
 
-/**
- * Hero a pantalla completa con composición de póster:
- * - nombre gigante en dos líneas (Archivo 900 comprimido, tamaño en vw);
- * - avatar centrado abajo, delante de la segunda línea, dentro de Magnet
- *   (apagado en táctil y con movimiento reducido);
- * - barra inferior: subtítulo en serif cursiva y frase a la izquierda;
- *   metadatos y botón de contacto a la derecha.
- * Entrada escalonada con CSS (.enter): el HTML del servidor no sale oculto,
- * sin JS se ve todo y con movimiento reducido no se anima.
- * Por debajo de lg el avatar entra en el flujo (no tapa la barra inferior).
- */
 export function Hero({ hero, titleId, avatar, contactHref, contactLabel }: HeroProps) {
   const [line1, line2] = splitTitle(hero.title);
   const since = isPending(hero.meta.year) ? hero.meta.year : fillTemplate(hero.meta.since, { year: hero.meta.year });

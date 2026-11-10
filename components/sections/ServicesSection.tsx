@@ -5,11 +5,6 @@ import { sectionTitleClass } from "@/components/sections/sectionStyles";
 
 type ServicesSectionProps = { services: Dictionary["sections"]["services"] };
 
-/**
- * Qué hago: superficie invertida (lavanda en oscuro, tinta en claro) con las
- * esquinas superiores redondeadas. Lista numerada: el número grande es visual
- * (aria-hidden); la numeración semántica la da <ol>.
- */
 export function ServicesSection({ services }: ServicesSectionProps) {
   const titleId = `${services.id}-title`;
 

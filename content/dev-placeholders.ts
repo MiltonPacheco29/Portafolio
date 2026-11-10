@@ -1,15 +1,3 @@
-/**
- * TEMPORAL: imágenes de prueba SOLO para `npm run dev`.
- *
- * - Nunca se importan desde componentes cliente: solo las lee lib/devPlaceholders.ts
- *   (servidor) cuando NODE_ENV === "development". En producción no entran al build.
- * - `npm run build` y la CI fallan si out/ contiene higgs.ai, figma.site o cloudfront
- *   (scripts/check-placeholders.mjs).
- * - Reemplazar por imágenes propias en WebP dentro de public/ (ver DESIGN.md §8)
- *   y borrar este archivo.
- */
-
-/** 3 imágenes por proyecto, en el orden de content/*.json: [arriba izq., abajo izq., derecha]. */
 export const devProjectImages: readonly (readonly [string, string, string])[] = [
   [
     "https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_055344_5eff02e0-87a5-41ce-b64f-eb08da8f33db.png&w=1280&q=85",
@@ -28,7 +16,6 @@ export const devProjectImages: readonly (readonly [string, string, string])[] = 
   ],
 ];
 
-/** Decorativos de las esquinas de "Sobre mí". */
 export const devAboutDecor = {
   topLeft: "https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/moon_icon.11395d36.png",
   bottomLeft: "https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/p59_1.4659672e.png",

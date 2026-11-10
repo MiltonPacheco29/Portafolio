@@ -1,20 +1,12 @@
 type CvBarcodeLinkProps = {
-  /** Ruta del archivo, o null si todavía no existe (se muestra desactivado). */
   href: string | null;
-  /** Nombre accesible completo: "Descargar CV (PDF, español, 120 KB)". Empieza por `title`. */
   label: string;
-  /** Texto visible principal: "Descargar CV". */
   title: string;
-  /** Texto visible pequeño: "PDF · ES". */
   caption: string;
   fileLang: string;
   mime?: string;
 };
 
-/**
- * Anchos de barra deterministas a partir de un texto (FNV-1a). Es solo un
- * dibujo: no codifica ningún dato real.
- */
 function barWidths(seed: string, count = 38): number[] {
   let hash = 2166136261;
   const widths: number[] = [];
@@ -26,7 +18,6 @@ function barWidths(seed: string, count = 38): number[] {
   return widths;
 }
 
-/** Posición de cada barra y ancho total del dibujo. */
 function barLayout(seed: string): { bars: { x: number; width: number }[]; total: number } {
   const bars: { x: number; width: number }[] = [];
   let x = 0;
@@ -48,11 +39,6 @@ function Barcode({ seed }: { seed: string }) {
   );
 }
 
-/**
- * Botón de descarga del CV con forma de código de barras.
- * Las barras son decorativas (aria-hidden); el nombre accesible indica tipo de
- * archivo, idioma y tamaño, y contiene el texto visible (WCAG 2.5.3).
- */
 export function CvBarcodeLink({ href, label, title, caption, fileLang, mime }: CvBarcodeLinkProps) {
   const body = (
     <>

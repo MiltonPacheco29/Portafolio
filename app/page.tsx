@@ -35,7 +35,6 @@ export default function HomePage() {
       <AboutSection about={s.about} contactHref={contactHref} contactLabel={cta.contact} />
       <ServicesSection services={s.services} />
       <ExperienceSection experience={s.experience} />
-      {/* Separadores decorativos: rayas diagonales estáticas (aria-hidden). */}
       <StripeDivider />
       <ProjectsSection projects={s.projects} />
       <StripeDivider />

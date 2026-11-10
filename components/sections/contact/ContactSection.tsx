@@ -13,7 +13,6 @@ import { blockTitleClass, sectionClass, sectionTitleClass } from "@/components/s
 type Contact = Dictionary["sections"]["contact"];
 type ContactSectionProps = { contact: Contact; ctaLabel: string };
 
-/** href de un enlace de contacto, o null si el valor sigue pendiente o no es válido. */
 function contactHref(link: Contact["links"][number]): string | null {
   if (isPending(link.value)) return null;
   if (link.kind === "email") return `mailto:${link.value}`;
@@ -27,7 +26,6 @@ export function ContactSection({ contact, ctaLabel }: ContactSectionProps) {
   const cvFile = getPublicFile(contact.cv.file);
   const format = cvFile?.format ?? fileFormat(contact.cv.file);
 
-  // El nombre accesible del CV indica formato e idioma (y el tamaño si el archivo existe).
   const cvLabel = cvFile
     ? fillTemplate(contact.cv.labelWithSize, {
         format,
@@ -48,7 +46,6 @@ export function ContactSection({ contact, ctaLabel }: ContactSectionProps) {
         </FadeIn>
         <p className="mt-6 max-w-prose text-lg text-fg-muted">{contact.intro}</p>
 
-        {/* CTA final: mismo texto que la del Hero; lleva al formulario. */}
         <div className="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-6">
           <p className="font-serif text-subtitle text-fg italic">{contact.ctaIntro}</p>
           <ContactButton href={`#${formTitleId}`} label={ctaLabel} />
@@ -74,7 +71,6 @@ export function ContactSection({ contact, ctaLabel }: ContactSectionProps) {
                         </a>
                       ) : (
                         <span className="py-1 text-fg-muted">
-                          {/* break-all solo en el valor (URL larga); la etiqueta no se parte. */}
                           <span className="break-all">{link.value}</span>{" "}
                           <span className="font-mono text-xs whitespace-nowrap">({contact.pendingLink})</span>
                         </span>

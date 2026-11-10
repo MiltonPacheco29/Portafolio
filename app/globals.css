@@ -1,14 +1,9 @@
 @import "tailwindcss";
 
-/* Las variantes dark: y light: de Tailwind siguen el atributo data-theme de <html>. */
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 @custom-variant light (&:where([data-theme="light"], [data-theme="light"] *));
 
-/* =====================================================================
-   Tokens que no dependen del tema (DESIGN.md §4–§6)
-   ===================================================================== */
 :root {
-  /* Tipografía. next/font define --font-archivo, --font-newsreader y --font-jetbrains en <html>. */
   --font-family-display: var(--font-archivo), "Arial Black", "Segoe UI", system-ui, sans-serif;
   --font-family-serif: var(--font-newsreader), Georgia, "Times New Roman", serif;
   --font-family-body: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
@@ -22,13 +17,13 @@
   --fs-2xl: clamp(1.375rem, 1.2rem + 0.8vw, 1.75rem);
   --fs-3xl: clamp(1.75rem, 1.4rem + 1.6vw, 2.5rem);
   --fs-4xl: clamp(2.25rem, 1.6rem + 3vw, 4rem);
-  --fs-hero: clamp(3.5rem, 17vw, 17rem); /* dos líneas: "HOLA, SOY" / "MILTON" */
+  --fs-hero: clamp(3.5rem, 17vw, 17rem);
   --fs-display: clamp(3rem, 12vw, 10rem);
   --fs-number: clamp(3rem, 10vw, 8.75rem);
   --fs-band: clamp(2.25rem, 6vw, 5.5rem);
   --fs-subtitle: clamp(1.5rem, 1rem + 2.4vw, 3rem);
   --fs-lead: clamp(1.125rem, 1rem + 0.8vw, 1.5rem);
-  --fs-meta: 0.75rem; /* mínimo absoluto: 12 px */
+  --fs-meta: 0.75rem;
 
   --lh-display: 0.88;
   --lh-tight: 1.15;
@@ -38,7 +33,6 @@
   --tracking-mono: 0.04em;
   --tracking-meta: 0.14em;
 
-  /* Espaciado */
   --space-3xs: 0.25rem;
   --space-2xs: 0.5rem;
   --space-xs: 0.75rem;
@@ -52,12 +46,10 @@
   --section-gap: clamp(6rem, 12vw, 10rem);
   --content-max: 72rem;
 
-  /* Barra de navegación fija */
-  --nav-height: 4.5rem; /* alto de la barra expandida: espacio reservado arriba */
-  --nav-float-gap: 0.75rem; /* separación de la cápsula respecto al borde superior */
-  --nav-offset: 5.5rem; /* scroll-margin de las anclas para que no queden debajo */
+  --nav-height: 4.5rem;
+  --nav-float-gap: 0.75rem;
+  --nav-offset: 5.5rem;
 
-  /* Forma */
   --corner-none: 0;
   --corner-sm: 2px;
   --corner-md: 6px;
@@ -67,24 +59,16 @@
   --border-width: 1px;
   --skew: clamp(0.75rem, 2.5vw, 2rem);
   --stripe-height: 0.75rem;
-  --stripe-band: 12px; /* raya de 12 px + hueco de 12 px = periodo de 24 px */
+  --stripe-band: 12px;
 
-  /* Movimiento */
   --ease-fade: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --dur-fade: 0.7s;
   --dur-fast: 200ms;
 
-  /* Grano de papel: ruido estático (no se anima nunca). */
   --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* =====================================================================
-   Tema oscuro (por defecto): cyberpunk "de noche"
-   Contraste (WCAG): fg 16.48:1, fg-muted 8.50:1, primary 13.92:1,
-   accent 6.13:1, highlight 15.40:1 sobre --bg. Degradado de títulos:
-   el tono más oscuro (#7FE9FF) da 14.01:1.
-   ===================================================================== */
 :root,
 :root[data-theme="dark"] {
   color-scheme: dark;
@@ -92,19 +76,18 @@
   --surface: #12142a;
   --fg: #e8eaff;
   --fg-muted: #a3a9cc;
-  --primary: #00f0ff; /* cian */
-  --accent: #ff2bd6; /* magenta */
-  --highlight: #f5e83a; /* amarillo */
-  --red: #ff2bd6; /* en oscuro el "bloque de acento" es magenta */
+  --primary: #00f0ff;
+  --accent: #ff2bd6;
+  --highlight: #f5e83a;
+  --red: #ff2bd6;
   --on-primary: #0a0b14;
   --on-accent: #0a0b14;
   --on-red: #0a0b14;
-  --border: #23264a; /* decorativo */
-  --border-strong: #5a6094; /* controles: 3.30:1 */
+  --border: #23264a;
+  --border-strong: #5a6094;
   --focus: #f5e83a;
   --title-from: #e8eaff;
   --title-to: #7fe9ff;
-  /* Palabras del preloader: el mismo degradado que el título del Hero. */
   --preloader-ink-from: var(--title-from);
   --preloader-ink-to: var(--title-to);
   --stripe: #ff2bd6;
@@ -117,32 +100,24 @@
   --glow-accent: 0 0 18px color-mix(in srgb, var(--accent) 45%, transparent);
 }
 
-/* =====================================================================
-   Tema claro: póster impreso en papel
-   Contraste (WCAG): fg 14.50:1, fg-muted 7.02:1, primary/accent 5.80:1,
-   highlight 5.42:1 sobre --bg. --red (#C8352B) da 4.23:1: NUNCA como texto,
-   solo como fondo con texto blanco (5.25:1) o como forma.
-   Mantener sincronizado con el bloque prefers-color-scheme de abajo.
-   ===================================================================== */
 :root[data-theme="light"] {
   color-scheme: light;
   --bg: #efe6d3;
   --surface: #f7f1e5;
-  --fg: #1a1612; /* tinta */
+  --fg: #1a1612;
   --fg-muted: #524a40;
-  --primary: #a8231b; /* rojo profundo: el único rojo permitido como texto */
+  --primary: #a8231b;
   --accent: #a8231b;
   --highlight: #6b5b00;
-  --red: #c8352b; /* rojo de imprenta */
+  --red: #c8352b;
   --on-primary: #ffffff;
   --on-accent: #ffffff;
   --on-red: #ffffff;
   --border: #d8ccb3;
-  --border-strong: #7a7062; /* 3.92:1 */
+  --border-strong: #7a7062;
   --focus: #a8231b;
   --title-from: #1a1612;
   --title-to: #1a1612;
-  /* Palabras del preloader (siempre sobre negro): rojo plano. */
   --preloader-ink-from: #e33529;
   --preloader-ink-to: #e33529;
   --stripe: #1a1612;
@@ -155,7 +130,6 @@
   --glow-accent: 0 0 0 transparent;
 }
 
-/* Sin JavaScript no hay data-theme: se sigue la preferencia del sistema. */
 @media (prefers-color-scheme: light) {
   :root:not([data-theme]) {
     color-scheme: light;
@@ -188,11 +162,6 @@
   }
 }
 
-/* =====================================================================
-   Superficie invertida (sección "Qué hago"): el tono contrario al tema.
-   Oscuro → lavanda: fg 16.32:1, fg-muted 8.34:1, accent 6.49:1, primary 5.93:1.
-   Claro → tinta: fg 14.50:1, fg-muted 8.22:1, accent/primary 7.07:1.
-   ===================================================================== */
 .surface-inverse,
 :root[data-theme="dark"] .surface-inverse {
   color-scheme: light;
@@ -252,10 +221,6 @@
   }
 }
 
-/* =====================================================================
-   Tokens expuestos a Tailwind (bg-surface, text-fg-muted, font-display,
-   font-serif, text-display, rounded-card, ease-fade…)
-   ===================================================================== */
 @theme inline {
   --color-bg: var(--bg);
   --color-surface: var(--surface);
@@ -318,9 +283,6 @@
   --shadow-glow-accent: var(--glow-accent);
 }
 
-/* =====================================================================
-   Estilos base
-   ===================================================================== */
 @layer base {
   html {
     background-color: var(--bg);
@@ -335,8 +297,6 @@
     overflow-x: clip;
   }
 
-  /* Grano de papel: capa fija por encima de todo (así también cubre las secciones
-     con fondo propio), sin eventos de puntero, estática y sin mix-blend-mode. */
   body::before {
     content: "";
     position: fixed;
@@ -380,11 +340,7 @@
   }
 }
 
-/* =====================================================================
-   Piezas de identidad (DESIGN.md §3.3 y §7)
-   ===================================================================== */
 @layer components {
-  /* Títulos gigantes: Archivo 900 en mayúsculas. */
   .display-title {
     font-family: var(--font-family-display);
     font-size: var(--fs-display);
@@ -395,7 +351,6 @@
     text-transform: uppercase;
   }
 
-  /* Nombre del Hero: aún más grande y comprimido (eje wdth de Archivo). */
   .hero-title {
     font-family: var(--font-family-display);
     font-size: var(--fs-hero);
@@ -404,10 +359,8 @@
     line-height: 0.86;
     letter-spacing: -0.02em;
     text-transform: uppercase;
-    /* Sin nowrap: si una línea no cabe, se parte por los espacios (nunca dentro de una palabra). */
   }
 
-  /* Degradado frío en oscuro; tinta plana en claro (--title-from = --title-to). */
   .title-gradient {
     color: var(--title-from);
     background-image: linear-gradient(180deg, var(--title-from) 0%, var(--title-to) 100%);
@@ -418,7 +371,6 @@
   .title-gradient::selection {
     -webkit-text-fill-color: var(--on-accent);
   }
-  /* Alto contraste de Windows: el texto recortado sería invisible. */
   @media (forced-colors: active) {
     .title-gradient {
       background-image: none;
@@ -426,7 +378,6 @@
     }
   }
 
-  /* Metadatos pequeños: monoespaciada en mayúsculas (por CSS: los lectores no deletrean). */
   .meta {
     font-family: var(--font-family-mono);
     font-size: var(--fs-meta);
@@ -435,7 +386,6 @@
     text-transform: uppercase;
   }
 
-  /* Franja de rayas diagonales (decorativa, estática). */
   .stripes {
     height: var(--stripe-height);
     background-image: repeating-linear-gradient(
@@ -445,7 +395,6 @@
     );
   }
 
-  /* Etiqueta vertical decorativa. */
   .vertical-label {
     writing-mode: vertical-rl;
     font-family: var(--font-family-mono);
@@ -456,12 +405,10 @@
     white-space: nowrap;
   }
 
-  /* Panel inclinado: siempre en la capa de la imagen, nunca en un contenedor con enlaces. */
   .panel-skew {
     clip-path: polygon(var(--skew) 0, 100% 0, calc(100% - var(--skew)) 100%, 0 100%);
   }
 
-  /* Marcador de imagen (producción o imagen pendiente): degradado plano + rayas del tema. */
   .placeholder-surface {
     background-color: var(--surface);
     background-image:
@@ -473,8 +420,6 @@
       linear-gradient(160deg, var(--surface) 0%, color-mix(in srgb, var(--primary) 18%, var(--surface)) 100%);
   }
 
-  /* Revelado por carácter (AnimatedText). --reveal va de 0 a 1 con el scroll;
-     sin JS o con movimiento reducido vale 1. Opacidad mínima 0.65: 4.5:1 en ambos temas. */
   .reveal {
     --reveal: 1;
   }
@@ -483,18 +428,10 @@
   }
 }
 
-/* Franja de skills: posición base (una copia a la izquierda) para que no
-   queden huecos. Con JS y sin movimiento reducido, SkillsMarquee la sustituye
-   por un desplazamiento en px ligado al scroll. */
 .marquee-row {
   transform: translate3d(-33.333%, 0, 0);
 }
 
-/* =====================================================================
-   Entrada escalonada (Hero y navbar). Es CSS para que el HTML del servidor
-   no salga oculto: sin JS también se ve, y con movimiento reducido no se anima.
-   Uso: class="enter [--enter-delay:0.15s] [--enter-y:40px]"
-   ===================================================================== */
 @keyframes enter {
   from {
     opacity: 0;
@@ -508,18 +445,10 @@
   }
 }
 
-/* =====================================================================
-   Preloader (components/preloader/, escenas y tiempos en lib/preloader/config.ts).
-   La duración de punch y zoom es --frame-dur, que el JS fija en cada escena
-   al activarla; `inline` hace que var() se resuelva en el elemento animado.
-   Excepción documentada en DESIGN.md §6 (cortes rápidos); con movimiento
-   reducido no se muestra.
-   ===================================================================== */
 @theme inline {
   --animate-preloader-punch: preloader-punch var(--frame-dur) ease-out both;
   --animate-preloader-zoom: preloader-zoom var(--frame-dur) linear both;
 
-  /* Propiedad `scale` (no transform) para no pisar el scaleX del estiramiento. */
   @keyframes preloader-punch {
     from {
       scale: 1.12;
@@ -540,7 +469,7 @@
 }
 
 .preloader-word {
-  --stretch: 1.08; /* lo lee el ajuste al ancho del JS */
+  --stretch: 1.08;
   display: inline-block;
   font-family: var(--font-anton), Impact, "Arial Narrow Bold", sans-serif;
   font-size: 68vh;
@@ -549,10 +478,6 @@
   text-transform: uppercase;
   letter-spacing: -0.01em;
   transform: scaleX(var(--stretch));
-  /* Color según el tema (tokens --preloader-ink-*): rojo plano en claro,
-     degradado del título del Hero en oscuro. El trazo es transparente para que
-     el degradado también rellene la zona del trazo y las letras sigan engrosadas
-     (un trazo de color sólido dibujaría un contorno). */
   color: var(--preloader-ink-from);
   background-image: linear-gradient(
     180deg,
@@ -565,17 +490,12 @@
   -webkit-text-stroke: 0.012em transparent;
 }
 
-/* Scroll bloqueado desde el primer pintado (antes de hidratar). Cuando el
-   componente toma el control pone data-preloader-started y pasa a bloquearlo con
-   estilo inline más la compensación de la barra. Con movimiento reducido la capa
-   no se muestra y no se bloquea. Sin JS lo anula el <noscript> del componente. */
 @media (prefers-reduced-motion: no-preference) {
   body:has(> [data-preloader]:not([data-preloader-started])) {
     overflow: hidden;
   }
 }
 
-/* Alto contraste de Windows: el texto recortado sería invisible. */
 @media (forced-colors: active) {
   .preloader-word {
     background-image: none;
@@ -584,10 +504,6 @@
   }
 }
 
-/* Movimiento reducido: sin animaciones ni transiciones.
-   transition-duration va a 0s (no 0.01ms): con 0.01ms y transition-property: all
-   (valor inicial) el navegador crea transiciones nuevas y pinta un fotograma
-   intermedio antes de saltar al valor final. */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

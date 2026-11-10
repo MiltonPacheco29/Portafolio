@@ -15,7 +15,6 @@ import { useTheme } from "@/lib/hooks/useTheme";
 type FormTexts = Dictionary["sections"]["contact"]["form"];
 type ContactFormProps = {
   texts: FormTexts;
-  /** Imagen del estado de éxito (leída en el build), o null si aún falta el archivo. */
   successImage: LocalImage | null;
 };
 
@@ -56,13 +55,6 @@ function validate(values: Values, token: string | null, t: FormTexts["errors"]):
   return errors;
 }
 
-/**
- * Formulario de contacto sin backend propio: envía a Formspree por fetch.
- * - Validación en el cliente (noValidate): errores enlazados con aria-describedby,
- *   aria-invalid, resumen con role="alert" y foco en el primer campo con error.
- * - Antispam: honeypot _gotcha (Formspree descarta el envío si viene relleno) y
- *   Cloudflare Turnstile; Formspree verifica el token con la clave secreta guardada en su panel.
- */
 export function ContactForm({ texts, successImage }: ContactFormProps) {
   const id = useId();
   const [values, setValues] = useState<Values>(EMPTY);
@@ -79,7 +71,6 @@ export function ContactForm({ texts, successImage }: ContactFormProps) {
   const turnstileErrorRef = useRef<HTMLParagraphElement>(null);
   const showForm = status !== "success";
 
-  // Turnstile: se (re)renderiza con el tema y el idioma del sitio.
   useEffect(() => {
     const container = widgetRef.current;
     if (!scriptReady || !turnstileKey || !container || !window.turnstile || !showForm) return;
@@ -106,7 +97,6 @@ export function ContactForm({ texts, successImage }: ContactFormProps) {
     };
   }, [scriptReady, theme, showForm]);
 
-  // Al enviar con éxito, el foco va al título del mensaje de éxito (lo anuncian los lectores).
   useEffect(() => {
     if (status === "success") successRef.current?.focus();
   }, [status]);
@@ -119,7 +109,6 @@ export function ContactForm({ texts, successImage }: ContactFormProps) {
   const update = (field: Field, value: string) => {
     const next = { ...values, [field]: value };
     setValues(next);
-    // Tras el primer intento, los errores se actualizan mientras se corrige.
     if (attempted) setErrors(validate(next, token, texts.errors));
   };
 
@@ -134,7 +123,6 @@ export function ContactForm({ texts, successImage }: ContactFormProps) {
     const form = event.currentTarget;
     const data = new FormData(form);
 
-    // Honeypot relleno: es un bot. Se finge éxito sin enviar nada.
     if (String(data.get("_gotcha") ?? "").trim()) {
       setStatus("success");
       return;
@@ -167,7 +155,6 @@ export function ContactForm({ texts, successImage }: ContactFormProps) {
       setErrors({});
       setStatus("success");
     } catch {
-      // Los datos siguen en el formulario; el token de Turnstile es de un solo uso.
       setStatus("error");
       resetTurnstile();
     }
@@ -205,7 +192,6 @@ export function ContactForm({ texts, successImage }: ContactFormProps) {
   const errorText = (field: Field | "turnstile", errorId: string, ref?: Ref<HTMLParagraphElement>) =>
     errors[field] ? (
       <p id={errorId} ref={ref} tabIndex={ref ? -1 : undefined} className="flex gap-1 text-sm text-accent outline-none">
-        {/* Además del color, un icono y el texto indican el error. */}
         <span aria-hidden="true">⚠</span>
         {errors[field]}
       </p>
@@ -296,7 +282,6 @@ export function ContactForm({ texts, successImage }: ContactFormProps) {
           {errorText("message", fieldIds("message").error)}
         </div>
 
-        {/* Honeypot: invisible y fuera del orden de tabulación; las personas no lo ven ni lo rellenan. */}
         <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
           <label>
             {texts.honeypot}
@@ -304,7 +289,6 @@ export function ContactForm({ texts, successImage }: ContactFormProps) {
           </label>
         </div>
 
-        {/* Turnstile: alto reservado (65 px) para que el widget no desplace el formulario al cargar. */}
         <div className="flex flex-col gap-1">
           <div ref={widgetRef} aria-label={texts.turnstile} role="group" className="min-h-[65px]" />
           {turnstileFailed && <p className="text-sm text-accent">{texts.errors.turnstileFailed}</p>}
@@ -332,7 +316,6 @@ export function ContactForm({ texts, successImage }: ContactFormProps) {
             )}
             {submitting ? texts.sending : texts.submit}
           </button>
-          {/* Anuncia el envío a lectores de pantalla. */}
           <p role="status" className="sr-only">
             {submitting ? texts.sending : ""}
           </p>

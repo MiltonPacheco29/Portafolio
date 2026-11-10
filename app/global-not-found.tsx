@@ -5,8 +5,6 @@ import { fontVariables } from "@/lib/config/fonts";
 import { getDictionary, siteLang } from "@/lib/i18n";
 import "./globals.css";
 
-// 404 para cualquier URL sin ruta. No pasa por el layout raíz (no carga la
-// barra ni el preloader), así que trae aquí estilos, fuentes y tema.
 const { notFound } = getDictionary();
 
 export const metadata: Metadata = {

@@ -8,11 +8,6 @@ import { blockTitleClass, sectionClass, sectionTitleClass } from "@/components/s
 
 type ExperienceSectionProps = { experience: Dictionary["sections"]["experience"] };
 
-/**
- * Experiencia: se superpone a la sección invertida anterior con esquinas
- * superiores redondeadas. Línea de tiempo (GSAP, ya respeta movimiento
- * reducido) y formación.
- */
 export function ExperienceSection({ experience }: ExperienceSectionProps) {
   const titleId = `${experience.id}-title`;
   const image = getLocalImage(experience.image.src);

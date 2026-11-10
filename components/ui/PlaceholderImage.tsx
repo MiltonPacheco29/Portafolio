@@ -4,27 +4,18 @@ import type { LocalImage } from "@/lib/server/images";
 export type PlaceholderVariant = "avatar" | "photo" | "circle" | "ring" | "block" | "bars";
 
 type PlaceholderImageProps = {
-  /** Imagen local con dimensiones reales (lib/server/images.ts), o null si aún no existe. */
   image: LocalImage | null;
-  /** Solo en desarrollo: URL de prueba TEMPORAL (content/dev-placeholders.ts). En producción llega null. */
   devSrc?: string | null;
-  /** Texto alternativo; vacío = decorativa (se oculta a lectores de pantalla). */
   alt: string;
-  /** Aviso visible cuando falta la imagen (texto de content/*.json). */
   pending?: string;
   variant?: PlaceholderVariant;
-  /** Clases del contenedor (tamaño, proporción, forma). */
   className?: string;
-  /** Clases del <img> (object-fit, etc.). */
   imgClassName?: string;
-  /** Precarga (solo para la imagen principal del Hero). */
   preload?: boolean;
   sizes?: string;
-  /** false: marcador sin fondo (silueta sobre lo que haya detrás, p. ej. el título del Hero). */
   surface?: boolean;
 };
 
-/** Silueta de persona para los avatares que faltan. */
 function Silhouette() {
   return (
     <svg aria-hidden="true" focusable="false" viewBox="0 0 100 125" className="h-3/4 w-auto text-fg-muted" fill="currentColor">
@@ -34,7 +25,6 @@ function Silhouette() {
   );
 }
 
-/** Formas decorativas hechas con CSS (sustituyen a imágenes externas en producción). */
 function DecorShape({ variant }: { variant: Exclude<PlaceholderVariant, "avatar" | "photo"> }) {
   switch (variant) {
     case "circle":
@@ -48,13 +38,6 @@ function DecorShape({ variant }: { variant: Exclude<PlaceholderVariant, "avatar"
   }
 }
 
-/**
- * Imagen con marcador de posición:
- * 1. imagen local → next/image con width/height reales (sin saltos de diseño);
- * 2. en desarrollo, URL de prueba → <img> sin optimizar (no se configura
- *    remotePatterns para que ningún dominio externo entre al build);
- * 3. si no, marcador CSS con los tokens del tema (rayas, silueta o forma).
- */
 export function PlaceholderImage({
   image,
   devSrc,
@@ -88,7 +71,6 @@ export function PlaceholderImage({
   if (devSrc) {
     return (
       <div className={className}>
-        {/* TEMPORAL: solo en desarrollo. */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={devSrc} alt={alt} loading="lazy" decoding="async" referrerPolicy="no-referrer" className={imgClassName} />
       </div>

@@ -13,8 +13,6 @@ export async function ProjectsSection({ projects }: ProjectsSectionProps) {
   const titleId = `${projects.id}-title`;
   const dev = await getDevPlaceholders();
 
-  // Las imágenes se resuelven en el servidor: el componente cliente solo recibe
-  // datos ya listos (y en producción, ninguna URL de prueba).
   const media: Record<string, ProjectMedia[]> = Object.fromEntries(
     projects.items.map((project, p) => [
       project.slug,

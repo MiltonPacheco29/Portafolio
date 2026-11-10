@@ -11,7 +11,6 @@ type AnimatedTextProps = {
 
 type Word = { chars: string[]; start: number } | { space: string };
 
-/** Separa en palabras (para que no se partan al saltar de línea) y numera los caracteres. */
 function splitText(text: string): { words: Word[]; total: number } {
   const words: Word[] = [];
   let total = 0;
@@ -28,15 +27,6 @@ function splitText(text: string): { words: Word[]; total: number } {
   return { words, total };
 }
 
-/**
- * Párrafo que se revela carácter a carácter con el scroll
- * (offset "start 0.8" → "end 0.2"), de opacidad 0.65 a 1.
- * - Una sola variable CSS (--reveal) en el párrafo; cada carácter calcula su
- *   opacidad en CSS (.reveal-char en globals.css): sin cientos de valores animados.
- * - Accesible: el texto completo va en un span sr-only y los caracteres
- *   animados llevan aria-hidden (aria-label en un <p> no es fiable).
- * - Sin JS o con movimiento reducido, --reveal vale 1 (texto completo).
- */
 export function AnimatedText({ text, className = "" }: AnimatedTextProps) {
   const ref = useRef<HTMLParagraphElement>(null);
   const reduced = usePrefersReducedMotion();

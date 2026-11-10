@@ -12,7 +12,6 @@ const dict = getDictionary();
 const { meta } = dict;
 
 export const metadata: Metadata = {
-  // Base para que las rutas relativas (canonical, og:url) sean absolutas.
   metadataBase: siteUrl,
   title: meta.title,
   description: meta.description,
@@ -36,7 +35,6 @@ const MAIN_ID = "main";
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    // suppressHydrationWarning: ThemeScript pone data-theme antes de que React hidrate.
     <html
       lang={siteLang}
       className={`${fontVariables} h-full antialiased`}
@@ -46,7 +44,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <ThemeScript />
       </head>
       <body className="min-h-full flex flex-col">
-        {/* Primero en el <body>: la capa negra llega en el HTML antes que la landing. */}
         <Preloader />
         <MotionProvider>
           <a
@@ -65,7 +62,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               .map((key) => ({ key, id: dict.sections[key].id, title: dict.sections[key].title }))}
             themeLabels={dict.theme}
           />
-          {/* pt-nav reserva el alto de la barra fija. */}
           <main id={MAIN_ID} tabIndex={-1} className="flex flex-1 flex-col pt-nav outline-none">
             {children}
           </main>

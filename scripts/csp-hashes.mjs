@@ -1,6 +1,3 @@
-// Calcula los hashes SHA-256 de todos los <script> en línea de out/**/*.html
-// y los escribe en out/_headers (sustituye __CSP_SCRIPT_HASHES__). Así la CSP
-// no necesita 'unsafe-inline' en script-src. Se ejecuta en postbuild.
 import { createHash } from "node:crypto";
 import { readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
@@ -8,7 +5,6 @@ import { join } from "node:path";
 const OUT_DIR = "out";
 const HEADERS = join(OUT_DIR, "_headers");
 const TOKEN = "__CSP_SCRIPT_HASHES__";
-// Límite de Cloudflare Pages por línea de _headers.
 const MAX_LINE = 2000;
 
 function* walk(dir) {

@@ -1,10 +1,8 @@
-// Solo para componentes de servidor: se ejecuta en el build (output: "export").
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
 export type LocalImage = { src: string; width: number; height: number };
 
-/** Lee ancho y alto de la cabecera de un WebP (formatos VP8X, VP8 y VP8L). */
 function readWebpSize(buf: Buffer): { width: number; height: number } | null {
   if (buf.toString("ascii", 0, 4) !== "RIFF" || buf.toString("ascii", 8, 12) !== "WEBP") return null;
   const chunk = buf.toString("ascii", 12, 16);
@@ -21,11 +19,6 @@ function readWebpSize(buf: Buffer): { width: number; height: number } | null {
   return null;
 }
 
-/**
- * Imagen de public/ con sus dimensiones reales, leídas en el build, para que
- * <Image> reserve el espacio exacto y no haya saltos de diseño.
- * Devuelve null si el archivo todavía no existe. Falla si no es WebP (regla del proyecto).
- */
 export function getLocalImage(src: string): LocalImage | null {
   const file = join(process.cwd(), "public", src);
   if (!existsSync(file)) return null;

@@ -5,21 +5,13 @@ import { useFinePointer, usePrefersReducedMotion } from "@/lib/animations";
 
 type MagnetProps = {
   children: ReactNode;
-  /** Distancia (px) alrededor del elemento en la que empieza a atraer. */
   padding?: number;
-  /** Divisor del desplazamiento: más alto, movimiento más corto. */
   strength?: number;
   activeTransition?: string;
   inactiveTransition?: string;
   className?: string;
 };
 
-/**
- * Efecto magnético: el contenido sigue al puntero cuando se acerca.
- * Apagado en pantallas táctiles (sin hover o con puntero grueso) y con
- * prefers-reduced-motion. Mueve con transform por ref (sin re-renderizar) y
- * agrupa los eventos con requestAnimationFrame.
- */
 export function Magnet({
   children,
   padding = 150,
@@ -28,7 +20,6 @@ export function Magnet({
   inactiveTransition = "transform 0.6s ease-in-out",
   className = "",
 }: MagnetProps) {
-  // El contenedor exterior no se mueve: se mide él (el interior lleva el transform).
   const outer = useRef<HTMLDivElement>(null);
   const inner = useRef<HTMLDivElement>(null);
   const reduced = usePrefersReducedMotion();

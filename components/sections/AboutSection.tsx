@@ -17,8 +17,6 @@ type AboutSectionProps = {
 
 type Corner = "topLeft" | "bottomLeft" | "topRight" | "bottomRight";
 
-// Decorativos de las esquinas: entran desde su lado (DESIGN.md §6).
-// En producción son formas CSS con los tokens del tema; en desarrollo, imágenes de prueba.
 const CORNERS: { key: Corner; variant: PlaceholderVariant; x: number; delay: number; className: string }[] = [
   { key: "topLeft", variant: "circle", x: -80, delay: 0.1, className: "top-[4%] left-[2%] w-[160px] xl:left-[4%] xl:w-[210px]" },
   { key: "bottomLeft", variant: "block", x: -80, delay: 0.25, className: "bottom-[8%] left-[4%] w-[140px] xl:left-[8%] xl:w-[180px]" },
@@ -26,11 +24,6 @@ const CORNERS: { key: Corner; variant: PlaceholderVariant; x: number; delay: num
   { key: "bottomRight", variant: "bars", x: 80, delay: 0.3, className: "bottom-[8%] right-[4%] w-[170px] xl:right-[8%] xl:w-[220px]" },
 ];
 
-/**
- * Sobre mí: título gigante, avatar, párrafo que se revela por carácter con el
- * scroll y botón de contacto. Los cuatro decorativos solo aparecen desde lg,
- * donde hay sitio a los lados (no se superponen al texto) y son aria-hidden.
- */
 export async function AboutSection({ about, contactHref, contactLabel }: AboutSectionProps) {
   const titleId = `${about.id}-title`;
   const image = getLocalImage(about.image.src);

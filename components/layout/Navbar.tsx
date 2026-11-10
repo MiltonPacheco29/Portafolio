@@ -27,11 +27,9 @@ type NavbarProps = {
   themeLabels: ComponentProps<typeof ThemeToggle>["labels"];
 };
 
-// Histéresis: se compacta al bajar de 80 px y se expande al volver por encima de 40 px,
-// así la barra no salta de un estado a otro justo en el límite.
 const COMPACT_AT = 80;
 const EXPAND_AT = 40;
-const DESKTOP_QUERY = "(min-width: 48rem)"; // = breakpoint md de Tailwind
+const DESKTOP_QUERY = "(min-width: 48rem)";
 
 export function Navbar({
   brand,
@@ -48,9 +46,6 @@ export function Navbar({
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const panelId = useId();
   const activeSection = useActiveSection();
-  // Con movimiento reducido no hay animación de layout ni fundidos: el cambio
-  // se aplica en el mismo fotograma (una transición "instantánea" de Motion
-  // todavía pintaría un fotograma con el tamaño anterior).
   const reduced = usePrefersReducedMotion();
   const morph = useMotionTransition(transitions.navMorph);
   const panel = useMotionTransition(transitions.panel);
@@ -59,7 +54,6 @@ export function Navbar({
   const linkIn = useMotionTransition(transitions.menuLinkIn);
 
   const updateFromScroll = (y: number) => {
-    // Antes de estar listos (carga a mitad de página) se cambia sin animar.
     const animate = readyRef.current;
     setBar((prev) => {
       const compact = prev.compact ? y > EXPAND_AT : y > COMPACT_AT;
@@ -70,7 +64,6 @@ export function Navbar({
   const { scrollY } = useScroll();
   useMotionValueEvent(scrollY, "change", updateFromScroll);
 
-  // Primer fotograma: toma la posición real del scroll; el siguiente habilita la animación.
   useEffect(() => {
     let second = 0;
     const first = requestAnimationFrame(() => {
@@ -85,8 +78,6 @@ export function Navbar({
     };
   }, []);
 
-  // Menú móvil: Escape lo cierra y devuelve el foco al botón; también se cierra
-  // al pulsar fuera o al pasar a escritorio.
   useEffect(() => {
     if (!menuOpen) return;
     const onKeyDown = (event: KeyboardEvent) => {
@@ -125,16 +116,13 @@ export function Navbar({
   return (
     <header
       ref={headerRef}
-      // Fija: el Preloader le suma el ancho de la barra de scroll mientras bloquea el scroll.
       data-scroll-lock-compensate=""
-      // La franja exterior no captura clics: en modo cápsula se ve el contenido a los lados.
       className="enter pointer-events-none fixed inset-x-0 top-0 z-40 flex flex-col items-center [--enter-y:-20px]"
     >
       <motion.div
         layout={layoutBar}
         transition={barTransition}
         data-compact={compact}
-        // borderRadius en style para que Motion corrija la deformación durante la animación.
         style={{ borderRadius: compact ? 9999 : 0 }}
         className={`pointer-events-auto flex items-center gap-2 border-border motion-safe:transition-[background-color,border-color,box-shadow] motion-safe:duration-300 ${
           compact
@@ -155,7 +143,6 @@ export function Navbar({
           <span className="sr-only"> · {brand.homeLabel}</span>
         </motion.a>
 
-        {/* Escritorio: enlaces en línea */}
         <motion.nav
           layout={layoutChild}
           transition={barTransition}
@@ -177,9 +164,6 @@ export function Navbar({
           </ul>
         </motion.nav>
 
-        {/* El cambio de tema solo está con la barra expandida (arriba del todo). Al
-            compactar sale del DOM al instante, antes de la animación, y Tab no puede
-            caer en él. Al volver arriba reaparece con un fundido tras la expansión. */}
         {!compact && (
           <motion.div
             key="nav-controls"
@@ -193,7 +177,6 @@ export function Navbar({
         )}
 
         <motion.div layout={layoutChild} transition={barTransition} className="md:hidden">
-          {/* Móvil: botón del menú desplegable */}
           <button
             ref={menuButtonRef}
             type="button"
@@ -203,9 +186,6 @@ export function Navbar({
             onClick={() => setMenuOpen((open) => !open)}
             className="inline-flex size-11 items-center justify-center rounded-sm border border-border-strong text-fg hover:border-primary hover:text-primary motion-safe:transition-colors motion-safe:duration-200"
           >
-            {/* Hamburguesa ↔ X: las líneas exteriores se juntan en el centro y giran
-                sobre su propio centro (Motion usa fill-box en SVG); la del medio se desvanece.
-                Con movimiento reducido el cambio es instantáneo. */}
             <svg
               aria-hidden="true"
               focusable="false"
@@ -239,7 +219,6 @@ export function Navbar({
         </motion.div>
       </motion.div>
 
-      {/* El id existe siempre para que aria-controls apunte a algo válido. */}
       <div id={panelId} className="pointer-events-auto w-[calc(100%-1.5rem)] max-w-md md:hidden">
         <AnimatePresence initial={false}>
           {menuOpen && (
@@ -252,8 +231,6 @@ export function Navbar({
               className="mt-2 flex flex-col gap-4 rounded-md border border-border-strong bg-surface p-4 shadow-glow-primary"
             >
               <nav aria-label={navLabel}>
-                {/* Enlaces escalonados en orden de lectura (60 ms entre cada uno).
-                    Con movimiento reducido aparecen junto con el panel, sin desplazamiento. */}
                 <motion.ul
                   className="flex flex-col"
                   initial={reduced ? false : "hidden"}

@@ -12,28 +12,18 @@ type Projects = Dictionary["sections"]["projects"];
 
 type ProjectCardProps = {
   project: Projects["items"][number];
-  /** Número fijo del proyecto (posición en content, no en el filtro). */
   number: number;
   media: ProjectMedia[];
   labels: Projects["labels"];
   activeTech: string | null;
-  /** Posición dentro de la lista visible (filtrada). */
   index: number;
   total: number;
   progress: MotionValue<number>;
   stacking: boolean;
 };
 
-/** Desplazamiento vertical de cada tarjeta apilada. */
 const STACK_STEP = 28;
 
-/**
- * Tarjeta de proyecto. Con `stacking`, cada una ocupa un contenedor de 85vh como mínimo,
- * queda fija (sticky) con top + índice × 28px y se reduce hacia
- * 1 − (total − 1 − índice) × 0.03 mientras pasan las siguientes.
- * Al recibir foco con teclado, su contenedor se desplaza a la vista para que
- * la tarjeta siguiente no tape el foco (WCAG 2.4.11).
- */
 export function ProjectCard({
   project,
   number,
@@ -74,8 +64,6 @@ export function ProjectCard({
     <li
       ref={container}
       onFocus={onFocus}
-      // min-h (no h): si la tarjeta es más alta que 85vh (pantallas bajas), el
-      // contenedor crece con ella y la tarjeta no se sale sobre lo que sigue.
       className={stacking ? "min-h-[85vh] scroll-mt-nav-offset" : ""}
     >
       <motion.article
@@ -113,7 +101,6 @@ export function ProjectCard({
           </div>
         </div>
 
-        {/* Cuadrícula de imágenes: izquierda 40 % (2 apiladas), derecha 60 % (1 alta). */}
         <div className="grid grid-cols-[2fr_3fr] gap-3">
           <div className="flex flex-col gap-3">
             {pane(first, "h-[clamp(110px,min(12vw,18vh),190px)]")}
