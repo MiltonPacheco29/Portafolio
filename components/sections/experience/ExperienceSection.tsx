@@ -35,7 +35,7 @@ export function ExperienceSection({ experience }: ExperienceSectionProps) {
             alt={experience.image.alt}
             pending={experience.image.pending}
             className="mx-auto w-full max-w-xs lg:sticky lg:top-nav-offset lg:max-w-none lg:self-start"
-            sizes="(min-width: 1024px) 320px, 320px"
+            sizes="320px"
           />
           <div className="flex flex-col gap-16">
             <ExperienceTimeline

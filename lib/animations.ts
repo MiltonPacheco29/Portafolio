@@ -1,7 +1,7 @@
 import type { Transition } from "motion/react";
 import { useSyncExternalStore } from "react";
 
-export const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
+const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
 
 export const reducedMotionConfig = "user" as const;
 
@@ -42,7 +42,7 @@ export function useMotionTransition(transition: Transition): Transition {
 export const FADE_EASE = [0.22, 1, 0.36, 1] as const;
 export const FADE_DURATION = 0.7;
 
-export const FINE_POINTER_QUERY = "(hover: hover) and (pointer: fine)";
+const FINE_POINTER_QUERY = "(hover: hover) and (pointer: fine)";
 
 function subscribeFinePointer(onChange: () => void) {
   const media = window.matchMedia(FINE_POINTER_QUERY);

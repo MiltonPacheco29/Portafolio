@@ -9,7 +9,7 @@ export type TimelineEntry = {
 
 type Phase = { start: number; duration: number; easing: string };
 
-export type Timeline = {
+type Timeline = {
   entries: TimelineEntry[];
   labels: Record<string, number>;
   totalDuration: number;

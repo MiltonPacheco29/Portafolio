@@ -7,7 +7,6 @@
     "build": "next build",
     "postbuild": "node scripts/fix-segment-filenames.mjs && node scripts/csp-hashes.mjs && node scripts/check-placeholders.mjs",
     "check:placeholders": "node scripts/check-placeholders.mjs",
-    "start": "next start",
     "lint": "eslint"
   },
   "dependencies": {

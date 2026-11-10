@@ -1,11 +1,7 @@
-import type { ReactNode } from "react";
-
 type GhostButtonProps = {
   href: string | null;
   label: string;
   srSuffix?: string;
-  icon?: ReactNode;
-  className?: string;
 };
 
 const base =
@@ -13,29 +9,24 @@ const base =
 
 export const ghostClass = `${base} border-fg text-fg hover:border-primary hover:text-primary active:translate-y-px motion-safe:transition-colors motion-safe:duration-200`;
 
-export function GhostButton({ href, label, srSuffix, icon, className = "" }: GhostButtonProps) {
+export function GhostButton({ href, label, srSuffix }: GhostButtonProps) {
   const content = (
     <>
       {label}
       {srSuffix && <span className="sr-only"> {srSuffix}</span>}
-      {icon}
     </>
   );
 
   if (!href) {
     return (
-      <span aria-disabled="true" className={`${base} border-dashed border-border-strong text-fg-muted ${className}`}>
+      <span aria-disabled="true" className={`${base} border-dashed border-border-strong text-fg-muted`}>
         {content}
       </span>
     );
   }
 
   return (
-    <a
-      href={href}
-      rel="noreferrer"
-      className={`${ghostClass} ${className}`}
-    >
+    <a href={href} rel="noreferrer" className={ghostClass}>
       {content}
     </a>
   );

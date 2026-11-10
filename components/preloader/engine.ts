@@ -2,9 +2,9 @@ import { lockScroll } from "@/components/preloader/scrollLock";
 import { PRELOADER, SCENES } from "@/lib/preloader/config";
 import { buildTimeline, type TimelineEntry } from "@/lib/preloader/timeline";
 
-export const PRELOADER_STARTED_ATTR = "data-preloader-started";
+const PRELOADER_STARTED_ATTR = "data-preloader-started";
 
-export type PreloaderElements = {
+type PreloaderElements = {
   overlay: HTMLElement;
   stage: HTMLElement;
   curtains: [top: HTMLElement, bottom: HTMLElement];
@@ -13,7 +13,7 @@ export type PreloaderElements = {
   images: HTMLImageElement[];
 };
 
-export type PlayOptions = {
+type PlayOptions = {
   fontFamily: string;
   debug: boolean;
   onComplete: () => void;

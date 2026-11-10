@@ -1,4 +1,4 @@
-export const SCROLL_LOCK_COMPENSATE_SELECTOR = "[data-scroll-lock-compensate]";
+const SCROLL_LOCK_COMPENSATE_SELECTOR = "[data-scroll-lock-compensate]";
 
 function measureScrollbar(): number {
   const probe = document.createElement("div");

@@ -1,4 +1,4 @@
-export const PENDING_MARK = "[POR COMPLETAR]";
+const PENDING_MARK = "[POR COMPLETAR]";
 
 export function isPending(value: string): boolean {
   return value.trim() === "" || value.includes(PENDING_MARK);

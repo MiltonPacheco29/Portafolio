@@ -1,7 +1,7 @@
 import { existsSync, statSync } from "node:fs";
 import { join } from "node:path";
 
-export type PublicFile = {
+type PublicFile = {
   src: string;
   bytes: number;
   format: string;

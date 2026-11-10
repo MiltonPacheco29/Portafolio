@@ -1,4 +1,4 @@
-export type SceneConfig =
+type SceneConfig =
   | { text: string; duration: number }
   | { image: string; duration: number };
 

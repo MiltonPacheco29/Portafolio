@@ -9,5 +9,3 @@ export const formspreeEndpoint = FORMSPREE_ID_PATTERN.test(formspreeId)
   : null;
 
 export const turnstileKey = TURNSTILE_KEY_PATTERN.test(turnstileSiteKey) ? turnstileSiteKey : null;
-
-export const contactFormConfigured = formspreeEndpoint !== null && turnstileKey !== null;

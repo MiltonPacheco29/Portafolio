@@ -6,7 +6,7 @@ import { FADE_DURATION, FADE_EASE, usePrefersReducedMotion } from "@/lib/animati
 
 type FadeInProps = {
   children: ReactNode;
-  as?: "div" | "li" | "p" | "span" | "header" | "figure";
+  as?: "div" | "li";
   delay?: number;
   duration?: number;
   x?: number;

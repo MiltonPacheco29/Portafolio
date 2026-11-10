@@ -34,7 +34,7 @@ export function Hero({ hero, titleId, avatar, contactHref, contactLabel }: HeroP
       </h1>
 
       <div className="enter relative z-10 mx-auto -mt-[4vw] w-60 [--enter-delay:0.6s] [--enter-y:30px] sm:w-80 lg:absolute lg:bottom-0 lg:left-1/2 lg:mt-0 lg:w-[380px] lg:-translate-x-1/2 xl:w-[460px]">
-        <Magnet padding={150} strength={3}>
+        <Magnet>
           <AvatarImage
             image={avatar}
             alt={hero.avatar.alt}

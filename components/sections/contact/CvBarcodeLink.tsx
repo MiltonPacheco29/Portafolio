@@ -7,31 +7,24 @@ type CvBarcodeLinkProps = {
   mime?: string;
 };
 
-function barWidths(seed: string, count = 38): number[] {
+function barLayout(seed: string, count = 38): { bars: { x: number; width: number }[]; total: number } {
+  const bars: { x: number; width: number }[] = [];
   let hash = 2166136261;
-  const widths: number[] = [];
+  let x = 0;
   for (let i = 0; i < count; i++) {
     hash ^= seed.charCodeAt(i % seed.length) + i;
     hash = Math.imul(hash, 16777619);
-    widths.push(1 + ((hash >>> 0) % 4));
-  }
-  return widths;
-}
-
-function barLayout(seed: string): { bars: { x: number; width: number }[]; total: number } {
-  const bars: { x: number; width: number }[] = [];
-  let x = 0;
-  barWidths(seed).forEach((width, i) => {
+    const width = 1 + ((hash >>> 0) % 4);
     bars.push({ x, width });
     x += width + (i % 3 === 0 ? 2 : 1.5);
-  });
+  }
   return { bars, total: x };
 }
 
 function Barcode({ seed }: { seed: string }) {
-  const { bars, total: x } = barLayout(seed);
+  const { bars, total } = barLayout(seed);
   return (
-    <svg aria-hidden="true" focusable="false" viewBox={`0 0 ${x} 40`} preserveAspectRatio="none" className="h-12 w-full" fill="currentColor">
+    <svg aria-hidden="true" focusable="false" viewBox={`0 0 ${total} 40`} preserveAspectRatio="none" className="h-12 w-full" fill="currentColor">
       {bars.map((bar, i) => (
         <rect key={i} x={bar.x} y="0" width={bar.width} height="40" />
       ))}

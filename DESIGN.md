@@ -48,7 +48,6 @@ Contrastes calculados con la fórmula WCAG 2.x. Texto ≥ 4.5:1; controles y foc
 | `--fg-muted` | #A3A9CC | 8.50:1 (7.85:1 sobre surface) |
 | `--primary` | #00F0FF | 13.92:1 |
 | `--accent` | #FF2BD6 | 6.13:1 (5.67:1 sobre surface) |
-| `--highlight` | #F5E83A | 15.40:1 |
 | `--on-primary`, `--on-accent` | #0A0B14 | 13.92:1 y 6.13:1 |
 | `--border` / `--border-strong` | #23264A / #5A6094 | decorativo / 3.30:1 |
 | `--focus` | #F5E83A | 15.40:1 |
@@ -68,8 +67,7 @@ Contrastes calculados con la fórmula WCAG 2.x. Texto ≥ 4.5:1; controles y foc
 | `--fg-muted` | #524A40 | 7.02:1 (7.74:1 sobre surface) |
 | `--primary`, `--accent` | #A8231B | 5.80:1 (6.39:1 sobre surface): rojo profundo, único rojo permitido como texto |
 | `--red` | #C8352B | 4.23:1: **nunca como texto**; solo fondo con texto blanco, rayas y formas |
-| `--on-red`, `--on-primary`, `--on-accent` | #FFFFFF | 5.25:1 sobre `--red`, 7.19:1 sobre `--primary` |
-| `--highlight` | #6B5B00 | 5.42:1 |
+| `--on-primary`, `--on-accent` | #FFFFFF | 7.19:1 sobre `--primary` (el texto blanco sobre `--red` da 5.25:1) |
 | `--border` / `--border-strong` | #D8CCB3 / #7A7062 | decorativo / 3.92:1 |
 | `--focus` | #A8231B | 5.80:1 |
 | `--title-from` → `--title-to` | #1A1612 → #1A1612 | tinta plana (sin degradado) |
@@ -110,18 +108,19 @@ Máximo tres familias, todas con `next/font/google` (se sirven desde el propio d
 | `--fs-subtitle` | `clamp(1.5rem, 1rem + 2.4vw, 3rem)` | Subtítulo en serif cursiva |
 | `--fs-lead` | `clamp(1.125rem, 1rem + 0.8vw, 1.5rem)` | Párrafo de Sobre mí |
 | `--fs-meta` | 0.75rem (12 px, mínimo) | Metadatos y etiquetas verticales, mayúsculas por CSS, `--tracking-meta` 0.14em |
-| `--fs-xs` … `--fs-4xl` | escala actual | Texto de interfaz |
+| `--fs-3xl` | `clamp(1.75rem, 1.4rem + 1.6vw, 2.5rem)` | Título de la 404 (`text-title`) |
 
-Interlineados: `--lh-display` 0.88, `--lh-tight` 1.15, `--lh-snug` 1.35, `--lh-normal` 1.6. Las mayúsculas se aplican con `text-transform` (en el JSON el texto va en tipo oración salvo el nombre del Hero).
+El resto del texto de interfaz usa la escala de Tailwind (`text-sm`, `text-lg`, `text-2xl`…).
+
+Interlineados: `--lh-display` 0.88, `--lh-tight` 1.15, `--lh-normal` 1.6. Las mayúsculas se aplican con `text-transform` (en el JSON el texto va en tipo oración salvo el nombre del Hero).
 
 ## 5. Espaciado, bordes y radios
 
-- **Espaciado:** escala actual `--space-3xs` (0.25rem) a `--space-3xl` (6rem), `--gutter` `clamp(1rem, 4vw, 2.5rem)`, `--section-gap` `clamp(6rem, 12vw, 10rem)`, `--content-max` 72rem.
+- **Espaciado:** escala de Tailwind, más `--gutter` `clamp(1rem, 4vw, 2.5rem)`, `--section-gap` `clamp(6rem, 12vw, 10rem)`, `--content-max` 72rem.
 - **Bordes:** 1px `--border` decorativo; 1px `--border-strong` en controles; 2px en botones fantasma.
 
 | Radio | Valor | Uso |
 |---|---|---|
-| `--corner-none` | 0 | Paneles inclinados con `clip-path`, franjas |
 | `--corner-sm` | 2px | Chips del stack, campos del formulario |
 | `--corner-md` | 6px | Avisos y formulario |
 | `--corner-card` | `clamp(1.5rem, 3vw, 2.5rem)` | Tarjetas de proyecto |
@@ -134,10 +133,10 @@ Paneles inclinados: `clip-path: polygon(var(--skew) 0, 100% 0, calc(100% - var(-
 
 | Token | Valor |
 |---|---|
-| `--ease-fade` | `cubic-bezier(0.22, 1, 0.36, 1)` (la misma curva que `--ease-out`: frena al llegar) |
+| `--ease-fade` | `cubic-bezier(0.22, 1, 0.36, 1)` (frena al llegar) |
 | `--dur-fade` | 0.7s |
-| `--ease-out` | `cubic-bezier(0.22, 1, 0.36, 1)` |
-| `--dur-fast` | 200ms (color en hover y foco; nunca menos) |
+
+Color en hover y foco: 200 ms (`motion-safe:duration-200`), nunca menos.
 
 | Pieza | Comportamiento | Movimiento reducido |
 |---|---|---|

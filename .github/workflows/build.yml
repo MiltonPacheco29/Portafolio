@@ -33,12 +33,10 @@ jobs:
       - name: Lint
         run: npm run lint
 
-      # postbuild: calcula los hashes de la CSP y comprueba out/.
+      # postbuild: calcula los hashes de la CSP y comprueba que out/ no tenga
+      # URLs de prueba (higgs.ai, figma.site, cloudfront).
       - name: Build
         run: npm run build
-
-      - name: Sin URLs de prueba en out/ (higgs.ai, figma.site, cloudfront)
-        run: npm run check:placeholders
 
       - name: Auditoría de dependencias
         run: npm audit --audit-level=high

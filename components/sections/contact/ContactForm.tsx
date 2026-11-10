@@ -8,7 +8,7 @@ import { ghostClass } from "@/components/ui/GhostButton";
 import type { Dictionary } from "@/lib/i18n";
 import { siteLang } from "@/lib/i18n/locales";
 import type { LocalImage } from "@/lib/server/images";
-import { contactFormConfigured, formspreeEndpoint, turnstileKey } from "@/lib/config/publicConfig";
+import { formspreeEndpoint, turnstileKey } from "@/lib/config/publicConfig";
 import { fillTemplate } from "@/lib/text";
 import { useTheme } from "@/lib/hooks/useTheme";
 
@@ -101,7 +101,7 @@ export function ContactForm({ texts, successImage }: ContactFormProps) {
     if (status === "success") successRef.current?.focus();
   }, [status]);
 
-  if (!contactFormConfigured || !formspreeEndpoint) {
+  if (!formspreeEndpoint || !turnstileKey) {
     return <p className="text-fg-muted">{texts.notConfigured}</p>;
   }
   const endpoint = formspreeEndpoint;
