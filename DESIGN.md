@@ -116,7 +116,7 @@ Interlineados: `--lh-display` 0.88, `--lh-tight` 1.15, `--lh-snug` 1.35, `--lh-n
 
 ## 5. Espaciado, bordes y radios
 
-- **Espaciado:** escala actual `--space-3xs` (0.25rem) a `--space-3xl` (6rem), `--gutter` `clamp(1rem, 4vw, 2.5rem)`, `--section-gap` `clamp(4rem, 10vw, 8rem)`, `--content-max` 72rem.
+- **Espaciado:** escala actual `--space-3xs` (0.25rem) a `--space-3xl` (6rem), `--gutter` `clamp(1rem, 4vw, 2.5rem)`, `--section-gap` `clamp(6rem, 12vw, 10rem)`, `--content-max` 72rem.
 - **Bordes:** 1px `--border` decorativo; 1px `--border-strong` en controles; 2px en botones fantasma.
 
 | Radio | Valor | Uso |
@@ -134,10 +134,10 @@ Paneles inclinados: `clip-path: polygon(var(--skew) 0, 100% 0, calc(100% - var(-
 
 | Token | Valor |
 |---|---|
-| `--ease-fade` | `cubic-bezier(0.25, 0.1, 0.25, 1)` |
+| `--ease-fade` | `cubic-bezier(0.22, 1, 0.36, 1)` (la misma curva que `--ease-out`: frena al llegar) |
 | `--dur-fade` | 0.7s |
 | `--ease-out` | `cubic-bezier(0.22, 1, 0.36, 1)` |
-| `--dur-fast` | 150ms (color en hover y foco) |
+| `--dur-fast` | 200ms (color en hover y foco; nunca menos) |
 
 | Pieza | Comportamiento | Movimiento reducido |
 |---|---|---|

@@ -275,6 +275,7 @@
       "form": {
         "title": "Formulario de contacto",
         "intro": "Todos los campos son obligatorios.",
+        "privacy": "Uso tu nombre y tu correo solo para responderte.",
         "fields": {
           "name": "Nombre",
           "email": "Correo electrónico",
@@ -297,7 +298,7 @@
         "submit": "Enviar mensaje",
         "sending": "Enviando mensaje…",
         "success": {
-          "title": "¡Mensaje enviado!",
+          "title": "Mensaje enviado",
           "body": "Gracias por escribir. Te responderé lo antes posible.",
           "again": "Enviar otro mensaje",
           "image": {
@@ -315,7 +316,8 @@
     }
   },
   "footer": {
-    "note": "[POR COMPLETAR] © Año Tu nombre"
+    "note": "[POR COMPLETAR] © Año Tu nombre",
+    "backToTop": "Volver arriba"
   },
   "notFound": {
     "title": "Página no encontrada",

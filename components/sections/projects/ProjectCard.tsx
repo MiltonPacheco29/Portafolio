@@ -28,7 +28,7 @@ type ProjectCardProps = {
 const STACK_STEP = 28;
 
 /**
- * Tarjeta de proyecto. Con `stacking`, cada una ocupa un contenedor de 85vh,
+ * Tarjeta de proyecto. Con `stacking`, cada una ocupa un contenedor de 85vh como mínimo,
  * queda fija (sticky) con top + índice × 28px y se reduce hacia
  * 1 − (total − 1 − índice) × 0.03 mientras pasan las siguientes.
  * Al recibir foco con teclado, su contenedor se desplaza a la vista para que
@@ -74,7 +74,9 @@ export function ProjectCard({
     <li
       ref={container}
       onFocus={onFocus}
-      className={stacking ? "h-[85vh] scroll-mt-nav-offset" : ""}
+      // min-h (no h): si la tarjeta es más alta que 85vh (pantallas bajas), el
+      // contenedor crece con ella y la tarjeta no se sale sobre lo que sigue.
+      className={stacking ? "min-h-[85vh] scroll-mt-nav-offset" : ""}
     >
       <motion.article
         style={stacking ? { scale, top: `calc(var(--stack-top) + ${index * STACK_STEP}px)` } : undefined}

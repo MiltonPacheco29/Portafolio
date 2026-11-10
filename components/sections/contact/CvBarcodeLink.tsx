@@ -85,7 +85,7 @@ export function CvBarcodeLink({ href, label, title, caption, fileLang, mime }: C
       hrefLang={fileLang}
       type={mime}
       aria-label={label}
-      className="flex w-full max-w-72 flex-col gap-2 rounded-sm border-2 border-fg bg-surface px-4 py-3 text-fg hover:border-primary hover:text-primary active:translate-y-px motion-safe:transition-colors motion-safe:duration-150"
+      className="flex w-full max-w-72 flex-col gap-2 rounded-sm border-2 border-fg bg-surface px-4 py-3 text-fg hover:border-primary hover:text-primary active:translate-y-px motion-safe:transition-colors motion-safe:duration-200"
     >
       {body}
     </a>

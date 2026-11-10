@@ -275,6 +275,7 @@
       "form": {
         "title": "Contact form",
         "intro": "All fields are required.",
+        "privacy": "I only use your name and email to reply to you.",
         "fields": {
           "name": "Name",
           "email": "Email",
@@ -297,7 +298,7 @@
         "submit": "Send message",
         "sending": "Sending message…",
         "success": {
-          "title": "Message sent!",
+          "title": "Message sent",
           "body": "Thanks for reaching out. I'll get back to you as soon as possible.",
           "again": "Send another message",
           "image": {
@@ -315,7 +316,8 @@
     }
   },
   "footer": {
-    "note": "[POR COMPLETAR] © Year Your name"
+    "note": "[POR COMPLETAR] © Year Your name",
+    "backToTop": "Back to top"
   },
   "notFound": {
     "title": "Page not found",

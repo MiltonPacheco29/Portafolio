@@ -4,7 +4,7 @@ import { FadeIn } from "@/components/motion/FadeIn";
 import { VerticalLabel } from "@/components/ui/VerticalLabel";
 import type { Dictionary } from "@/lib/i18n";
 import { getLocalImage } from "@/lib/server/images";
-import { labelClass, sectionClass, sectionTitleClass } from "@/components/sections/sectionStyles";
+import { blockTitleClass, sectionClass, sectionTitleClass } from "@/components/sections/sectionStyles";
 
 type ExperienceSectionProps = { experience: Dictionary["sections"]["experience"] };
 
@@ -50,7 +50,7 @@ export function ExperienceSection({ experience }: ExperienceSectionProps) {
             />
 
             <div className="flex flex-col gap-4">
-              <h3 className={labelClass}>{experience.educationTitle}</h3>
+              <h3 className={blockTitleClass}>{experience.educationTitle}</h3>
               <ol className="grid gap-4 sm:grid-cols-2">
                 {experience.education.map((entry, i) => (
                   <li key={i} className="rounded-md border border-border-strong bg-surface p-5">

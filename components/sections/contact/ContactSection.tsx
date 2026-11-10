@@ -8,7 +8,7 @@ import { fileFormat, formatFileSize, getPublicFile } from "@/lib/server/files";
 import type { Dictionary, Locale } from "@/lib/i18n";
 import { getLocalImage } from "@/lib/server/images";
 import { fillTemplate, isPending } from "@/lib/text";
-import { labelClass, sectionClass, sectionTitleClass } from "@/components/sections/sectionStyles";
+import { blockTitleClass, sectionClass, sectionTitleClass } from "@/components/sections/sectionStyles";
 
 type Contact = Dictionary["sections"]["contact"];
 type ContactSectionProps = { contact: Contact; locale: Locale; ctaLabel: string };
@@ -57,7 +57,7 @@ export function ContactSection({ contact, locale, ctaLabel }: ContactSectionProp
         <div className="mt-12 grid gap-10 lg:grid-cols-2 lg:gap-16">
           <div className="flex flex-col gap-8">
             <div className="flex flex-col gap-3">
-              <h3 className={labelClass}>{contact.linksTitle}</h3>
+              <h3 className={blockTitleClass}>{contact.linksTitle}</h3>
               <ul className="flex flex-col gap-2">
                 {contact.links.map((link) => {
                   const href = contactHref(link);

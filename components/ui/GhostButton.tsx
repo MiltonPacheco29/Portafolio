@@ -13,6 +13,9 @@ type GhostButtonProps = {
 const base =
   "inline-flex min-h-11 items-center gap-2 rounded-pill border-2 px-5 font-mono text-sm font-semibold tracking-[var(--tracking-mono)]";
 
+/** Clases del botón fantasma activo, para reutilizarlas en un <button>. */
+export const ghostClass = `${base} border-fg text-fg hover:border-primary hover:text-primary active:translate-y-px motion-safe:transition-colors motion-safe:duration-200`;
+
 /** Botón fantasma: píldora con borde de 2px. */
 export function GhostButton({ href, label, srSuffix, icon, className = "" }: GhostButtonProps) {
   const content = (
@@ -35,7 +38,7 @@ export function GhostButton({ href, label, srSuffix, icon, className = "" }: Gho
     <a
       href={href}
       rel="noreferrer"
-      className={`${base} border-fg text-fg hover:border-primary hover:text-primary active:translate-y-px motion-safe:transition-colors motion-safe:duration-150 ${className}`}
+      className={`${ghostClass} ${className}`}
     >
       {content}
     </a>

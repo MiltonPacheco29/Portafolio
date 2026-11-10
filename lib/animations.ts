@@ -51,8 +51,15 @@ export const transitions = {
   /** Paneles desplegables (menú móvil). */
   panel: { duration: 0.18, ease: [0.22, 1, 0.36, 1] },
   /** Controles que reaparecen al expandir la barra: esperan a que termine navMorph. */
-  navControlsIn: { duration: 0.2, delay: 0.3, ease: "easeOut" },
+  navControlsIn: { duration: 0.2, delay: 0.3, ease: [0.22, 1, 0.36, 1] },
+  /** Icono del menú móvil: las líneas se cruzan en una X. */
+  menuIcon: { duration: 0.3, ease: [0.22, 1, 0.36, 1] },
+  /** Cada enlace del menú móvil al abrirlo (escalonados con MENU_LINK_STAGGER). */
+  menuLinkIn: { duration: 0.35, ease: [0.22, 1, 0.36, 1] },
 } satisfies Record<string, Transition>;
+
+/** Separación entre enlaces del menú móvil (s): 5 enlaces → 240 ms de escalonado. */
+export const MENU_LINK_STAGGER = 0.06;
 
 type GsapWithMatchMedia = {
   matchMedia: () => {
@@ -81,7 +88,7 @@ export function useMotionTransition(transition: Transition): Transition {
 }
 
 /** Curva y duración de FadeIn (DESIGN.md §6). */
-export const FADE_EASE = [0.25, 0.1, 0.25, 1] as const;
+export const FADE_EASE = [0.22, 1, 0.36, 1] as const;
 export const FADE_DURATION = 0.7;
 
 /** Ratón o trackpad: hay hover real y puntero preciso. En táctil, Magnet se apaga. */

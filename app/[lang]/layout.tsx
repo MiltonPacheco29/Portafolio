@@ -114,8 +114,16 @@ export default async function LangLayout({
           <main id={MAIN_ID} tabIndex={-1} className="flex flex-1 flex-col pt-nav outline-none">
             {children}
           </main>
-          <footer className="px-gutter py-8 font-mono text-sm text-fg-muted">
-            {dict.footer.note}
+          <footer className="border-t border-border px-gutter py-8 font-mono text-sm text-fg-muted">
+            <div className="mx-auto flex w-full max-w-content flex-wrap items-center justify-between gap-x-6 gap-y-2">
+              <p>{dict.footer.note}</p>
+              <a
+                href={`#${dict.sections.home.id}`}
+                className="inline-flex min-h-11 items-center text-fg underline underline-offset-4 hover:text-primary motion-safe:transition-colors motion-safe:duration-200"
+              >
+                {dict.footer.backToTop}
+              </a>
+            </div>
           </footer>
         </MotionProvider>
       </body>

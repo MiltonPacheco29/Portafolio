@@ -44,8 +44,8 @@ export function ServicesSection({ services }: ServicesSectionProps) {
                 {String(i + 1).padStart(2, "0")}
               </span>
               <div className="flex flex-col gap-3 pt-1 sm:pt-3">
-                <h3 className="font-display text-[clamp(1.125rem,2.2vw,2.125rem)] font-bold uppercase">{item.title}</h3>
-                <p className="max-w-2xl text-[clamp(1rem,1.6vw,1.25rem)] leading-relaxed text-fg-muted">{item.description}</p>
+                <h3 className="font-display text-xl font-bold uppercase md:text-2xl lg:text-3xl">{item.title}</h3>
+                <p className="max-w-2xl text-base text-fg-muted md:text-lg">{item.description}</p>
               </div>
             </FadeIn>
           ))}

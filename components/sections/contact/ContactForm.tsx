@@ -3,6 +3,8 @@
 import Script from "next/script";
 import { useEffect, useId, useRef, useState, type FormEvent, type Ref } from "react";
 import { AvatarImage } from "@/components/ui/AvatarImage";
+import { ctaClass } from "@/components/ui/ContactButton";
+import { ghostClass } from "@/components/ui/GhostButton";
 import type { Dictionary, Locale } from "@/lib/i18n";
 import type { LocalImage } from "@/lib/server/images";
 import { contactFormConfigured, formspreeEndpoint, turnstileKey } from "@/lib/config/publicConfig";
@@ -187,7 +189,7 @@ export function ContactForm({ texts, locale, successImage }: ContactFormProps) {
         <button
           type="button"
           onClick={() => setStatus("idle")}
-          className="inline-flex min-h-11 items-center rounded-sm border border-border-strong px-4 font-mono text-sm text-fg hover:border-primary hover:text-primary motion-safe:transition-colors"
+          className={ghostClass}
         >
           {texts.success.again}
         </button>
@@ -222,7 +224,10 @@ export function ContactForm({ texts, locale, successImage }: ContactFormProps) {
       />
 
       <form onSubmit={onSubmit} noValidate className="flex flex-col gap-5" aria-busy={submitting}>
-        <p className="text-sm text-fg-muted">{texts.intro}</p>
+        <div className="flex flex-col gap-1 text-sm text-fg-muted">
+          <p>{texts.intro}</p>
+          <p>{texts.privacy}</p>
+        </div>
 
         {attempted && errorCount > 0 && (
           <p role="alert" className="flex gap-2 rounded-sm border border-accent p-3 text-sm text-fg">
@@ -317,12 +322,12 @@ export function ContactForm({ texts, locale, successImage }: ContactFormProps) {
           <button
             type="submit"
             aria-disabled={submitting}
-            className="inline-flex min-h-11 items-center gap-2 rounded-sm bg-primary px-5 font-mono text-sm font-semibold text-on-primary shadow-glow-primary hover:bg-accent hover:text-on-accent aria-disabled:cursor-wait aria-disabled:opacity-90 motion-safe:transition-colors"
+            className={`${ctaClass} gap-2 aria-disabled:cursor-wait aria-disabled:opacity-90`}
           >
             {submitting && (
               <span
                 aria-hidden="true"
-                className="size-4 rounded-full border-2 border-on-primary border-t-transparent motion-safe:animate-spin"
+                className="size-4 rounded-full border-2 border-on-cta border-t-transparent motion-safe:animate-spin"
               />
             )}
             {submitting ? texts.sending : texts.submit}

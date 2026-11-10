@@ -11,6 +11,7 @@ import { LangSwitch, type LangSwitchProps } from "@/components/layout/LangSwitch
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import {
   instant,
+  MENU_LINK_STAGGER,
   transitions,
   useMotionTransition,
   usePrefersReducedMotion,
@@ -57,6 +58,8 @@ export function Navbar({
   const morph = useMotionTransition(transitions.navMorph);
   const panel = useMotionTransition(transitions.panel);
   const controlsIn = useMotionTransition(transitions.navControlsIn);
+  const iconMorph = useMotionTransition(transitions.menuIcon);
+  const linkIn = useMotionTransition(transitions.menuLinkIn);
 
   const updateFromScroll = (y: number) => {
     // Antes de estar listos (carga a mitad de página) se cambia sin animar.
@@ -118,7 +121,7 @@ export function Navbar({
   const layoutChild = reduced ? false : "position";
 
   const linkClass = (key: SectionKey) =>
-    `inline-flex min-h-11 items-center rounded-sm px-3 font-mono text-sm tracking-[var(--tracking-mono)] hover:text-primary motion-safe:transition-colors ${
+    `inline-flex min-h-11 items-center rounded-sm px-3 font-mono text-sm tracking-[var(--tracking-mono)] hover:text-primary motion-safe:transition-colors motion-safe:duration-200 ${
       activeSection === key ? "text-primary" : "text-fg-muted"
     }`;
 
@@ -202,23 +205,39 @@ export function Navbar({
             aria-expanded={menuOpen}
             aria-controls={panelId}
             onClick={() => setMenuOpen((open) => !open)}
-            className="inline-flex size-11 items-center justify-center rounded-sm border border-border-strong text-fg hover:border-primary hover:text-primary motion-safe:transition-colors"
+            className="inline-flex size-11 items-center justify-center rounded-sm border border-border-strong text-fg hover:border-primary hover:text-primary motion-safe:transition-colors motion-safe:duration-200"
           >
+            {/* Hamburguesa ↔ X: las líneas exteriores se juntan en el centro y giran
+                sobre su propio centro (Motion usa fill-box en SVG); la del medio se desvanece.
+                Con movimiento reducido el cambio es instantáneo. */}
             <svg
               aria-hidden="true"
               focusable="false"
               viewBox="0 0 24 24"
-              className="size-5"
+              className="size-5 overflow-visible"
               fill="none"
               stroke="currentColor"
               strokeWidth="2"
               strokeLinecap="round"
             >
-              {menuOpen ? (
-                <path d="M6 6l12 12M18 6L6 18" />
-              ) : (
-                <path d="M4 7h16M4 12h16M4 17h16" />
-              )}
+              <motion.path
+                d="M4 7h16"
+                initial={false}
+                animate={menuOpen ? { y: 5, rotate: 45 } : { y: 0, rotate: 0 }}
+                transition={iconMorph}
+              />
+              <motion.path
+                d="M4 12h16"
+                initial={false}
+                animate={{ opacity: menuOpen ? 0 : 1 }}
+                transition={iconMorph}
+              />
+              <motion.path
+                d="M4 17h16"
+                initial={false}
+                animate={menuOpen ? { y: -5, rotate: -45 } : { y: 0, rotate: 0 }}
+                transition={iconMorph}
+              />
             </svg>
           </button>
         </motion.div>
@@ -237,9 +256,22 @@ export function Navbar({
               className="mt-2 flex flex-col gap-4 rounded-md border border-border-strong bg-surface p-4 shadow-glow-primary"
             >
               <nav aria-label={navLabel}>
-                <ul className="flex flex-col">
+                {/* Enlaces escalonados en orden de lectura (60 ms entre cada uno).
+                    Con movimiento reducido aparecen junto con el panel, sin desplazamiento. */}
+                <motion.ul
+                  className="flex flex-col"
+                  initial={reduced ? false : "hidden"}
+                  animate="visible"
+                  variants={{ visible: { transition: { staggerChildren: reduced ? 0 : MENU_LINK_STAGGER } } }}
+                >
                   {links.map((link) => (
-                    <li key={link.key}>
+                    <motion.li
+                      key={link.key}
+                      variants={{
+                        hidden: { opacity: 0, y: 24 },
+                        visible: { opacity: 1, y: 0, transition: linkIn },
+                      }}
+                    >
                       <a
                         href={`#${link.id}`}
                         aria-current={activeSection === link.key ? "location" : undefined}
@@ -248,9 +280,9 @@ export function Navbar({
                       >
                         {link.title}
                       </a>
-                    </li>
+                    </motion.li>
                   ))}
-                </ul>
+                </motion.ul>
               </nav>
               <LangSwitch {...langSwitch} className="border-t border-border pt-3" />
             </motion.div>

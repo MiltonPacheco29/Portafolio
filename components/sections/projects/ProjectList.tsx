@@ -51,7 +51,7 @@ export function ProjectList({ items, labels, filters, media }: ProjectListProps)
         type="button"
         aria-pressed={pressed}
         onClick={() => setActive(value)}
-        className={`inline-flex min-h-11 items-center gap-2 rounded-pill border px-4 font-mono text-xs tracking-[var(--tracking-mono)] motion-safe:transition-colors motion-safe:duration-150 ${
+        className={`inline-flex min-h-11 items-center gap-2 rounded-pill border px-4 font-mono text-xs tracking-[var(--tracking-mono)] motion-safe:transition-colors motion-safe:duration-200 ${
           pressed
             ? "border-primary bg-primary text-on-primary"
             : "border-border-strong text-fg hover:border-primary hover:text-primary"

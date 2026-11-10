@@ -65,7 +65,7 @@ export function Hero({ hero, titleId, lang, avatar, contactHref, contactLabel }:
           <p lang={hero.subtitleLang !== lang ? hero.subtitleLang : undefined} className="font-serif text-subtitle text-fg italic">
             {hero.subtitle}
           </p>
-          <p className="meta max-w-xs text-fg-muted">{hero.tagline}</p>
+          <p className="max-w-sm text-base text-fg md:text-lg">{hero.tagline}</p>
         </div>
 
         <div className="flex flex-col gap-4 lg:max-w-[calc(50%-13rem)] lg:items-end xl:max-w-[calc(50%-15.5rem)]">
