@@ -9,6 +9,7 @@
 !.yarn/plugins
 !.yarn/releases
 !.yarn/versions
+*.tgz
 
 # testing
 /coverage
@@ -20,27 +21,39 @@
 # production
 /build
 
-# misc
-.DS_Store
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# env files y secretos (nunca se versionan)
+.env*
+.dev.vars
 *.pem
 
+# despliegue (Vercel / Cloudflare)
+.vercel
+.wrangler/
+
 # debug
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
+# sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
 
-# vercel
-.vercel
+# editores y herramientas (lo compartido, como .vscode/settings.json, sí se versiona)
+.idea/
+*.swp
+.claude/settings.local.json
 
-# typescript
-*.tsbuildinfo
-next-env.d.ts
+# Referencias de diseño de terceros (póster, prompt, retrato): solo locales.
+/docs/
 
-docs/
 # Avatar del Hero de prueba (es el retrato de la referencia): no se versiona.
 # Quitar esta línea cuando se sustituya por un avatar propio.
 public/avatar/avatar-hola.webp

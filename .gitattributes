@@ -1,0 +1,13 @@
+# Texto siempre con saltos de línea LF (en el repo y en la copia de trabajo).
+* text=auto eol=lf
+
+# Binarios: sin conversión ni diff de texto.
+*.webp binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.pdf binary
