@@ -1,0 +1,66 @@
+# Plantilla de un stage de despliegue (equivale a un stage template de Azure Pipelines).
+# La usa release.yml una vez por entorno. No se ejecuta sola.
+#
+# El job declara `environment`, así que GitHub aplica sus reglas (aprobación, ramas
+# permitidas) antes de empezar y solo entonces le da los secretos de ese entorno.
+name: Deploy (plantilla)
+
+on:
+  workflow_call:
+    inputs:
+      stage:
+        description: Environment de GitHub (dev, qa o pdn)
+        required: true
+        type: string
+      pages-branch:
+        description: Rama de Cloudflare Pages (dev y qa son previews; main es producción)
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: ${{ inputs.stage }}
+      url: ${{ steps.deploy.outputs.pages-deployment-alias-url || steps.deploy.outputs.deployment-url }}
+    steps:
+      # El mismo artefacto que se construyó al inicio del run: aquí no se compila nada.
+      - name: Descargar artefacto
+        uses: actions/download-artifact@v4
+        with:
+          name: sitio-${{ inputs.stage }}
+          path: out
+
+      - name: Desplegar en Cloudflare Pages
+        id: deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: >-
+            pages deploy out
+            --project-name=${{ vars.CF_PAGES_PROJECT }}
+            --branch=${{ inputs.pages-branch }}
+            --commit-hash=${{ github.sha }}
+            --commit-dirty=true
+
+      # Prueba de humo sobre la URL única de ESTE despliegue.
+      - name: Prueba de humo
+        env:
+          URL: ${{ steps.deploy.outputs.deployment-url }}
+        run: |
+          set -euo pipefail
+          for path in /es/ /en/; do
+            curl -fsS --retry 5 --retry-all-errors --retry-delay 5 -o /dev/null "$URL$path"
+            echo "✓ $URL$path responde 200"
+          done
+          if curl -fsSI "$URL/es/" | grep -qi '^content-security-policy:'; then
+            echo "✓ cabecera Content-Security-Policy presente"
+          else
+            echo "✗ falta la cabecera Content-Security-Policy (¿se subió out/_headers?)"
+            exit 1
+          fi

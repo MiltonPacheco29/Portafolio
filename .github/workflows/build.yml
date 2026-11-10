@@ -1,16 +1,24 @@
-name: CI
+# Comprobación de cada PR hacia main. El ruleset de main (.github/rulesets/main.json)
+# exige que el job `build` termine en verde antes de poder fusionar.
+name: Build
 
 on:
-  push:
-    branches: [main, "feat/**"]
   pull_request:
+    branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
 
+# Un push nuevo al mismo PR cancela la ejecución anterior.
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
 

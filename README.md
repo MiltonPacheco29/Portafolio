@@ -4,11 +4,11 @@ Portafolio personal estático con tema cyberpunk (oscuro) y de papel impreso (cl
 
 - **Stack:** Next.js 16 (App Router, `output: "export"`), React 19, TypeScript, Tailwind CSS v4, Motion y GSAP.
 - **Sin backend propio:** el formulario de contacto usa Formspree con Cloudflare Turnstile.
-- **Publicación prevista:** Cloudflare Pages. Por ahora solo se usa en local.
+- **Publicación:** Cloudflare Pages, con un pipeline de release dev → qa → pdn (ver [CI/CD](#cicd)).
 
 ## Requisitos
 
-Node.js 22 (la misma versión que usa la CI) y npm.
+Node.js 22 (la misma versión que usan los workflows de GitHub Actions) y npm.
 
 ```bash
 npm install
@@ -30,6 +30,48 @@ El `postbuild` ejecuta tres scripts de `scripts/`:
 3. `check-placeholders.mjs`: la comprobación de URLs de prueba.
 
 Para ver el build como quedará publicado, sirve la carpeta `out/` con cualquier servidor estático.
+
+## CI/CD
+
+```
+PR → main ──► Build (lint, build, auditoría) ──► merge
+                                                   │
+main ──► Release: build ×3 ──► dev ──► [aprobación] ──► qa ──► [aprobación] ──► pdn
+```
+
+| Workflow | Cuándo | Qué hace |
+|---|---|---|
+| `.github/workflows/build.yml` | Cada PR hacia `main` | Lint, build, URLs de prueba y `npm audit`. Su job `build` es obligatorio para fusionar |
+| `.github/workflows/release.yml` | Cada push a `main` (o a mano) | Construye un artefacto por entorno y lo despliega por stages |
+| `.github/workflows/deploy-pages.yml` | Lo llama `release.yml` | Plantilla de un stage: descarga el artefacto, despliega con Wrangler y hace una prueba de humo |
+
+**Artefactos.** Lo que se publica es la carpeta `out/` (HTML, CSS, JS, imágenes, `_headers` y `_redirects`). Como las variables `NEXT_PUBLIC_*` se incrustan al compilar, el stage de build genera `sitio-dev`, `sitio-qa` y `sitio-pdn` desde el mismo commit. Los stages de despliegue no compilan: solo suben su artefacto. Los artefactos se guardan 30 días.
+
+**Entornos en Cloudflare Pages** (un solo proyecto Direct Upload):
+
+| Stage | Rama de Pages | URL | Aprobación |
+|---|---|---|---|
+| dev | `dev` (preview) | `https://dev.<proyecto>.pages.dev` | No |
+| qa | `qa` (preview) | `https://qa.<proyecto>.pages.dev` | Sí |
+| pdn | `main` (producción) | `https://<proyecto>.pages.dev` o el dominio propio | Sí |
+
+Los previews llevan `X-Robots-Tag: noindex` automáticamente, así que dev y qa no se indexan.
+
+### Configuración fuera del repo
+
+Solo los workflows y `.github/rulesets/main.json` viven en el repo. Lo demás se configura una vez:
+
+1. **Cloudflare:** Workers & Pages → Create → Pages → **Upload assets** (Direct Upload; un proyecto conectado a Git no puede pasar a Direct Upload). Rama de producción: `main`. Después, en My Profile → API Tokens, crea un token con el permiso *Account → Cloudflare Pages → Edit* y copia el Account ID.
+2. **GitHub → Settings → Environments:** crea `dev` (sin reglas), `qa` (*Required reviewers*: tú) y `pdn` (*Required reviewers*: tú y *Deployment branches*: solo `main`). En cada uno añade los secretos `CLOUDFLARE_API_TOKEN` y `CLOUDFLARE_ACCOUNT_ID`.
+3. **GitHub → Settings → Secrets and variables → Actions → Variables** (de repositorio):
+   - `CF_PAGES_PROJECT`: nombre del proyecto de Pages. Mientras no exista, el release se salta.
+   - `DEV_SITE_URL`, `QA_SITE_URL`, `PDN_SITE_URL`: URL de cada entorno (obligatorias).
+   - Opcionales por entorno: `DEV_FORMSPREE_ID`, `DEV_TURNSTILE_SITE_KEY` (y con prefijo `QA_` y `PDN_`). Sin ellas, el formulario de ese entorno se desactiva.
+4. **Ruleset de `main`:** Settings → Rules → Rulesets → New ruleset → **Import a ruleset** → `.github/rulesets/main.json`. Exige PR, que el check `build` pase con la rama al día y bloquea force push y borrado.
+
+### Rollback
+
+En Cloudflare: Workers & Pages → proyecto → Deployments → despliegue anterior → **Rollback**. También puedes volver a ejecutar el job `deploy-pdn` de un run anterior de Release mientras su artefacto exista.
 
 ## Variables de entorno
 

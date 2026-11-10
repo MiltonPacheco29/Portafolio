@@ -1,0 +1,98 @@
+# Pipeline de release: build → dev → qa → pdn.
+#
+# Se dispara al fusionar en main. El stage de build genera un artefacto por entorno
+# (sitio-dev, sitio-qa, sitio-pdn) desde el mismo commit: en un export estático las
+# variables NEXT_PUBLIC_* se incrustan al compilar, no se leen al arrancar.
+# Los stages de despliegue solo descargan su artefacto; nunca vuelven a compilar.
+#
+# Configuración fuera del repo (Settings del repo en GitHub): ver la sección CI/CD del README.
+# Mientras no exista la variable CF_PAGES_PROJECT, el pipeline se salta entero.
+name: Release
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Un release a la vez; uno nuevo no cancela un despliegue en curso.
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: build (${{ matrix.stage }})
+    if: ${{ vars.CF_PAGES_PROJECT != '' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: true
+      matrix:
+        include:
+          - stage: dev
+            prefix: DEV
+          - stage: qa
+            prefix: QA
+          - stage: pdn
+            prefix: PDN
+    env:
+      NEXT_PUBLIC_SITE_URL: ${{ vars[format('{0}_SITE_URL', matrix.prefix)] }}
+      NEXT_PUBLIC_FORMSPREE_ID: ${{ vars[format('{0}_FORMSPREE_ID', matrix.prefix)] }}
+      NEXT_PUBLIC_TURNSTILE_SITE_KEY: ${{ vars[format('{0}_TURNSTILE_SITE_KEY', matrix.prefix)] }}
+    steps:
+      - name: Comprobar variables del entorno
+        run: |
+          if [ -z "$NEXT_PUBLIC_SITE_URL" ]; then
+            echo "✗ Falta la variable de repositorio ${{ matrix.prefix }}_SITE_URL"
+            exit 1
+          fi
+          echo "✓ ${{ matrix.stage }} → $NEXT_PUBLIC_SITE_URL"
+
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      # postbuild: CSP con hashes y comprobación de URLs de prueba.
+      - name: Build
+        run: npm run build
+
+      - name: Publicar artefacto
+        uses: actions/upload-artifact@v4
+        with:
+          name: sitio-${{ matrix.stage }}
+          path: out/
+          if-no-files-found: error
+          retention-days: 30
+
+  deploy-dev:
+    needs: build
+    uses: ./.github/workflows/deploy-pages.yml
+    with:
+      stage: dev
+      pages-branch: dev
+    secrets: inherit
+
+  deploy-qa:
+    needs: deploy-dev
+    uses: ./.github/workflows/deploy-pages.yml
+    with:
+      stage: qa
+      pages-branch: qa
+    secrets: inherit
+
+  deploy-pdn:
+    needs: deploy-qa
+    uses: ./.github/workflows/deploy-pages.yml
+    with:
+      stage: pdn
+      pages-branch: main
+    secrets: inherit
