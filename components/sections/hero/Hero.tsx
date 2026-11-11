@@ -149,7 +149,7 @@ export function Hero({
               pending={hero.avatar.pending}
               bare
               preload
-              sizes="(min-width: 1024px) 42vw, (min-width: 768px) 28rem, 75vw"
+              sizes="(min-width: 1024px) 48vw, (min-width: 768px) 32.2rem, 86vw"
             />
           </div>
         </div>

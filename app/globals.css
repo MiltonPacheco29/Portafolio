@@ -462,16 +462,16 @@
     position: relative;
     align-self: end;
     justify-self: end;
-    width: min(75vw, 24rem);
+    width: min(86.25vw, 27.6rem);
   }
   @media (width >= 48rem) {
     .hero-avatar {
-      width: min(55vw, 28rem);
+      width: min(63.25vw, 32.2rem);
     }
   }
   @media (width >= 64rem) {
     .hero-avatar {
-      width: min(100%, calc(var(--hero-h) * 0.9), 860px);
+      width: min(115%, calc(var(--hero-h) * 1.035), 989px);
     }
   }
   .hero-avatar-glow {

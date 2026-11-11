@@ -1,7 +1,7 @@
 {
   "github.copilot.chat.commitMessageGeneration.instructions": [
     {
-      "text": "Write commit messages in English using the Conventional Commits format: <type>[optional scope]: <description>. Choose an appropriate type such as feat, fix, docs, style, refactor, perf, test, build, ci, or chore. Keep the description concise, use the imperative mood, and do not end it with a period."
+      "text": "Write commit messages in Spanish using the Conventional Commits format: <type>[optional scope]: <description>. Choose an appropriate type such as feat, fix, docs, style, refactor, perf, test, build, ci, or chore. Keep the description concise, use the imperative mood, and do not end it with a period."
     }
   ]
 }
