@@ -62,16 +62,20 @@
   },
   "skillsBand": {
     "label": "Tecnologías con las que trabajo",
+    "pause": "Pausar el movimiento de la banda de tecnologías",
+    "play": "Reanudar el movimiento de la banda de tecnologías",
     "items": [
       "Java",
-      "Spring Boot",
       "Elixir",
-      "Microservicios",
-      "APIs REST",
-      "CI/CD",
+      "Go",
+      "React",
+      "Next.js",
       "AWS",
+      "APIs REST",
+      "Kubernetes",
       "Docker",
-      "SQL"
+      "SQL",
+      "IBM iSeries"
     ]
   },
   "sections": {

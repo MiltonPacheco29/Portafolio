@@ -32,7 +32,12 @@ export default function HomePage() {
         />
       </section>
 
-      <SkillsMarquee label={skillsBand.label} items={skillsBand.items} />
+      <SkillsMarquee
+        label={skillsBand.label}
+        items={skillsBand.items}
+        pauseLabel={skillsBand.pause}
+        playLabel={skillsBand.play}
+      />
 
       <AboutSection about={s.about} contactHref={contactHref} contactLabel={cta.contact} />
       <ServicesSection services={s.services} />

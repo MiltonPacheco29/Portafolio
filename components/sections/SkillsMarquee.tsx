@@ -1,12 +1,13 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useState } from "react";
 import { StripeDivider } from "@/components/ui/StripeDivider";
-import { usePrefersReducedMotion } from "@/lib/animations";
 
 type SkillsMarqueeProps = {
   label: string;
   items: string[];
+  pauseLabel: string;
+  playLabel: string;
 };
 
 const COPIES = 3;
@@ -14,59 +15,30 @@ const COPIES = 3;
 function Words({ items }: { items: string[] }) {
   return items.map((item, i) => (
     <li key={i} className="flex items-center">
-      <span className="px-[0.3em]">{item}</span>
-      <span aria-hidden="true">·</span>
+      <span className="px-[0.2em]">{item}</span>
+      <span aria-hidden="true" className="marquee-sep" />
     </li>
   ));
 }
 
-export function SkillsMarquee({ label, items }: SkillsMarqueeProps) {
-  const root = useRef<HTMLDivElement>(null);
-  const rowA = useRef<HTMLDivElement>(null);
-  const rowB = useRef<HTMLDivElement>(null);
-  const reduced = usePrefersReducedMotion();
-
-  useEffect(() => {
-    const el = root.current;
-    const a = rowA.current;
-    const b = rowB.current;
-    if (!el || !a || !b || reduced) return;
-
-    let frame = 0;
-    const update = () => {
-      frame = 0;
-      const sectionTop = el.getBoundingClientRect().top + window.scrollY;
-      const offset = (window.scrollY - sectionTop + window.innerHeight) * 0.3;
-      const copyA = a.scrollWidth / COPIES;
-      const copyB = b.scrollWidth / COPIES;
-      a.style.transform = `translate3d(${-copyA + (offset - 200)}px, 0, 0)`;
-      b.style.transform = `translate3d(${-copyB - (offset - 200)}px, 0, 0)`;
-    };
-    const schedule = () => {
-      if (!frame) frame = requestAnimationFrame(update);
-    };
-
-    update();
-    window.addEventListener("scroll", schedule, { passive: true });
-    window.addEventListener("resize", schedule);
-    return () => {
-      cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", schedule);
-      window.removeEventListener("resize", schedule);
-      a.style.transform = "";
-      b.style.transform = "";
-    };
-  }, [reduced]);
+/* Dos filas que se desplazan solas en sentidos opuestos (animación CSS en globals.css).
+   Se pausan al pasar el ratón o con el botón (WCAG 2.2.2); con movimiento reducido quedan fijas. */
+export function SkillsMarquee({ label, items, pauseLabel, playLabel }: SkillsMarqueeProps) {
+  const [paused, setPaused] = useState(false);
 
   const reversed = [...items].reverse();
   const rowClass =
-    "marquee-row flex w-max font-display text-band font-black uppercase [font-stretch:80%] motion-safe:will-change-transform";
+    "marquee-row flex w-max font-display text-band font-black uppercase [font-stretch:80%]";
+  const buttonLabel = paused ? playLabel : pauseLabel;
 
   return (
-    <div ref={root} className="overflow-x-clip py-10 sm:py-14">
+    <div
+      className="marquee relative overflow-x-clip py-10 sm:py-14"
+      data-paused={paused || undefined}
+    >
       <StripeDivider />
-      <div className="flex flex-col gap-2 py-6 sm:gap-3 sm:py-8">
-        <div ref={rowA} className={`${rowClass} text-fg`}>
+      <div className="marquee-track flex flex-col gap-2 py-6 sm:gap-3 sm:py-8">
+        <div className={`${rowClass} text-fg`}>
           {Array.from({ length: COPIES }, (_, copy) =>
             copy === 0 ? (
               <ul key={copy} aria-label={label} className="flex">
@@ -79,7 +51,7 @@ export function SkillsMarquee({ label, items }: SkillsMarqueeProps) {
             ),
           )}
         </div>
-        <div ref={rowB} aria-hidden="true" className={`${rowClass} text-accent`}>
+        <div aria-hidden="true" data-dir="reverse" className={`${rowClass} text-accent`}>
           {Array.from({ length: COPIES }, (_, copy) => (
             <ul key={copy} className="flex">
               <Words items={reversed} />
@@ -88,6 +60,18 @@ export function SkillsMarquee({ label, items }: SkillsMarqueeProps) {
         </div>
       </div>
       <StripeDivider />
+
+      <button
+        type="button"
+        onClick={() => setPaused((p) => !p)}
+        aria-label={buttonLabel}
+        title={buttonLabel}
+        className="absolute right-[var(--gutter)] bottom-1 inline-flex size-11 items-center justify-center rounded-pill border border-border-strong bg-bg/70 text-fg backdrop-blur-sm hover:border-primary hover:text-primary motion-reduce:hidden motion-safe:transition-colors motion-safe:duration-200 sm:bottom-2"
+      >
+        <svg aria-hidden="true" focusable="false" viewBox="0 0 16 16" className="size-4 fill-current">
+          {paused ? <path d="M5 2.5v11l9-5.5z" /> : <path d="M4 3h3v10H4zM9 3h3v10H9z" />}
+        </svg>
+      </button>
     </div>
   );
 }

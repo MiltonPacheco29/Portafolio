@@ -382,6 +382,17 @@
     padding-top: var(--nav-height);
     padding-inline: var(--hero-edge);
   }
+  /* Cierra el borde inferior con un desvanecido corto hacia el fondo (avatar y capas incluidos).
+     Queda por encima del avatar y por debajo de .hero-video-toggle (z-index: 10). */
+  .hero::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0;
+    z-index: 1;
+    height: clamp(3rem, 8svh, 5rem);
+    pointer-events: none;
+    background: linear-gradient(to bottom, transparent, var(--bg));
+  }
 
   /* Móvil y tableta: una columna de alto flexible, avatar debajo y alineado a la derecha.
      Desde 64rem: dos columnas (~55/45), texto centrado en vertical y avatar abajo. */
@@ -612,7 +623,8 @@
     .hero-ambient,
     .hero-dots,
     .hero-frame,
-    .hero-avatar-glow {
+    .hero-avatar-glow,
+    .hero::after {
       display: none;
     }
   }
@@ -699,8 +711,55 @@
   }
 }
 
+/* Banda de tecnologías: cada fila repite su lista 3 veces, así que desplazarla un tercio
+   cierra el bucle sin salto. Con movimiento reducido queda fija en esa posición. */
 .marquee-row {
-  transform: translate3d(-33.333%, 0, 0);
+  --marquee-dur: 50s;
+  transform: translate3d(calc(-100% / 3), 0, 0);
+}
+.marquee-row[data-dir="reverse"] {
+  --marquee-dur: 70s;
+}
+/* Bordes laterales desvanecidos: las palabras entran y salen sin corte seco. */
+.marquee-track {
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+/* Separador: corte diagonal con la tinta de las rayas (StripeDivider). */
+.marquee-sep {
+  display: inline-block;
+  width: 0.14em;
+  height: 0.62em;
+  margin-inline: 0.28em;
+  background-color: var(--stripe);
+  transform: skewX(-24deg);
+}
+@media (forced-colors: active) {
+  .marquee-track {
+    mask-image: none;
+  }
+  .marquee-sep {
+    background-color: CanvasText;
+  }
+}
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(calc(-100% / 3), 0, 0);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .marquee-row {
+    animation: marquee var(--marquee-dur) linear infinite;
+  }
+  .marquee-row[data-dir="reverse"] {
+    animation-direction: reverse;
+  }
+  .marquee:hover .marquee-row,
+  .marquee[data-paused] .marquee-row {
+    animation-play-state: paused;
+  }
 }
 
 @keyframes enter {
