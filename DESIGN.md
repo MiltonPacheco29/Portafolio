@@ -206,6 +206,18 @@ Los avatares `avatar-senalando.webp` y `avatar-codigo.webp` ya no se usan (se el
 
 Capturas: solo trabajos personales o públicos, sin datos de clientes, exportadas a WebP sin metadatos (EXIF, XMP, GPS).
 
+### Imágenes de ejemplo de los proyectos (provisionales)
+
+Las nueve imágenes de `public/projects/` son fotos de Unsplash (Unsplash License: uso libre, sin atribución obligatoria) descargadas por HTTPS, comprobadas como JPEG y reconvertidas a WebP sin metadatos. Sustituir por capturas reales cuando existan los proyectos.
+
+| Archivo | Foto (Unsplash) | Autor |
+|---|---|---|
+| portafolio-1, proyecto-front-2 | X_TYa6Nxu2A, z0xdapnPMJ8 | Jakub Żerdzicki |
+| portafolio-2, portafolio-3 | TK0kQP476cU, eId5vdwRdQc | Jakub Żerdzicki |
+| proyecto-front-1, proyecto-front-3 | nBXwqxjDa5c | Mohammad Rahmani |
+| bootcamp-1, bootcamp-3 | 9-U8xW54Le0 | Bernd Dittrich |
+| bootcamp-2 | evzHeMgbKOg | Vishnu Kalanad |
+
 ## 9. Accesibilidad y confidencialidad
 
 - Decorativo con `aria-hidden`: franjas, etiquetas verticales, copias de la franja de skills, decorativos de esquina, barras del CV, grano.
