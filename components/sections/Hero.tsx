@@ -1,7 +1,7 @@
 import { AvatarImage } from "@/components/ui/AvatarImage";
 import { ContactButton } from "@/components/ui/ContactButton";
 import { Magnet } from "@/components/motion/Magnet";
-import { siteLang, type Dictionary } from "@/lib/i18n";
+import type { Dictionary } from "@/lib/i18n";
 import type { LocalImage } from "@/lib/server/images";
 import { fillTemplate, isPending } from "@/lib/text";
 
@@ -33,7 +33,7 @@ export function Hero({ hero, titleId, avatar, contactHref, contactLabel }: HeroP
         {line2 && <span className="block">{line2}</span>}
       </h1>
 
-      <div className="enter relative z-10 mx-auto -mt-[4vw] w-60 [--enter-delay:0.6s] [--enter-y:30px] sm:w-80 lg:absolute lg:bottom-0 lg:left-1/2 lg:mt-0 lg:w-[380px] lg:-translate-x-1/2 xl:w-[460px]">
+      <div className="enter relative z-10 mx-auto -mt-[4vw] w-60 [--enter-delay:0.6s] [--enter-y:30px] sm:w-80 lg:absolute lg:right-[3%] lg:bottom-0 lg:mt-0 lg:w-[min(380px,44svh)] xl:w-[min(460px,50svh)]">
         <Magnet>
           <AvatarImage
             image={avatar}
@@ -46,16 +46,11 @@ export function Hero({ hero, titleId, avatar, contactHref, contactLabel }: HeroP
         </Magnet>
       </div>
 
-      <div className="relative z-20 mt-auto flex flex-col gap-6 px-gutter pt-8 pb-7 sm:pb-8 md:pb-10 lg:flex-row lg:items-end lg:justify-between">
-        <div className="enter flex flex-col gap-3 [--enter-delay:0.35s] [--enter-y:20px] lg:max-w-[calc(50%-13rem)] xl:max-w-[calc(50%-15.5rem)]">
-          <p lang={hero.subtitleLang !== siteLang ? hero.subtitleLang : undefined} className="font-serif text-subtitle text-fg italic">
-            {hero.subtitle}
-          </p>
-          <p className="max-w-sm text-base text-fg md:text-lg">{hero.tagline}</p>
-        </div>
-
-        <div className="flex flex-col gap-4 lg:max-w-[calc(50%-13rem)] lg:items-end xl:max-w-[calc(50%-15.5rem)]">
-          <ul aria-label={hero.meta.label} className="enter meta flex flex-wrap gap-x-2 gap-y-1 text-fg-muted [--enter-delay:0.35s] [--enter-y:20px] lg:justify-end">
+      <div className="relative z-20 mt-auto flex flex-col gap-6 px-gutter pt-8 pb-7 sm:pb-8 md:pb-10">
+        <div className="flex max-w-[34rem] flex-col gap-6 lg:max-w-[min(34rem,46%)]">
+          <p className="enter font-serif text-tagline text-fg italic [--enter-delay:0.35s] [--enter-y:20px]">{hero.tagline}</p>
+          <ContactButton href={contactHref} label={contactLabel} className="enter w-fit [--enter-delay:0.5s] [--enter-y:20px]" />
+          <ul aria-label={hero.meta.label} className="enter meta flex flex-wrap gap-x-2 gap-y-1 text-sm text-fg-muted md:text-base [--enter-delay:0.5s] [--enter-y:20px]">
             {meta.map((item, i) => (
               <li key={i} className="flex gap-2">
                 {i > 0 && <span aria-hidden="true">·</span>}
@@ -63,7 +58,6 @@ export function Hero({ hero, titleId, avatar, contactHref, contactLabel }: HeroP
               </li>
             ))}
           </ul>
-          <ContactButton href={contactHref} label={contactLabel} className="enter w-fit [--enter-delay:0.5s] [--enter-y:20px]" />
         </div>
       </div>
     </div>

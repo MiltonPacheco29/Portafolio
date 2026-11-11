@@ -26,9 +26,7 @@
   },
   "hero": {
     "title": "HOLA, SOY MILTON",
-    "subtitle": "Stable systems. Secure code.",
-    "subtitleLang": "en",
-    "tagline": "Desarrollo backend con Java, Spring Boot y Elixir, de la API al despliegue.",
+    "tagline": "Del dato a la pantalla: construyo APIs, microservicios, interfaces web y bases de datos que trabajan en equipo.",
     "meta": {
       "label": "Datos rápidos",
       "city": "Tunja, Colombia",

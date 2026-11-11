@@ -11,11 +11,12 @@
 
   --fs-base: 1rem;
   --fs-3xl: clamp(1.75rem, 1.4rem + 1.6vw, 2.5rem);
-  --fs-hero: clamp(3.5rem, 17vw, 17rem);
+  --fs-hero: clamp(3.5rem, min(17vw, 30svh), 17rem);
   --fs-display: clamp(3rem, 12vw, 10rem);
   --fs-number: clamp(3rem, 10vw, 8.75rem);
   --fs-band: clamp(2.25rem, 6vw, 5.5rem);
   --fs-subtitle: clamp(1.5rem, 1rem + 2.4vw, 3rem);
+  --fs-tagline: clamp(1.25rem, 1rem + 1vw, 1.875rem);
   --fs-lead: clamp(1.125rem, 1rem + 0.8vw, 1.5rem);
   --fs-meta: 0.75rem;
 
@@ -216,6 +217,8 @@
   --text-lead--line-height: var(--lh-normal);
   --text-subtitle: var(--fs-subtitle);
   --text-subtitle--line-height: 1.15;
+  --text-tagline: var(--fs-tagline);
+  --text-tagline--line-height: 1.25;
   --text-band: var(--fs-band);
   --text-band--line-height: 1;
   --text-number: var(--fs-number);

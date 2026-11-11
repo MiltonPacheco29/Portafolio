@@ -13,7 +13,7 @@ Referencias usadas **solo como gramática visual y como datos**: `docs/referenci
 
 ### Dónde va la audacia
 
-1. **Hero:** el nombre a todo el ancho y el avatar delante de las letras.
+1. **Hero:** el nombre grande arriba a la izquierda (limitado también por la altura de la ventana) y el avatar abajo a la derecha, sin tapar las letras.
 2. **Proyectos:** las tarjetas que se apilan al hacer scroll.
 
 El resto (Sobre mí, Qué hago, Experiencia, Contacto) se apoya en la misma escala tipográfica y en el ritmo de secciones, sin decoración añadida.
@@ -24,7 +24,7 @@ Objetivo único (de `landing-page-design`): **que me contacten**. El botón de c
 
 | Orden | Bloque | Ancla | Notas |
 |---|---|---|---|
-| 1 | Hero | `inicio` | `h1` "HOLA, SOY MILTON", subtítulo "Stable systems. Secure code." (`lang="en"`), metadatos, frase corta y botón de contacto |
+| 1 | Hero | `inicio` | `h1` "HOLA, SOY MILTON", descripción en serif cursiva, botón de contacto y metadatos (ciudad y año) |
 | 2 | Franja de skills | sin ancla | Decorativa en movimiento, con una lista accesible única |
 | 3 | Sobre mí | `sobre-mi` | Revelado por carácter, avatar y botón de contacto |
 | 4 | Qué hago | `que-hago` | Fondo invertido, 5 servicios numerados |
@@ -101,10 +101,11 @@ Máximo tres familias, todas con `next/font/google` (se sirven desde el propio d
 
 | Token | Valor | Uso |
 |---|---|---|
-| `--fs-hero` | `clamp(3.5rem, 17vw, 17rem)` | Nombre del Hero en dos líneas ("HOLA, SOY" / "MILTON"), `font-stretch` 75 %, interlineado 0.86 |
+| `--fs-hero` | `clamp(3.5rem, min(17vw, 30svh), 17rem)` | Nombre del Hero en dos líneas ("HOLA, SOY" / "MILTON"), `font-stretch` 75 %, interlineado 0.86 |
 | `--fs-display` | `clamp(3rem, 12vw, 10rem)` | Títulos de sección |
 | `--fs-number` | `clamp(3rem, 10vw, 8.75rem)` | Números de Qué hago y de proyectos |
 | `--fs-band` | `clamp(2.25rem, 6vw, 5.5rem)` | Franja de skills |
+| `--fs-tagline` | `clamp(1.25rem, 1rem + 1vw, 1.875rem)` | Descripción del Hero en serif cursiva |
 | `--fs-subtitle` | `clamp(1.5rem, 1rem + 2.4vw, 3rem)` | Subtítulo en serif cursiva |
 | `--fs-lead` | `clamp(1.125rem, 1rem + 0.8vw, 1.5rem)` | Párrafo de Sobre mí |
 | `--fs-meta` | 0.75rem (12 px, mínimo) | Metadatos y etiquetas verticales, mayúsculas por CSS, `--tracking-meta` 0.14em |
