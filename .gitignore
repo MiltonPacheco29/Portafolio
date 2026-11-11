@@ -53,7 +53,3 @@ desktop.ini
 
 # Referencias de diseño de terceros (póster, prompt, retrato): solo locales.
 /docs/
-
-# Avatar del Hero de prueba (es el retrato de la referencia): no se versiona.
-# Quitar esta línea cuando se sustituya por un avatar propio.
-public/avatar/avatar-hola.webp
