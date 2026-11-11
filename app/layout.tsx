@@ -23,11 +23,13 @@ export const metadata: Metadata = {
     title: meta.title,
     description: meta.description,
     locale: meta.ogLocale,
+    images: [{ url: "/og/og.webp", width: 1200, height: 630, alt: meta.title }],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: meta.title,
     description: meta.description,
+    images: ["/og/og.webp"],
   },
 };
 

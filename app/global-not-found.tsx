@@ -28,7 +28,7 @@ export default function GlobalNotFound() {
             404
           </p>
           <div className="flex flex-col items-center gap-2">
-            <h1 className="font-display text-title font-bold">{notFound.title}</h1>
+            <h1 className="font-display text-title font-black uppercase">{notFound.title}</h1>
             <p className="text-fg-muted">{notFound.body}</p>
             <Link href="/" className="text-primary underline underline-offset-4">
               {notFound.back}
