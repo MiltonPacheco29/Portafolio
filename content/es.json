@@ -37,13 +37,23 @@
     },
     "avatar": {
       "src": "/avatar/avatar-hola.webp",
-      "alt": "[POR COMPLETAR] Ilustración estilo cyberpunk de Milton saludando con la mano",
-      "pending": "[POR COMPLETAR] Falta la imagen public/avatar/avatar-hola.webp"
+      "alt": "Ilustración estilo cyberpunk de Milton saludando con la mano: lleva gafas, barba y una chaqueta negra con detalles cian y magenta",
+      "pending": "Falta la imagen public/avatar/avatar-hola.webp"
     }
   },
   "skillsBand": {
     "label": "Tecnologías con las que trabajo",
-    "items": ["Java", "Spring Boot", "Elixir", "Microservicios", "APIs REST", "CI/CD", "AWS", "Docker", "SQL"]
+    "items": [
+      "Java",
+      "Spring Boot",
+      "Elixir",
+      "Microservicios",
+      "APIs REST",
+      "CI/CD",
+      "AWS",
+      "Docker",
+      "SQL"
+    ]
   },
   "sections": {
     "home": {
@@ -53,12 +63,7 @@
     "about": {
       "id": "sobre-mi",
       "title": "Sobre mí",
-      "lead": "Soy ingeniero electrónico y especialista en bases de datos. Trabajo con backend y frontend, y construyo soluciones eficientes, estables y seguras, de la API a la interfaz. Si tu proyecto necesita un desarrollador que cuide la calidad y los plazos, hablemos.",
-      "image": {
-        "src": "/avatar/avatar-brazos-cruzados.webp",
-        "alt": "[POR COMPLETAR] Ilustración estilo cyberpunk de Milton de pie con los brazos cruzados",
-        "pending": "[POR COMPLETAR] Falta la imagen public/avatar/avatar-brazos-cruzados.webp"
-      }
+      "lead": "Soy ingeniero electrónico y especialista en bases de datos. Trabajo con backend y frontend, y construyo soluciones eficientes, estables y seguras, de la API a la interfaz. Si tu proyecto necesita un desarrollador que cuide la calidad y los plazos, hablemos."
     },
     "services": {
       "id": "que-hago",
@@ -116,7 +121,7 @@
       "image": {
         "src": "/avatar/avatar-laptop.webp",
         "alt": "Ilustración estilo cyberpunk de una persona con gafas translúcidas y chaqueta negra con detalles cian y magenta, concentrada mientras teclea en un portátil",
-        "pending": "[POR COMPLETAR] Falta la imagen public/avatar/avatar-laptop.webp"
+        "pending": "Falta la imagen public/avatar/avatar-laptop.webp"
       },
       "items": [
         {
@@ -127,7 +132,17 @@
           "achievements": [
             "Evolución de APIs y microservicios de aplicaciones críticas con foco en estabilidad y seguridad."
           ],
-          "stack": ["Java", "Elixir", "Spring Boot", "Spring WebFlux", "AWS", "Kubernetes", "SonarQube", "Dynatrace", "Azure DevOps"]
+          "stack": [
+            "Java",
+            "Elixir",
+            "Spring Boot",
+            "Spring WebFlux",
+            "AWS",
+            "Kubernetes",
+            "SonarQube",
+            "Dynatrace",
+            "Azure DevOps"
+          ]
         },
         {
           "role": "Consultor Junior",
@@ -137,7 +152,17 @@
           "achievements": [
             "Gestión de vulnerabilidades y deuda técnica en servicios en producción."
           ],
-          "stack": ["Java", "Elixir", "Spring Boot", "Spring WebFlux", "AWS", "Kubernetes", "SonarQube", "Dynatrace", "Azure DevOps"]
+          "stack": [
+            "Java",
+            "Elixir",
+            "Spring Boot",
+            "Spring WebFlux",
+            "AWS",
+            "Kubernetes",
+            "SonarQube",
+            "Dynatrace",
+            "Azure DevOps"
+          ]
         },
         {
           "role": "Analista de desarrollo",
@@ -147,7 +172,15 @@
           "achievements": [
             "Paso de soluciones empresariales en IBM i a aplicaciones web con Next.js, React y Go."
           ],
-          "stack": ["RPG", "SQL", "DB2/400", "Next.js", "React", "Go", "GitLab"]
+          "stack": [
+            "RPG",
+            "SQL",
+            "DB2/400",
+            "Next.js",
+            "React",
+            "Go",
+            "GitLab"
+          ]
         }
       ]
     },
@@ -159,7 +192,7 @@
         "stack": "Stack",
         "view": "Ver proyecto",
         "repoOf": "de",
-        "repoPending": "[POR COMPLETAR] Añade el enlace al proyecto"
+        "repoPending": "Enlace pendiente"
       },
       "filters": {
         "label": "Filtrar por tecnología",
@@ -183,15 +216,15 @@
           "images": [
             {
               "src": "/projects/portafolio-1.webp",
-              "alt": "[POR COMPLETAR] Captura de la portada del portafolio en tema oscuro"
+              "alt": "Escritorio blanco con un portátil, un monitor, una tableta y un móvil que muestran el mismo fondo de colores (imagen de ejemplo)"
             },
             {
               "src": "/projects/portafolio-2.webp",
-              "alt": "[POR COMPLETAR] Captura del portafolio en tema claro"
+              "alt": "Mesa de madera con una tableta, dos móviles, un portátil y plantas (imagen de ejemplo)"
             },
             {
               "src": "/projects/portafolio-3.webp",
-              "alt": "[POR COMPLETAR] Captura del portafolio en un móvil"
+              "alt": "Vista cenital de una mesa de madera con tableta, móvil, ratón y plantas (imagen de ejemplo)"
             }
           ]
         },
@@ -210,15 +243,15 @@
           "images": [
             {
               "src": "/projects/proyecto-front-1.webp",
-              "alt": "[POR COMPLETAR] Captura de la pantalla principal"
+              "alt": "Portátil de lado con un editor de código oscuro en pantalla (imagen de ejemplo)"
             },
             {
               "src": "/projects/proyecto-front-2.webp",
-              "alt": "[POR COMPLETAR] Captura de una vista secundaria"
+              "alt": "Escritorio con dos portátiles, un monitor y un móvil con las pantallas en blanco (imagen de ejemplo)"
             },
             {
               "src": "/projects/proyecto-front-3.webp",
-              "alt": "[POR COMPLETAR] Captura en un móvil"
+              "alt": "Detalle de un editor de código con un panel lateral de colores (imagen de ejemplo)"
             }
           ]
         },
@@ -237,15 +270,15 @@
           "images": [
             {
               "src": "/projects/bootcamp-1.webp",
-              "alt": "[POR COMPLETAR] Captura de la pantalla principal"
+              "alt": "Editor de código con una terminal y pruebas automáticas en pantalla (imagen de ejemplo)"
             },
             {
               "src": "/projects/bootcamp-2.webp",
-              "alt": "[POR COMPLETAR] Captura de una vista secundaria"
+              "alt": "Primer plano de código de colores en la pantalla de un portátil (imagen de ejemplo)"
             },
             {
               "src": "/projects/bootcamp-3.webp",
-              "alt": "[POR COMPLETAR] Captura de la persistencia de datos"
+              "alt": "Detalle de un editor de código con una lista de archivos (imagen de ejemplo)"
             }
           ]
         }
@@ -258,9 +291,21 @@
       "ctaIntro": "¿Tienes un proyecto o una vacante? Cuéntamelo.",
       "linksTitle": "Dónde encontrarme",
       "links": [
-        { "kind": "email", "label": "Correo", "value": "miltonpacheco2912@gmail.com" },
-        { "kind": "linkedin", "label": "LinkedIn", "value": "https://www.linkedin.com/in/miltonpacheco01" },
-        { "kind": "github", "label": "GitHub", "value": "https://github.com/MiltonPacheco29" }
+        {
+          "kind": "email",
+          "label": "Correo",
+          "value": "miltonpacheco2912@gmail.com"
+        },
+        {
+          "kind": "linkedin",
+          "label": "LinkedIn",
+          "value": "https://www.linkedin.com/in/miltonpacheco01"
+        },
+        {
+          "kind": "github",
+          "label": "GitHub",
+          "value": "https://github.com/MiltonPacheco29"
+        }
       ],
       "pendingLink": "pendiente",
       "cv": {
@@ -271,12 +316,7 @@
         "languageName": "español",
         "label": "Descargar CV ({format}, {language})",
         "labelWithSize": "Descargar CV ({format}, {language}, {size})",
-        "pending": "[POR COMPLETAR] Falta el archivo public/cv/cv-es.pdf"
-      },
-      "image": {
-        "src": "/avatar/avatar-laptop-cerrada.webp",
-        "alt": "[POR COMPLETAR] Ilustración estilo cyberpunk de Milton junto a un portátil cerrado",
-        "pending": "[POR COMPLETAR] Falta la imagen public/avatar/avatar-laptop-cerrada.webp"
+        "pending": "Falta el archivo public/cv/cv-es.pdf"
       },
       "form": {
         "title": "Formulario de contacto",
@@ -306,12 +346,7 @@
         "success": {
           "title": "Mensaje enviado",
           "body": "Gracias por escribir. Te responderé lo antes posible.",
-          "again": "Enviar otro mensaje",
-          "image": {
-            "src": "/avatar/avatar-pulgar.webp",
-            "alt": "[POR COMPLETAR] Ilustración estilo cyberpunk de Milton con el pulgar hacia arriba",
-            "pending": "[POR COMPLETAR] Falta la imagen public/avatar/avatar-pulgar.webp"
-          }
+          "again": "Enviar otro mensaje"
         },
         "failure": {
           "title": "No se pudo enviar el mensaje",

@@ -1,4 +1,3 @@
-import { AvatarImage } from "@/components/ui/AvatarImage";
 import { ContactButton } from "@/components/ui/ContactButton";
 import { ContactForm } from "@/components/sections/contact/ContactForm";
 import { CvBarcodeLink } from "@/components/sections/contact/CvBarcodeLink";
@@ -6,7 +5,6 @@ import { FadeIn } from "@/components/motion/FadeIn";
 import { VerticalLabel } from "@/components/ui/VerticalLabel";
 import { fileFormat, formatFileSize, getPublicFile } from "@/lib/server/files";
 import { siteLang, type Dictionary } from "@/lib/i18n";
-import { getLocalImage } from "@/lib/server/images";
 import { fillTemplate, isPending } from "@/lib/text";
 import { blockTitleClass, sectionClass, sectionTitleClass } from "@/components/sections/sectionStyles";
 
@@ -22,7 +20,6 @@ function contactHref(link: Contact["links"][number]): string | null {
 export function ContactSection({ contact, ctaLabel }: ContactSectionProps) {
   const titleId = `${contact.id}-title`;
   const formTitleId = `${contact.id}-form-title`;
-  const image = getLocalImage(contact.image.src);
   const cvFile = getPublicFile(contact.cv.file);
   const format = cvFile?.format ?? fileFormat(contact.cv.file);
 
@@ -92,14 +89,6 @@ export function ContactSection({ contact, ctaLabel }: ContactSectionProps) {
               />
               {!cvFile && <p className="font-mono text-xs text-fg-muted">{contact.cv.pending}</p>}
             </div>
-
-            <AvatarImage
-              image={image}
-              alt={contact.image.alt}
-              pending={contact.image.pending}
-              className="w-full max-w-xs"
-              sizes="320px"
-            />
           </div>
 
           <div
@@ -110,10 +99,7 @@ export function ContactSection({ contact, ctaLabel }: ContactSectionProps) {
             <h3 id={formTitleId} tabIndex={-1} className="scroll-mt-nav-offset font-display text-2xl font-black uppercase outline-none">
               {contact.form.title}
             </h3>
-            <ContactForm
-              texts={contact.form}
-              successImage={getLocalImage(contact.form.success.image.src)}
-            />
+            <ContactForm texts={contact.form} />
           </div>
         </div>
       </div>

@@ -1,12 +1,10 @@
 import { AnimatedText } from "@/components/motion/AnimatedText";
-import { AvatarImage } from "@/components/ui/AvatarImage";
 import { ContactButton } from "@/components/ui/ContactButton";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { PlaceholderImage, type PlaceholderVariant } from "@/components/ui/PlaceholderImage";
 import { VerticalLabel } from "@/components/ui/VerticalLabel";
 import { getDevPlaceholders } from "@/lib/server/devPlaceholders";
 import type { Dictionary } from "@/lib/i18n";
-import { getLocalImage } from "@/lib/server/images";
 import { sectionClass, sectionTitleClass } from "@/components/sections/sectionStyles";
 
 type AboutSectionProps = {
@@ -26,7 +24,6 @@ const CORNERS: { key: Corner; variant: PlaceholderVariant; x: number; delay: num
 
 export async function AboutSection({ about, contactHref, contactLabel }: AboutSectionProps) {
   const titleId = `${about.id}-title`;
-  const image = getLocalImage(about.image.src);
   const dev = await getDevPlaceholders();
 
   return (
@@ -64,14 +61,6 @@ export async function AboutSection({ about, contactHref, contactLabel }: AboutSe
             {about.title}
           </h2>
         </FadeIn>
-
-        <AvatarImage
-          image={image}
-          alt={about.image.alt}
-          pending={about.image.pending}
-          className="w-full max-w-60 sm:max-w-72"
-          sizes="(min-width: 640px) 288px, 240px"
-        />
 
         <AnimatedText text={about.lead} className="max-w-[35rem] text-lead font-medium text-fg" />
 

@@ -2,12 +2,10 @@
 
 import Script from "next/script";
 import { useEffect, useId, useRef, useState, type FormEvent, type Ref } from "react";
-import { AvatarImage } from "@/components/ui/AvatarImage";
 import { ctaClass } from "@/components/ui/ContactButton";
 import { ghostClass } from "@/components/ui/GhostButton";
 import type { Dictionary } from "@/lib/i18n";
 import { siteLang } from "@/lib/i18n/locales";
-import type { LocalImage } from "@/lib/server/images";
 import { formspreeEndpoint, turnstileKey } from "@/lib/config/publicConfig";
 import { fillTemplate } from "@/lib/text";
 import { useTheme } from "@/lib/hooks/useTheme";
@@ -15,7 +13,6 @@ import { useTheme } from "@/lib/hooks/useTheme";
 type FormTexts = Dictionary["sections"]["contact"]["form"];
 type ContactFormProps = {
   texts: FormTexts;
-  successImage: LocalImage | null;
 };
 
 type Field = "name" | "email" | "message";
@@ -55,7 +52,7 @@ function validate(values: Values, token: string | null, t: FormTexts["errors"]):
   return errors;
 }
 
-export function ContactForm({ texts, successImage }: ContactFormProps) {
+export function ContactForm({ texts }: ContactFormProps) {
   const id = useId();
   const [values, setValues] = useState<Values>(EMPTY);
   const [errors, setErrors] = useState<Errors>({});
@@ -167,12 +164,6 @@ export function ContactForm({ texts, successImage }: ContactFormProps) {
           {texts.success.title}
         </h4>
         <p className="text-fg-muted">{texts.success.body}</p>
-        <AvatarImage
-          image={successImage}
-          alt={texts.success.image.alt}
-          pending={texts.success.image.pending}
-          className="w-full max-w-56"
-        />
         <button
           type="button"
           onClick={() => setStatus("idle")}
