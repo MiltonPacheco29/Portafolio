@@ -4,14 +4,18 @@
 @custom-variant light (&:where([data-theme="light"], [data-theme="light"] *));
 
 :root {
-  --font-family-display: var(--font-archivo), "Arial Black", "Segoe UI", system-ui, sans-serif;
-  --font-family-serif: var(--font-newsreader), Georgia, "Times New Roman", serif;
-  --font-family-body: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
-  --font-family-mono: var(--font-jetbrains), ui-monospace, "Cascadia Code", Consolas, monospace;
+  --font-family-display:
+    var(--font-archivo), "Arial Black", "Segoe UI", system-ui, sans-serif;
+  --font-family-serif:
+    var(--font-newsreader), Georgia, "Times New Roman", serif;
+  --font-family-body:
+    system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  --font-family-mono:
+    var(--font-jetbrains), ui-monospace, "Cascadia Code", Consolas, monospace;
 
   --fs-base: 1rem;
   --fs-3xl: clamp(1.75rem, 1.4rem + 1.6vw, 2.5rem);
-  --fs-hero: clamp(3rem, min(15vw, 10svh), 10rem);
+  --fs-hero: clamp(2.25rem, 16cqi, 6.5rem);
   --fs-name: clamp(1.375rem, 1rem + 1vw, 2.25rem);
   --fs-display: clamp(3rem, 12vw, 10rem);
   --fs-number: clamp(3rem, 10vw, 8.75rem);
@@ -35,11 +39,12 @@
   --nav-float-gap: 0.75rem;
   --nav-offset: 5.5rem;
 
-  /* Hero: alto útil, hueco entre columnas y lado del avatar (cuadrado).
-     En móvil el avatar ocupa lo que dejan el titular (3 líneas = 2.58em) y ~20rem de texto. */
+  /* Hero: alto útil, ancho máximo de la composición, margen lateral y hueco entre columnas.
+     En móvil y tableta el alto es flexible (contenido + avatar). */
   --hero-h: calc(100svh - var(--nav-height));
+  --hero-max: 90rem;
+  --hero-inset: var(--gutter);
   --hero-gap: clamp(1.5rem, 3vw, 3rem);
-  --hero-avatar: clamp(10rem, calc(var(--hero-h) - 2.58 * var(--fs-hero) - 20rem), 100%);
 
   --corner-sm: 2px;
   --corner-md: 6px;
@@ -56,13 +61,17 @@
   --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* Escritorio: margen lateral amplio para centrar la composición, el avatar al 90 % del alto
-   y el titular medido por su columna (cqi) y por el alto que deja el resto (~26rem). */
+/* Escritorio: margen lateral amplio y titular medido por su columna (cqi) y por el alto que
+   deja el resto del contenido (~24.5rem). El divisor 3.1 cubre las dos líneas del titular
+   (≈ 1.75em con la máscara) y dos líneas de la frase al 70 % (≈ 1.3em). */
 @media (width >= 64rem) {
   :root {
-    --hero-inset: clamp(2.5rem, 7vw, 8rem);
-    --fs-hero: clamp(3.5rem, min(17cqi, calc((var(--hero-h) - 26rem) / 3)), 9rem);
-    --hero-avatar: min(calc(var(--hero-h) * 0.9), 46vw, 860px);
+    --hero-inset: clamp(2.5rem, 6vw, 6rem);
+    --fs-hero: clamp(
+      3.5rem,
+      min(16cqi, calc((var(--hero-h) - 24.5rem) / 3.1)),
+      9rem
+    );
   }
 }
 
@@ -95,6 +104,9 @@
   --hero-video-opacity: 0.45;
   --hero-video-blend: screen;
   --hero-video-filter: saturate(1.15);
+  --hero-ambient-a: color-mix(in srgb, #00f0ff 16%, transparent);
+  --hero-ambient-b: color-mix(in srgb, #ff2bd6 14%, transparent);
+  --status: #3ddc84;
 }
 
 :root[data-theme="light"] {
@@ -125,6 +137,9 @@
   --hero-video-opacity: 0.16;
   --hero-video-blend: multiply;
   --hero-video-filter: grayscale(1) sepia(0.35) contrast(1.1);
+  --hero-ambient-a: color-mix(in srgb, #c8352b 10%, transparent);
+  --hero-ambient-b: color-mix(in srgb, #1a1612 6%, transparent);
+  --status: #2e7d4f;
 }
 
 @media (prefers-color-scheme: light) {
@@ -156,6 +171,9 @@
     --hero-video-opacity: 0.16;
     --hero-video-blend: multiply;
     --hero-video-filter: grayscale(1) sepia(0.35) contrast(1.1);
+    --hero-ambient-a: color-mix(in srgb, #c8352b 10%, transparent);
+    --hero-ambient-b: color-mix(in srgb, #1a1612 6%, transparent);
+    --status: #2e7d4f;
   }
 }
 
@@ -232,6 +250,7 @@
   --color-on-cta: var(--cta-fg);
   --color-cta-hover: var(--cta-hover-bg);
   --color-on-cta-hover: var(--cta-hover-fg);
+  --color-status: var(--status);
 
   --font-sans: var(--font-family-body);
   --font-display: var(--font-family-display);
@@ -329,29 +348,223 @@
     text-transform: uppercase;
   }
 
-  .hero-title {
+  /* Titular y frase del Hero comparten tipografía; la frase mide el 70 % del titular.
+     Los dos viven en el mismo @container para que 16cqi se mida sobre la misma columna. */
+  .hero-title,
+  .hero-tagline {
     font-family: var(--font-family-display);
-    font-size: var(--fs-hero);
     font-weight: 900;
     font-stretch: 75%;
     line-height: 0.86;
     letter-spacing: -0.02em;
     text-transform: uppercase;
   }
+  .hero-title {
+    font-size: var(--fs-hero);
+  }
+  .hero-tagline {
+    font-size: calc(var(--fs-hero) * 0.35);
+    text-wrap: balance;
+  }
 
+  /* Raíz del Hero: sube bajo la navbar (el video se ve a través de su desenfoque) y reserva
+     ese alto con padding, así que la navbar nunca tapa contenido. --hero-edge centra la
+     composición en --hero-max sin un contenedor extra (el % es el ancho de la página). */
+  .hero {
+    --hero-edge: max(
+      var(--hero-inset),
+      calc((100% - var(--hero-max)) / 2 + var(--hero-inset))
+    );
+    position: relative;
+    isolation: isolate;
+    overflow-x: clip;
+    margin-top: calc(-1 * var(--nav-height));
+    padding-top: var(--nav-height);
+    padding-inline: var(--hero-edge);
+  }
+
+  /* Móvil y tableta: una columna de alto flexible, avatar debajo y alineado a la derecha.
+     Desde 64rem: dos columnas (~55/45), texto centrado en vertical y avatar abajo. */
   .hero-grid {
     display: grid;
-    min-height: var(--hero-h);
     grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: auto auto 1fr auto;
-    grid-template-areas: "intro" "title" "avatar" "copy";
-    column-gap: var(--hero-gap);
+    grid-template-areas: "content" "avatar";
   }
   @media (width >= 64rem) {
     .hero-grid {
-      grid-template-columns: minmax(0, 1fr) var(--hero-avatar);
-      grid-template-rows: auto 1fr auto;
-      grid-template-areas: "intro avatar" "title avatar" "copy avatar";
+      min-height: var(--hero-h);
+      grid-template-columns: minmax(0, 11fr) minmax(0, 9fr);
+      grid-template-areas: "content avatar";
+      column-gap: var(--hero-gap);
+    }
+  }
+
+  /* Máscara de cada línea del titular: el texto sube desde abajo sin mover el layout.
+     El padding amplía el recorte para la coma y se compensa con margen negativo. */
+  .hero-line {
+    display: block;
+    overflow: clip;
+    padding-block: 0.04em 0.1em;
+    margin-block: -0.04em -0.1em;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    min-height: 2rem;
+    padding: 0.375rem 0.875rem;
+    border: 1px solid color-mix(in srgb, var(--primary) 35%, transparent);
+    border-radius: var(--corner-pill);
+    background-color: color-mix(in srgb, var(--bg) 65%, transparent);
+    backdrop-filter: blur(6px);
+    font-family: var(--font-family-mono);
+    font-size: var(--fs-meta);
+    line-height: 1.4;
+    letter-spacing: var(--tracking-mono);
+    color: var(--fg);
+  }
+  /* En 320 px el tracking haría saltar la etiqueta a dos líneas. */
+  @media (width < 24rem) {
+    .hero-badge {
+      letter-spacing: 0;
+    }
+  }
+
+  .hero-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.25rem;
+    padding-inline: 0.75rem;
+    border: 1px solid color-mix(in srgb, var(--border-strong) 60%, transparent);
+    border-radius: var(--corner-sm);
+    background-color: color-mix(in srgb, var(--surface) 70%, transparent);
+    font-family: var(--font-family-mono);
+    font-size: var(--fs-meta);
+    line-height: 1.4;
+    letter-spacing: var(--tracking-mono);
+    color: var(--fg-muted);
+  }
+  .hero-chip:hover {
+    border-color: var(--primary);
+    color: var(--fg);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-chip {
+      transition:
+        border-color 200ms,
+        color 200ms;
+    }
+  }
+
+  .hero-avatar {
+    position: relative;
+    align-self: end;
+    justify-self: end;
+    width: min(75vw, 24rem);
+  }
+  @media (width >= 48rem) {
+    .hero-avatar {
+      width: min(55vw, 28rem);
+    }
+  }
+  @media (width >= 64rem) {
+    .hero-avatar {
+      width: min(100%, calc(var(--hero-h) * 0.9), 860px);
+    }
+  }
+  .hero-avatar-glow {
+    position: absolute;
+    inset: 15% -10% 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(
+        closest-side at 50% 55%,
+        var(--hero-ambient-a),
+        transparent
+      ),
+      radial-gradient(
+        closest-side at 80% 30%,
+        var(--hero-ambient-b),
+        transparent
+      );
+  }
+
+  .hero-ambient,
+  .hero-dots,
+  .hero-frame {
+    position: absolute;
+    z-index: -1;
+    pointer-events: none;
+  }
+  .hero-ambient {
+    inset: 0;
+    background:
+      radial-gradient(
+        40% 55% at 80% 55%,
+        var(--hero-ambient-a),
+        transparent 70%
+      ),
+      radial-gradient(
+        30% 40% at 100% 10%,
+        var(--hero-ambient-b),
+        transparent 70%
+      ),
+      radial-gradient(
+        30% 45% at 0% 100%,
+        var(--hero-ambient-b),
+        transparent 70%
+      );
+  }
+  .hero-dots {
+    inset: 0;
+    opacity: 0.6;
+    background-image: radial-gradient(
+      color-mix(in srgb, var(--fg) 22%, transparent) 1px,
+      transparent 1.5px
+    );
+    background-size: 24px 24px;
+    mask-image: radial-gradient(60% 60% at 78% 40%, #000, transparent 75%);
+  }
+  /* Esquinas de marco (solo escritorio): ocho trazos de 1px dibujados con fondos. */
+  .hero-frame {
+    --frame-c: color-mix(in srgb, var(--primary) 45%, transparent);
+    --frame-l: 1.25rem;
+    display: none;
+    inset: calc(var(--nav-height) + 1.25rem) calc(var(--hero-edge) / 2) 1.25rem;
+    background:
+      linear-gradient(var(--frame-c) 0 0) left top / var(--frame-l) 1px,
+      linear-gradient(var(--frame-c) 0 0) left top / 1px var(--frame-l),
+      linear-gradient(var(--frame-c) 0 0) right top / var(--frame-l) 1px,
+      linear-gradient(var(--frame-c) 0 0) right top / 1px var(--frame-l),
+      linear-gradient(var(--frame-c) 0 0) left bottom / var(--frame-l) 1px,
+      linear-gradient(var(--frame-c) 0 0) left bottom / 1px var(--frame-l),
+      linear-gradient(var(--frame-c) 0 0) right bottom / var(--frame-l) 1px,
+      linear-gradient(var(--frame-c) 0 0) right bottom / 1px var(--frame-l);
+    background-repeat: no-repeat;
+  }
+  @media (width >= 64rem) {
+    .hero-frame {
+      display: block;
+    }
+  }
+
+  /* Móvil: abajo a la izquierda (el avatar va a la derecha). Escritorio: arriba a la derecha,
+     sobre el video y lejos del texto y del avatar. */
+  .hero-video-toggle {
+    position: absolute;
+    z-index: 10;
+    bottom: 1rem;
+    left: var(--hero-edge);
+  }
+  @media (width >= 64rem) {
+    .hero-video-toggle {
+      top: calc(var(--nav-height) + 2.25rem);
+      right: calc(var(--hero-edge) - 0.25rem);
+      bottom: auto;
+      left: auto;
     }
   }
 
@@ -378,30 +591,39 @@
     position: absolute;
     inset: 0;
     background:
-      linear-gradient(to top, var(--bg) 0%, transparent 30%),
-      color-mix(in srgb, var(--bg) 35%, transparent);
+      linear-gradient(to top, var(--bg) 0%, transparent 20%),
+      color-mix(in srgb, var(--bg) 55%, transparent);
   }
   @media (width >= 64rem) {
     .hero-video::after {
       background:
-        linear-gradient(to top, var(--bg) 0%, transparent 25%),
+        linear-gradient(to top, var(--bg) 0%, transparent 22%),
         linear-gradient(
           90deg,
-          color-mix(in srgb, var(--bg) 70%, transparent) 0%,
-          color-mix(in srgb, var(--bg) 30%, transparent) 55%,
+          color-mix(in srgb, var(--bg) 85%, transparent) 0%,
+          color-mix(in srgb, var(--bg) 65%, transparent) 45%,
+          color-mix(in srgb, var(--bg) 15%, transparent) 70%,
           transparent 100%
         );
     }
   }
   @media (forced-colors: active) {
-    .hero-video {
+    .hero-video,
+    .hero-ambient,
+    .hero-dots,
+    .hero-frame,
+    .hero-avatar-glow {
       display: none;
     }
   }
 
   .title-gradient {
     color: var(--title-from);
-    background-image: linear-gradient(180deg, var(--title-from) 0%, var(--title-to) 100%);
+    background-image: linear-gradient(
+      180deg,
+      var(--title-from) 0%,
+      var(--title-to) 100%
+    );
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -444,7 +666,12 @@
   }
 
   .panel-skew {
-    clip-path: polygon(var(--skew) 0, 100% 0, calc(100% - var(--skew)) 100%, 0 100%);
+    clip-path: polygon(
+      var(--skew) 0,
+      100% 0,
+      calc(100% - var(--skew)) 100%,
+      0 100%
+    );
   }
 
   .placeholder-surface {
@@ -455,14 +682,20 @@
         color-mix(in srgb, var(--stripe) 14%, transparent) 0 10px,
         transparent 10px 20px
       ),
-      linear-gradient(160deg, var(--surface) 0%, color-mix(in srgb, var(--primary) 18%, var(--surface)) 100%);
+      linear-gradient(
+        160deg,
+        var(--surface) 0%,
+        color-mix(in srgb, var(--primary) 18%, var(--surface)) 100%
+      );
   }
 
   .reveal {
     --reveal: 1;
   }
   .reveal-char {
-    opacity: calc(0.65 + 0.35 * clamp(0, var(--reveal) * var(--reveal-total) - var(--i), 1));
+    opacity: calc(
+      0.65 + 0.35 * clamp(0, var(--reveal) * var(--reveal-total) - var(--i), 1)
+    );
   }
 }
 
@@ -479,7 +712,8 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .enter {
-    animation: enter var(--dur-fade) var(--ease-fade) var(--enter-delay, 0s) backwards;
+    animation: enter var(--enter-dur, var(--dur-fade)) var(--ease-fade)
+      var(--enter-delay, 0s) backwards;
   }
 }
 
