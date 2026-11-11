@@ -13,7 +13,7 @@ Referencias usadas **solo como gramática visual y como datos**: `docs/referenci
 
 ### Dónde va la audacia
 
-1. **Hero:** el nombre grande arriba a la izquierda (limitado también por la altura de la ventana) y el avatar abajo a la derecha, sin tapar las letras.
+1. **Hero:** el avatar al 90 % de la altura (hasta 860 px), pegado al borde inferior a la derecha, con la mano que saluda junto al titular. A la izquierda, nombre y cargo pequeños arriba y el titular "Del dato a la pantalla." en tres líneas, con su tamaño limitado por su columna y por la altura. Nada se solapa.
 2. **Proyectos:** las tarjetas que se apilan al hacer scroll.
 
 El resto (Sobre mí, Qué hago, Experiencia, Contacto) se apoya en la misma escala tipográfica y en el ritmo de secciones, sin decoración añadida.
@@ -24,7 +24,7 @@ Objetivo único (de `landing-page-design`): **que me contacten**. El botón de c
 
 | Orden | Bloque | Ancla | Notas |
 |---|---|---|---|
-| 1 | Hero | `inicio` | `h1` "HOLA, SOY MILTON", descripción en serif cursiva, botón de contacto y metadatos (ciudad y año) |
+| 1 | Hero | `inicio` | `h1` con nombre y cargo, titular de valor "Del dato a la pantalla.", frase en texto corrido (`text-lead`) con lugar y año, y botón de contacto |
 | 2 | Franja de skills | sin ancla | Decorativa en movimiento, con una lista accesible única |
 | 3 | Sobre mí | `sobre-mi` | Revelado por carácter, avatar y botón de contacto |
 | 4 | Qué hago | `que-hago` | Fondo invertido, 5 servicios numerados |
@@ -32,7 +32,7 @@ Objetivo único (de `landing-page-design`): **que me contacten**. El botón de c
 | 6 | Proyectos | `proyectos` | Tarjetas apiladas con filtros |
 | 7 | Contacto | `contacto` | Formulario, enlaces, CV en código de barras |
 
-Se elimina la sección Skills (la sustituye la franja). Los datos de "Sobre mí" (ubicación, experiencia) pasan a los metadatos del Hero y la formación pasa a Experiencia.
+Se elimina la sección Skills (la sustituye la franja). Los datos de "Sobre mí" (ubicación, experiencia) pasan a la frase del Hero y la formación pasa a Experiencia.
 
 ## 3. Tokens de color
 
@@ -101,19 +101,23 @@ Máximo tres familias, todas con `next/font/google` (se sirven desde el propio d
 
 | Token | Valor | Uso |
 |---|---|---|
-| `--fs-hero` | `clamp(3.5rem, min(17vw, 30svh), 17rem)` | Nombre del Hero en dos líneas ("HOLA, SOY" / "MILTON"), `font-stretch` 75 %, interlineado 0.86 |
+| `--fs-hero` | móvil `clamp(3rem, min(15vw, 10svh), 10rem)`; desde 64rem `clamp(3.5rem, min(17cqi, calc((var(--hero-h) - 26rem) / 3)), 9rem)` | Titular del Hero en tres líneas ("DEL DATO" / "A LA" / "PANTALLA."), `font-stretch` 75 %, interlineado 0.86. `17cqi` mide su columna; el divisor 3 deja holgura sobre el alto real de tres líneas (2.58) |
+| `--fs-name` | `clamp(1.375rem, 1rem + 1vw, 2.25rem)` | Nombre (Archivo 800, sin mayúsculas) y cargo (serif cursiva) del Hero, `text-name` |
+| `--hero-h` | `calc(100svh - var(--nav-height))` | Alto útil del Hero |
+| `--hero-avatar` | móvil `clamp(10rem, calc(var(--hero-h) - 2.58 * var(--fs-hero) - 20rem), 100%)`; desde 64rem `min(calc(var(--hero-h) * 0.9), 46vw, 860px)` | Lado del avatar del Hero (cuadrado; 860 px queda por debajo de los 900 nativos) |
+| `--hero-gap` | `clamp(1.5rem, 3vw, 3rem)` | Hueco entre el texto y el avatar del Hero |
+| `--hero-inset` | `clamp(2.5rem, 7vw, 8rem)` | Margen lateral del Hero desde 64rem (en lugar del gutter), para que texto y avatar queden más centrados |
 | `--fs-display` | `clamp(3rem, 12vw, 10rem)` | Títulos de sección |
 | `--fs-number` | `clamp(3rem, 10vw, 8.75rem)` | Números de Qué hago y de proyectos |
 | `--fs-band` | `clamp(2.25rem, 6vw, 5.5rem)` | Franja de skills |
-| `--fs-tagline` | `clamp(1.25rem, 1rem + 1vw, 1.875rem)` | Descripción del Hero en serif cursiva |
 | `--fs-subtitle` | `clamp(1.5rem, 1rem + 2.4vw, 3rem)` | Subtítulo en serif cursiva |
-| `--fs-lead` | `clamp(1.125rem, 1rem + 0.8vw, 1.5rem)` | Párrafo de Sobre mí |
+| `--fs-lead` | `clamp(1.125rem, 1rem + 0.8vw, 1.5rem)` | Párrafo de Sobre mí y frase del Hero (pila del sistema, ancho máximo 34rem en el Hero) |
 | `--fs-meta` | 0.75rem (12 px, mínimo) | Metadatos y etiquetas verticales, mayúsculas por CSS, `--tracking-meta` 0.14em |
 | `--fs-3xl` | `clamp(1.75rem, 1.4rem + 1.6vw, 2.5rem)` | Título de la 404 (`text-title`) |
 
 El resto del texto de interfaz usa la escala de Tailwind (`text-sm`, `text-lg`, `text-2xl`…).
 
-Interlineados: `--lh-display` 0.88, `--lh-tight` 1.15, `--lh-normal` 1.6. Las mayúsculas se aplican con `text-transform` (en el JSON el texto va en tipo oración salvo el nombre del Hero).
+Interlineados: `--lh-display` 0.88, `--lh-tight` 1.15, `--lh-normal` 1.6. Las mayúsculas se aplican con `text-transform` (en el JSON el texto va en tipo oración).
 
 ## 5. Espaciado, bordes y radios
 
@@ -141,9 +145,8 @@ Color en hover y foco: 200 ms (`motion-safe:duration-200`), nunca menos.
 
 | Pieza | Comportamiento | Movimiento reducido |
 |---|---|---|
-| Entrada del Hero | CSS: navbar 0s (y −20), título 0.15s (y 40), frase 0.35s (y 20), botón 0.5s (y 20), avatar 0.6s (y 30) | Sin animación |
+| Entrada del Hero | CSS (`.enter`): navbar (y −20) y el avatar, que sube desde el corte inferior (translateY 18 % → 0, sin opacidad, 0.7 s, retraso 0.1 s, recortado por su contenedor). En pausa mientras existe el preloader (`@media (scripting: enabled)`), así que arranca al abrirse las cortinas. El resto del Hero no se anima | Sin animación |
 | `FadeIn` | `motion/react`, al entrar en pantalla, una vez, margen 50px, 0.7s, `--ease-fade`. Lo que ya está visible al cargar no se oculta | Sin animación |
-| `Magnet` | Avatar del Hero: padding 150, fuerza 3, entrada 0.3s ease-out, salida 0.6s ease-in-out | Apagado (también en táctil: `hover: none` o `pointer: coarse`) |
 | Franja de skills | `translateX` = ±(scrollY − topSección + altoVentana) × 0.3 − 200; listener pasivo, agrupado por `requestAnimationFrame`, `will-change: transform` | Estática |
 | `AnimatedText` | Opacidad por carácter de **0.65** a 1 (offset "start 0.8" → "end 0.2"); una sola variable CSS de progreso | Opacidad 1 |
 | Proyectos | `sticky` y escala hacia `1 − (total − 1 − i) × 0.03`, `top` + i × 28px, contenedor 85vh por tarjeta, solo desde `md` | Lista normal, sin `sticky` ni escala |
@@ -165,7 +168,6 @@ El 0.65 inicial del revelado garantiza 4.5:1 en ambos temas en todo momento (a 0
 | Componente | Tipo | Notas |
 |---|---|---|
 | `FadeIn` | cliente | props `delay`, `x`, `y`, `duration`, `as` |
-| `Magnet` | cliente | transform por `ref`, sin re-renderizar |
 | `AnimatedText` | cliente | `sr-only` con el texto completo; caracteres en `aria-hidden`, agrupados por palabra |
 | `ContactButton` | servidor | enlace al ancla de contacto, píldora: cian con tinta en oscuro, `--red` con blanco en claro |
 | `GhostButton` | servidor | píldora de borde 2px; sin destino se muestra desactivado (no es enlace) |

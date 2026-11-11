@@ -21,7 +21,7 @@ Next.js (App Router, `output: "export"`), TypeScript, Tailwind CSS y Motion (`mo
 - `components/layout/`: chrome fijo del sitio (navbar, tema).
 - `components/providers/`: configuración global sin UI propia (`MotionProvider`, `ThemeScript`).
 - `components/ui/`: piezas reutilizables sin lógica de página (botones, imágenes, decorativos).
-- `components/motion/`: envoltorios de animación reutilizables (`FadeIn`, `AnimatedText`, `Magnet`).
+- `components/motion/`: envoltorios de animación reutilizables (`FadeIn`, `AnimatedText`).
 - `components/preloader/`: vista (`Preloader.tsx`), motor DOM (`engine.ts`) y bloqueo de scroll (`scrollLock.ts`).
 - `lib/server/`: solo build (`node:fs`). Un componente cliente solo puede hacer `import type` de aquí.
 - `lib/config/`: configuración del sitio (URL, variables `NEXT_PUBLIC_`, fuentes).

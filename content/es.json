@@ -25,18 +25,19 @@
     "contact": "Hablemos de tu proyecto"
   },
   "hero": {
-    "title": "HOLA, SOY MILTON",
-    "tagline": "Del dato a la pantalla: construyo APIs, microservicios, interfaces web y bases de datos que trabajan en equipo.",
-    "meta": {
-      "label": "Datos rápidos",
-      "city": "Tunja, Colombia",
-      "since": "Desde {year}",
-      "year": "2023"
-    },
+    "name": "Milton Pacheco",
+    "role": "Desarrollador de software",
+    "title": ["De la idea al producto,"],
+    "tagline": "y todo lo que ocurre en el medio.",
     "avatar": {
       "src": "/avatar/avatar-hola.webp",
       "alt": "Ilustración estilo cyberpunk de Milton saludando con la mano: lleva gafas, barba y una chaqueta negra con detalles cian y magenta",
       "pending": "Falta la imagen public/avatar/avatar-hola.webp"
+    },
+    "video": {
+      "src": "/hero/night-city.mp4",
+      "play": "Reproducir el video de fondo",
+      "pause": "Pausar el video de fondo"
     }
   },
   "skillsBand": {
@@ -165,15 +166,7 @@
           "achievements": [
             "Paso de soluciones empresariales en IBM i a aplicaciones web con Next.js, React y Go."
           ],
-          "stack": [
-            "RPG",
-            "SQL",
-            "DB2/400",
-            "Next.js",
-            "React",
-            "Go",
-            "GitLab"
-          ]
+          "stack": ["RPG", "SQL", "DB2/400", "Next.js", "React", "Go", "GitLab"]
         }
       ]
     },
@@ -199,12 +192,7 @@
           "category": "Proyecto personal",
           "title": "Este portafolio",
           "problem": "Sitio estático con tema claro y oscuro, navegable con teclado y sin backend propio, publicado en Cloudflare Pages.",
-          "stack": [
-            "Next.js",
-            "TypeScript",
-            "Tailwind CSS",
-            "Motion"
-          ],
+          "stack": ["Next.js", "TypeScript", "Tailwind CSS", "Motion"],
           "repo": "",
           "images": [
             {
@@ -226,12 +214,7 @@
           "category": "Próximo proyecto personal",
           "title": "Proyecto de interfaz web",
           "problem": "Aplicación web centrada en el frontend, con el mismo stack de este portafolio. En preparación: aquí irá la descripción cuando esté publicada.",
-          "stack": [
-            "Next.js",
-            "TypeScript",
-            "Tailwind CSS",
-            "Motion"
-          ],
+          "stack": ["Next.js", "TypeScript", "Tailwind CSS", "Motion"],
           "repo": "",
           "images": [
             {
@@ -253,12 +236,7 @@
           "category": "Proyecto de formación",
           "title": "Aplicación web del bootcamp",
           "problem": "Aplicación web full stack del bootcamp de programación de MinTIC, con API en Java y Spring Boot, interfaz en React y persistencia en SQL.",
-          "stack": [
-            "Java",
-            "Spring Boot",
-            "React",
-            "SQL"
-          ],
+          "stack": ["Java", "Spring Boot", "React", "SQL"],
           "repo": "",
           "images": [
             {

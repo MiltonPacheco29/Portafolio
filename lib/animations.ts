@@ -41,19 +41,3 @@ export function useMotionTransition(transition: Transition): Transition {
 
 export const FADE_EASE = [0.22, 1, 0.36, 1] as const;
 export const FADE_DURATION = 0.7;
-
-const FINE_POINTER_QUERY = "(hover: hover) and (pointer: fine)";
-
-function subscribeFinePointer(onChange: () => void) {
-  const media = window.matchMedia(FINE_POINTER_QUERY);
-  media.addEventListener("change", onChange);
-  return () => media.removeEventListener("change", onChange);
-}
-
-export function useFinePointer(): boolean {
-  return useSyncExternalStore(
-    subscribeFinePointer,
-    () => window.matchMedia(FINE_POINTER_QUERY).matches,
-    () => false,
-  );
-}

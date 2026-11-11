@@ -94,7 +94,7 @@ components/
   layout/             Navbar y selector de tema
   providers/          Configuración global sin UI (Motion, script del tema)
   ui/                 Piezas reutilizables (botones, imágenes, decorativos)
-  motion/             Envoltorios de animación (FadeIn, AnimatedText, Magnet)
+  motion/             Envoltorios de animación (FadeIn, AnimatedText)
   preloader/          Vista, motor y bloqueo de scroll del preloader
 lib/
   server/             Solo build (lee public/ con node:fs)

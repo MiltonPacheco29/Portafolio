@@ -11,12 +11,12 @@
 
   --fs-base: 1rem;
   --fs-3xl: clamp(1.75rem, 1.4rem + 1.6vw, 2.5rem);
-  --fs-hero: clamp(3.5rem, min(17vw, 30svh), 17rem);
+  --fs-hero: clamp(3rem, min(15vw, 10svh), 10rem);
+  --fs-name: clamp(1.375rem, 1rem + 1vw, 2.25rem);
   --fs-display: clamp(3rem, 12vw, 10rem);
   --fs-number: clamp(3rem, 10vw, 8.75rem);
   --fs-band: clamp(2.25rem, 6vw, 5.5rem);
   --fs-subtitle: clamp(1.5rem, 1rem + 2.4vw, 3rem);
-  --fs-tagline: clamp(1.25rem, 1rem + 1vw, 1.875rem);
   --fs-lead: clamp(1.125rem, 1rem + 0.8vw, 1.5rem);
   --fs-meta: 0.75rem;
 
@@ -35,6 +35,12 @@
   --nav-float-gap: 0.75rem;
   --nav-offset: 5.5rem;
 
+  /* Hero: alto útil, hueco entre columnas y lado del avatar (cuadrado).
+     En móvil el avatar ocupa lo que dejan el titular (3 líneas = 2.58em) y ~20rem de texto. */
+  --hero-h: calc(100svh - var(--nav-height));
+  --hero-gap: clamp(1.5rem, 3vw, 3rem);
+  --hero-avatar: clamp(10rem, calc(var(--hero-h) - 2.58 * var(--fs-hero) - 20rem), 100%);
+
   --corner-sm: 2px;
   --corner-md: 6px;
   --corner-card: clamp(1.5rem, 3vw, 2.5rem);
@@ -48,6 +54,16 @@
   --dur-fade: 0.7s;
 
   --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Escritorio: margen lateral amplio para centrar la composición, el avatar al 90 % del alto
+   y el titular medido por su columna (cqi) y por el alto que deja el resto (~26rem). */
+@media (width >= 64rem) {
+  :root {
+    --hero-inset: clamp(2.5rem, 7vw, 8rem);
+    --fs-hero: clamp(3.5rem, min(17cqi, calc((var(--hero-h) - 26rem) / 3)), 9rem);
+    --hero-avatar: min(calc(var(--hero-h) * 0.9), 46vw, 860px);
+  }
 }
 
 :root,
@@ -76,6 +92,9 @@
   --cta-hover-fg: #0a0b14;
   --grain-opacity: 0;
   --glow-primary: 0 0 18px color-mix(in srgb, var(--primary) 45%, transparent);
+  --hero-video-opacity: 0.45;
+  --hero-video-blend: screen;
+  --hero-video-filter: saturate(1.15);
 }
 
 :root[data-theme="light"] {
@@ -103,6 +122,9 @@
   --cta-hover-fg: #ffffff;
   --grain-opacity: 0.07;
   --glow-primary: 0 0 0 transparent;
+  --hero-video-opacity: 0.16;
+  --hero-video-blend: multiply;
+  --hero-video-filter: grayscale(1) sepia(0.35) contrast(1.1);
 }
 
 @media (prefers-color-scheme: light) {
@@ -131,6 +153,9 @@
     --cta-hover-fg: #ffffff;
     --grain-opacity: 0.07;
     --glow-primary: 0 0 0 transparent;
+    --hero-video-opacity: 0.16;
+    --hero-video-blend: multiply;
+    --hero-video-filter: grayscale(1) sepia(0.35) contrast(1.1);
   }
 }
 
@@ -217,8 +242,8 @@
   --text-lead--line-height: var(--lh-normal);
   --text-subtitle: var(--fs-subtitle);
   --text-subtitle--line-height: 1.15;
-  --text-tagline: var(--fs-tagline);
-  --text-tagline--line-height: 1.25;
+  --text-name: var(--fs-name);
+  --text-name--line-height: 1.1;
   --text-band: var(--fs-band);
   --text-band--line-height: 1;
   --text-number: var(--fs-number);
@@ -314,6 +339,66 @@
     text-transform: uppercase;
   }
 
+  .hero-grid {
+    display: grid;
+    min-height: var(--hero-h);
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto 1fr auto;
+    grid-template-areas: "intro" "title" "avatar" "copy";
+    column-gap: var(--hero-gap);
+  }
+  @media (width >= 64rem) {
+    .hero-grid {
+      grid-template-columns: minmax(0, 1fr) var(--hero-avatar);
+      grid-template-rows: auto 1fr auto;
+      grid-template-areas: "intro avatar" "title avatar" "copy avatar";
+    }
+  }
+
+  /* Video de fondo del Hero: se funde con el fondo (screen en oscuro, multiply en papel)
+     y un velo del color de fondo protege el contraste del texto y cierra el borde inferior. */
+  .hero-video {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+    background-color: var(--bg);
+  }
+  .hero-video video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: var(--hero-video-opacity);
+    mix-blend-mode: var(--hero-video-blend);
+    filter: var(--hero-video-filter);
+  }
+  .hero-video::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to top, var(--bg) 0%, transparent 30%),
+      color-mix(in srgb, var(--bg) 35%, transparent);
+  }
+  @media (width >= 64rem) {
+    .hero-video::after {
+      background:
+        linear-gradient(to top, var(--bg) 0%, transparent 25%),
+        linear-gradient(
+          90deg,
+          color-mix(in srgb, var(--bg) 70%, transparent) 0%,
+          color-mix(in srgb, var(--bg) 30%, transparent) 55%,
+          transparent 100%
+        );
+    }
+  }
+  @media (forced-colors: active) {
+    .hero-video {
+      display: none;
+    }
+  }
+
   .title-gradient {
     color: var(--title-from);
     background-image: linear-gradient(180deg, var(--title-from) 0%, var(--title-to) 100%);
@@ -387,7 +472,7 @@
 
 @keyframes enter {
   from {
-    opacity: 0;
+    opacity: var(--enter-opacity, 0);
     transform: translate3d(var(--enter-x, 0), var(--enter-y, 0), 0);
   }
 }
@@ -395,6 +480,13 @@
 @media (prefers-reduced-motion: no-preference) {
   .enter {
     animation: enter var(--dur-fade) var(--ease-fade) var(--enter-delay, 0s) backwards;
+  }
+}
+
+/* La entrada espera a que el preloader se desmonte. Sin JS no aplica, así que todo se ve. */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  body:has(> [data-preloader]) .enter {
+    animation-play-state: paused;
   }
 }
 
