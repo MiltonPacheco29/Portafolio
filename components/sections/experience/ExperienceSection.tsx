@@ -1,16 +1,13 @@
-import { AvatarImage } from "@/components/ui/AvatarImage";
 import { ExperienceTimeline } from "@/components/sections/experience/ExperienceTimeline";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { VerticalLabel } from "@/components/ui/VerticalLabel";
 import type { Dictionary } from "@/lib/i18n";
-import { getLocalImage } from "@/lib/server/images";
 import { blockTitleClass, sectionClass, sectionTitleClass } from "@/components/sections/sectionStyles";
 
 type ExperienceSectionProps = { experience: Dictionary["sections"]["experience"] };
 
 export function ExperienceSection({ experience }: ExperienceSectionProps) {
   const titleId = `${experience.id}-title`;
-  const image = getLocalImage(experience.image.src);
 
   return (
     <section
@@ -29,14 +26,7 @@ export function ExperienceSection({ experience }: ExperienceSectionProps) {
         </FadeIn>
         <p className="mt-6 max-w-prose text-lg text-fg-muted">{experience.intro}</p>
 
-        <div className="mt-12 grid gap-10 lg:grid-cols-[minmax(0,20rem)_minmax(0,1fr)] lg:gap-16">
-          <AvatarImage
-            image={image}
-            alt={experience.image.alt}
-            pending={experience.image.pending}
-            className="mx-auto w-full max-w-xs lg:sticky lg:top-nav-offset lg:max-w-none lg:self-start"
-            sizes="320px"
-          />
+        <div className="mt-12">
           <div className="flex flex-col gap-16">
             <ExperienceTimeline
               items={experience.items}

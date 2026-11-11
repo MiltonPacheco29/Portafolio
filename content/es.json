@@ -118,11 +118,6 @@
           "detail": "Aplicaciones web con Java, Spring Boot, React, JavaScript, HTML, CSS y SQL."
         }
       ],
-      "image": {
-        "src": "/avatar/avatar-laptop.webp",
-        "alt": "Ilustración estilo cyberpunk de una persona con gafas translúcidas y chaqueta negra con detalles cian y magenta, concentrada mientras teclea en un portátil",
-        "pending": "Falta la imagen public/avatar/avatar-laptop.webp"
-      },
       "items": [
         {
           "role": "Ingeniero de Software",
