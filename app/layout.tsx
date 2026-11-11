@@ -46,7 +46,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <ThemeScript />
       </head>
       <body className="min-h-full flex flex-col">
-        <Preloader />
+        <Preloader labels={dict.preloader} />
         <MotionProvider>
           <a
             href={`#${MAIN_ID}`}

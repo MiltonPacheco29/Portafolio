@@ -92,8 +92,8 @@
   --focus: #f5e83a;
   --title-from: #e8eaff;
   --title-to: #7fe9ff;
-  --preloader-ink-from: var(--title-from);
-  --preloader-ink-to: var(--title-to);
+  --preloader-head: color-mix(in srgb, var(--primary) 15%, white);
+  --preloader-glow: color-mix(in srgb, var(--preloader-head) 45%, transparent);
   --stripe: #ff2bd6;
   --cta-bg: #00f0ff;
   --cta-fg: #0a0b14;
@@ -125,8 +125,8 @@
   --focus: #a8231b;
   --title-from: #1a1612;
   --title-to: #1a1612;
-  --preloader-ink-from: #e33529;
-  --preloader-ink-to: #e33529;
+  --preloader-head: var(--fg);
+  --preloader-glow: transparent;
   --stripe: #1a1612;
   --cta-bg: #c8352b;
   --cta-fg: #ffffff;
@@ -159,8 +159,8 @@
     --focus: #a8231b;
     --title-from: #1a1612;
     --title-to: #1a1612;
-    --preloader-ink-from: #e33529;
-    --preloader-ink-to: #e33529;
+    --preloader-head: var(--fg);
+    --preloader-glow: transparent;
     --stripe: #1a1612;
     --cta-bg: #c8352b;
     --cta-fg: #ffffff;
@@ -717,69 +717,199 @@
   }
 }
 
-/* La entrada espera a que el preloader se desmonte. Sin JS no aplica, así que todo se ve. */
+/* La entrada del Hero espera a que el preloader la libere (data-reveal, a los 2.75 s) o a
+   que la capa se desmonte. Sin JS no aplica, así que todo se ve. */
 @media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
-  body:has(> [data-preloader]) .enter {
+  body:has(> [data-preloader]:not([data-reveal])) .enter {
     animation-play-state: paused;
   }
 }
 
-@theme inline {
-  --animate-preloader-punch: preloader-punch var(--frame-dur) ease-out both;
-  --animate-preloader-zoom: preloader-zoom var(--frame-dur) linear both;
+/* ── Preloader de barra segmentada ─────────────────────────────────────────────────────
+   Sin colores fijos: las variables --pl-* derivan de los tokens del tema y se actualizan
+   solas al cambiarlo. --preloader-head y --preloader-glow se definen en cada tema. */
 
-  @keyframes preloader-punch {
-    from {
-      scale: 1.12;
-    }
-    to {
-      scale: 1;
-    }
-  }
-
-  @keyframes preloader-zoom {
-    from {
-      transform: scale(1.06);
-    }
-    to {
-      transform: scale(1);
-    }
-  }
-}
-
-.preloader-word {
-  --stretch: 1.08;
-  display: inline-block;
-  font-family: var(--font-anton), Impact, "Arial Narrow Bold", sans-serif;
-  font-size: 68vh;
-  line-height: 1;
-  white-space: nowrap;
+/* Misma tipografía que el titular del Hero (.hero-title). */
+@utility type-display {
+  font-family: var(--font-family-display);
+  font-weight: 900;
+  font-stretch: 75%;
+  line-height: 0.86;
+  letter-spacing: -0.02em;
   text-transform: uppercase;
-  letter-spacing: -0.01em;
-  transform: scaleX(var(--stretch));
-  color: var(--preloader-ink-from);
-  background-image: linear-gradient(
-    180deg,
-    var(--preloader-ink-from) 0%,
-    var(--preloader-ink-to) 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -webkit-text-stroke: 0.012em transparent;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  body:has(> [data-preloader]:not([data-preloader-started])) {
+/* Scroll bloqueado desde el HTML estático hasta que llega el JS (lockScroll toma el
+   relevo). Red de seguridad: a los 10 s se libera aunque el script no llegue. */
+@media (scripting: enabled) {
+  body:has(> [data-preloader]:not([data-armed])) {
     overflow: hidden;
+    animation: pl-unlock 0s linear 10s forwards;
   }
 }
 
-@media (forced-colors: active) {
-  .preloader-word {
-    background-image: none;
-    -webkit-text-fill-color: currentColor;
-    -webkit-text-stroke-color: currentColor;
+@keyframes pl-unlock {
+  to {
+    overflow: clip visible;
+  }
+}
+
+@keyframes pl-failsafe {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes pl-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@layer components {
+  .pl-root {
+    --pl-bg: var(--bg);
+    --pl-fg: var(--fg);
+    --pl-muted: var(--fg-muted);
+    --pl-progress: var(--primary);
+    --pl-accent: var(--accent);
+    --pl-pending: color-mix(in srgb, var(--pl-fg) 12%, var(--pl-bg));
+    --pl-ember: color-mix(in srgb, var(--pl-progress) 22%, var(--pl-bg));
+    --pl-head: var(--preloader-head);
+    --pl-glow: var(--preloader-glow);
+    --pl-scan: color-mix(in srgb, var(--pl-progress) 78%, var(--pl-bg));
+    --pl-overlay: color-mix(in srgb, var(--pl-fg) 2%, transparent);
+    /* Progreso (0-100) y confirmación (0 → 1), escritos por el motor. */
+    --p: 0;
+    --full: 0;
+    --trail: 12;
+    background-color: var(--pl-bg);
+    color: var(--pl-fg);
+    /* Si el JS nunca llega, la capa se retira sola. */
+    animation: pl-failsafe 0.4s ease 10s forwards;
+  }
+
+  .pl-root[data-armed] {
+    animation: none;
+  }
+
+  /* Líneas de barrido muy sutiles, solo en pantallas grandes. */
+  @media (width >= 48rem) {
+    .pl-root::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image: repeating-linear-gradient(
+        to bottom,
+        var(--pl-overlay) 0 1px,
+        transparent 1px 3px
+      );
+    }
+  }
+
+  /* Estado inicial de la escena 1 (el motor lo anima). */
+  .pl-header {
+    clip-path: inset(0 100% 0 0);
+  }
+
+  .pl-track,
+  .pl-counter {
+    opacity: 0;
+  }
+
+  .pl-track {
+    transform-origin: right center;
+    forced-color-adjust: none;
+  }
+
+  /* Parpadeo discreto (1 vez por segundo). */
+  .pl-cursor {
+    animation: pl-blink 1s steps(1, end) infinite;
+  }
+
+  /* display lo deciden las utilidades (hidden / sm:flex). */
+  .pl-bar {
+    gap: 2px;
+    height: 8px;
+  }
+
+  .pl-seg {
+    /* Distancia de la cabeza al segmento, en segmentos. */
+    --x: calc(var(--p) / 100 * var(--n) - var(--i));
+    /* Calor: 1 justo detrás de la cabeza → 0 al final de la estela. */
+    --heat: clamp(0, max(1 - (var(--x) - 1) / var(--trail), var(--full)), 1);
+    position: relative;
+    flex: 1 1 0;
+    min-width: 0;
+    background: var(--pl-pending);
+  }
+
+  .pl-seg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform-origin: left center;
+    transform: scaleX(clamp(0, var(--x), 1));
+    background: color-mix(
+      in srgb,
+      var(--pl-progress) calc(var(--heat) * 100%),
+      var(--pl-ember)
+    );
+  }
+
+  .pl-seg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--pl-head);
+    box-shadow: 0 0 10px 1px var(--pl-glow);
+    opacity: calc(clamp(0, min(var(--x), 2 - var(--x)), 1) * (1 - var(--full)));
+  }
+
+  /* Porcentaje con líneas de barrido recortadas al texto. Con interlineado < 1 la caja es
+     más baja que los glifos: el padding amplía el área pintada y el margen lo compensa. */
+  .pl-scan {
+    display: inline-block;
+    padding-block: 0.2em;
+    margin-block: -0.2em;
+    color: var(--pl-progress);
+    background-image: repeating-linear-gradient(
+      to bottom,
+      var(--pl-progress) 0 3px,
+      var(--pl-scan) 3px 4px
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Celda de 1ch con cifras tabulares: el número no se desplaza. */
+  .pl-digit {
+    width: 1ch;
+    text-align: center;
+  }
+
+  .pl-digit[data-empty] {
+    display: none;
+  }
+
+  @media (width < 40rem) {
+    .pl-bar {
+      height: 6px;
+    }
+
+    .pl-seg::after {
+      box-shadow: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .pl-scan {
+      background-image: none;
+      -webkit-text-fill-color: currentColor;
+    }
   }
 }
 

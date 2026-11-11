@@ -113,4 +113,4 @@ Las reglas del proyecto están en `CLAUDE.md` y la dirección de arte y los toke
 
 - **Textos:** todos en `content/es.json`. Los valores con `[POR COMPLETAR]` se muestran como pendientes.
 - **Imágenes:** en WebP dentro de `public/`. Sus dimensiones se leen en el build.
-- **Preloader:** las escenas, el montaje, el cierre y la apertura están en `lib/preloader/config.ts`. Abre la página con `?debug` para ver en consola la timeline y los tiempos reales. Con `prefers-reduced-motion` no se muestra.
+- **Preloader:** tiempos, puntos de ritmo, easings y número de segmentos en `lib/preloader/config.ts`; textos en `content/es.json` (`preloader`). Con `prefers-reduced-motion` hace una versión corta con fundido.

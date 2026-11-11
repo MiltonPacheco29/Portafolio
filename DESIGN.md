@@ -95,7 +95,7 @@ Máximo tres familias, todas con `next/font/google` (se sirven desde el propio d
 | Metadatos, etiquetas, filtros, botones | **JetBrains Mono** | 400–600 |
 | Texto corrido | pila del sistema | sin descarga |
 
-**Excepción: Anton.** Solo para las palabras del preloader (peso 400, `--font-anton`). Esa variable se aplica en la capa del preloader y no en `<html>`, así que la landing sigue usando únicamente las tres familias de arriba.
+El preloader usa la misma tipografía que el titular del Hero (Archivo 900, `font-stretch: 75%`, utilidad `type-display`), así que no añade familias.
 
 ### Escala
 
@@ -148,7 +148,7 @@ Color en hover y foco: 200 ms (`motion-safe:duration-200`), nunca menos.
 
 | Pieza | Comportamiento | Movimiento reducido |
 |---|---|---|
-| Entrada del Hero | CSS (`.enter`, retrasos en `hero/Hero.tsx`): navbar (y −20); fondo en fundido (0 s, 1.2 s); etiqueta (0.15 s), nombre (0.25 s), cargo (0.4 s, solo opacidad); titular con máscara por línea (0.5 s y 0.58 s, sube un 105 % dentro de su recorte); frase con la misma máscara (0.75 s); botones (0.9 s y 0.98 s); chips (desde 1.1 s, cada 0.05 s); avatar (0.2 s, 1.15 s, x 6 % → 0 con fundido). Todo con `transform` y `opacity`. En pausa mientras existe el preloader (`@media (scripting: enabled)`), así que arranca al abrirse las cortinas | Sin animación |
+| Entrada del Hero | CSS (`.enter`, retrasos en `hero/Hero.tsx`): navbar (y −20); fondo en fundido (0 s, 1.2 s); etiqueta (0.15 s), nombre (0.25 s), cargo (0.4 s, solo opacidad); titular con máscara por línea (0.5 s y 0.58 s, sube un 105 % dentro de su recorte); frase con la misma máscara (0.75 s); botones (0.9 s y 0.98 s); chips (desde 1.1 s, cada 0.05 s); avatar (0.2 s, 1.15 s, x 6 % → 0 con fundido). Todo con `transform` y `opacity`. En pausa mientras existe el preloader (`@media (scripting: enabled)`) y hasta que la capa marca `data-reveal` (2.75 s), solapada con la subida de la persiana | Sin animación |
 | Video del Hero | Bucle silenciado; botón de pausa/reproducción (WCAG 2.2.2); se pausa fuera de pantalla | No arranca solo; el botón permite reproducirlo |
 | `FadeIn` | `motion/react`, al entrar en pantalla, una vez, margen 50px, 0.7s, `--ease-fade`. Lo que ya está visible al cargar no se oculta | Sin animación |
 | Franja de skills | `translateX` = ±(scrollY − topSección + altoVentana) × 0.3 − 200; listener pasivo, agrupado por `requestAnimationFrame`, `will-change: transform` | Estática |
@@ -158,10 +158,9 @@ Color en hover y foco: 200 ms (`motion-safe:duration-200`), nunca menos.
 
 Prohibido: parpadeos, destellos, *glitch*, grano o rayas animados, autoplay sin control y cualquier cambio de luminancia más de 3 veces por segundo. Solo se animan `transform` y `opacity`. Sin JS todo se ve.
 
-**Excepción consciente: el preloader** (`components/preloader/`, escenas y tiempos en `lib/preloader/config.ts`). Al cargar la página hace cortes secos a pantalla completa: palabras sobre negro y fotos en blanco y negro. El color de las palabras depende del tema mediante los tokens `--preloader-ink-from` y `--preloader-ink-to`. En oscuro es el mismo degradado #E8EAFF → #7FE9FF del título del Hero; en claro, rojo plano #E33529. La intro y dos pasadas de montaje, cada una más rápida, suman entre 4 y 14 cortes por segundo durante unos 3,9 s. Desde el final de la intro la franja se cierra hacia el centro con `clip-path` mientras sigue el montaje, y después dos cortinas negras se abren en 650 ms. **Incumple WCAG 2.3.1** (umbral de destellos y de destello rojo) y su propietario lo ha aceptado de forma explícita. Mitigaciones:
-- con `prefers-reduced-motion: reduce` no se muestra nada: la capa tiene `display: none` desde el HTML y se quita del DOM;
-- solo se reproduce en una carga completa o una recarga, nunca al navegar dentro del sitio;
-- sin JS no se muestra.
+**Preloader** (`components/preloader/`, tiempos en `lib/preloader/config.ts`). Capa a pantalla completa con la marca "miltonpacheco.dev / inicializando", una pista de 64 segmentos (32 en móvil) y el porcentaje gigante abajo a la izquierda. Dura 3.2 s: entrada (0–0.35 s), progreso por una curva monótona 0 → 12 → 40 → 78 → 99 → 100 (0.2–2.35 s, se detiene en 99 hasta que cargan fuentes y `window.load`, máximo 6 s), confirmación con la barra encendida (2.35–2.6 s), salida con la pista retirándose a la derecha y la capa subiendo como una persiana (2.6–2.95 s); a los 2.75 s se libera la entrada del Hero. Sin destellos: solo `transform`, `opacity` y variables CSS; el cursor parpadea una vez por segundo.
+
+Colores: variables `--pl-*` derivadas de los tokens del tema (`--bg`, `--fg`, `--fg-muted`, `--primary`, `--accent`), más `--preloader-head` y `--preloader-glow` por tema (oscuro: cabeza casi blanca con brillo; claro: cabeza en tinta, sin brillo). El porcentaje va en `--primary` (13.92:1 en oscuro, 5.80:1 en claro). Con `prefers-reduced-motion` el progreso dura 0.35 s y la capa se funde. Solo se reproduce en una carga completa; sin JS no se muestra, y si el JS falla la capa se retira sola a los 10 s.
 
 Cualquier otro componente sigue la prohibición de arriba.
 
@@ -176,7 +175,7 @@ El 0.65 inicial del revelado garantiza 4.5:1 en ambos temas en todo momento (a 0
 | `ContactButton` | servidor | enlace al ancla de contacto, píldora: cian con tinta en oscuro, `--red` con blanco en claro |
 | `GhostButton` | servidor | píldora de borde 2px; sin destino se muestra desactivado (no es enlace) |
 | `PlaceholderImage` | servidor | imagen local → `next/image`; en desarrollo, URL de prueba → `<img>`; si no, marcador CSS (rayas, silueta o forma decorativa) |
-| `Preloader` | cliente | capa negra en el HTML estático; cortes con un bucle rAF sobre una timeline calculada; cierre solapado con el montaje (`clip-path` en el stage) y apertura con cortinas, ambos con WAAPI anclada a sus labels; bloquea el scroll compensando la barra en `body` y en `[data-scroll-lock-compensate]`; `?debug` imprime la timeline y los tiempos reales |
+| `Preloader` | cliente | capa del color de fondo en el HTML estático; un único reloj rAF (`engine.ts`) calcula todo desde el tiempo y escribe `--p`, `--full` y el contador; el estado de cada segmento sale solo del CSS; `role="progressbar"` con `aria-valuenow`; bloquea el scroll compensando la barra en `body` y en `[data-scroll-lock-compensate]`; red de seguridad JS a los 9 s y CSS a los 10 s |
 | `StripeDivider` | servidor | rayas diagonales de 12px, periodo 24px, `aria-hidden` |
 | `VerticalLabel` | servidor | `writing-mode: vertical-rl`, `aria-hidden`, solo desde `lg` |
 | `CvBarcodeLink` | servidor | barras SVG `aria-hidden` sin datos reales, texto visible "Descargar CV · PDF · ES" y nombre accesible con formato, idioma y tamaño |
