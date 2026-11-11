@@ -1,15 +1,15 @@
 {
   "meta": {
-    "siteName": "[POR COMPLETAR] Tu nombre",
+    "siteName": "Milton Pacheco",
     "ogLocale": "es_ES",
-    "title": "[POR COMPLETAR] Tu nombre · Portafolio",
-    "description": "[POR COMPLETAR] Una frase que resuma tu perfil profesional (150 caracteres como máximo)."
+    "title": "Milton Pacheco · Portafolio",
+    "description": "Ingeniero de Software y especialista en bases de datos. Backend y frontend: soluciones eficientes, estables y seguras."
   },
   "a11y": {
     "skipToContent": "Saltar al contenido"
   },
   "brand": {
-    "text": "[POR COMPLETAR] TN",
+    "text": "MP",
     "homeLabel": "Ir al inicio"
   },
   "nav": {
@@ -31,9 +31,9 @@
     "tagline": "Desarrollo backend con Java, Spring Boot y Elixir, de la API al despliegue.",
     "meta": {
       "label": "Datos rápidos",
-      "city": "[POR COMPLETAR] Ciudad, país",
+      "city": "Tunja, Colombia",
       "since": "Desde {year}",
-      "year": "[POR COMPLETAR] Año en que empezaste"
+      "year": "2023"
     },
     "avatar": {
       "src": "/avatar/avatar-hola.webp",
@@ -53,7 +53,7 @@
     "about": {
       "id": "sobre-mi",
       "title": "Sobre mí",
-      "lead": "[POR COMPLETAR] Dos o tres frases sobre quién eres, cómo llegaste al desarrollo backend y qué tipo de problemas te gusta resolver en equipo.",
+      "lead": "Soy ingeniero electrónico y especialista en bases de datos. Trabajo con backend y frontend, y construyo soluciones eficientes, estables y seguras, de la API a la interfaz. Si tu proyecto necesita un desarrollador que cuide la calidad y los plazos, hablemos.",
       "image": {
         "src": "/avatar/avatar-brazos-cruzados.webp",
         "alt": "[POR COMPLETAR] Ilustración estilo cyberpunk de Milton de pie con los brazos cruzados",
@@ -89,22 +89,28 @@
     "experience": {
       "id": "experiencia",
       "title": "Experiencia",
-      "intro": "[POR COMPLETAR] Resumen breve de tu trayectoria.",
+      "intro": "Desde 2023 he pasado del desarrollo empresarial en IBM i al desarrollo web y backend con Java y Elixir, siempre con foco en estabilidad, seguridad y mejora continua.",
       "achievementsLabel": "Logros",
       "stackLabel": "Tecnologías",
       "educationTitle": "Formación",
       "education": [
         {
-          "degree": "[POR COMPLETAR] Título universitario o técnico",
-          "institution": "[POR COMPLETAR] Institución",
-          "period": "[POR COMPLETAR] 2016 — 2021",
-          "detail": "[POR COMPLETAR] Enfoque o proyecto destacado."
+          "degree": "Especialización en Bases de Datos",
+          "institution": "Universidad Pedagógica y Tecnológica de Colombia",
+          "period": "2023 — 2024",
+          "detail": "SQL avanzado, modelado de datos, Data Warehousing, ETL, bases de datos NoSQL y servicios en la nube con AWS."
         },
         {
-          "degree": "[POR COMPLETAR] Certificación o curso",
-          "institution": "[POR COMPLETAR] Entidad emisora",
-          "period": "[POR COMPLETAR] 2023",
-          "detail": "[POR COMPLETAR] Qué aprendiste o aplicaste."
+          "degree": "Ingeniería Electrónica",
+          "institution": "Universidad Pedagógica y Tecnológica de Colombia",
+          "period": "2015 — 2022",
+          "detail": "Electrónica, programación, sistemas digitales, automatización y análisis de sistemas."
+        },
+        {
+          "degree": "Bootcamp de Programación, nivel integrador",
+          "institution": "MinTIC · Universidad Sergio Arboleda",
+          "period": "2024",
+          "detail": "Aplicaciones web con Java, Spring Boot, React, JavaScript, HTML, CSS y SQL."
         }
       ],
       "image": {
@@ -114,38 +120,41 @@
       },
       "items": [
         {
-          "role": "[POR COMPLETAR] Puesto",
-          "organization": "[POR COMPLETAR] Tipo de empresa o sector (sin nombres de clientes)",
-          "period": "[POR COMPLETAR] 2023 — Actualidad",
-          "summary": "[POR COMPLETAR] Qué hacías y con qué impacto (sin nombres de clientes ni de sistemas internos).",
+          "role": "Ingeniero de Software",
+          "organization": "Bancolombia",
+          "period": "Nov 2026 — Actualidad",
+          "summary": "Desarrollo y mantenimiento de APIs y microservicios, atención de bugs e incidentes, gestión de vulnerabilidades y deuda técnica, y mejora de aplicaciones.",
           "achievements": [
-            "[POR COMPLETAR] Logro medible 1",
-            "[POR COMPLETAR] Logro medible 2"
+            "Evolución de APIs y microservicios de aplicaciones críticas con foco en estabilidad y seguridad."
           ],
-          "stack": ["[POR COMPLETAR] Tecnología pública", "[POR COMPLETAR] Tecnología pública"]
+          "stack": ["Java", "Elixir", "Spring Boot", "Spring WebFlux", "AWS", "Kubernetes", "SonarQube", "Dynatrace", "Azure DevOps"]
         },
         {
-          "role": "[POR COMPLETAR] Puesto anterior",
-          "organization": "[POR COMPLETAR] Tipo de empresa o sector (sin nombres de clientes)",
-          "period": "[POR COMPLETAR] 2021 — 2023",
-          "summary": "[POR COMPLETAR] Qué hacías y con qué impacto (sin nombres de clientes ni de sistemas internos).",
-          "achievements": ["[POR COMPLETAR] Logro medible"],
-          "stack": ["[POR COMPLETAR] Tecnología pública"]
+          "role": "Consultor Junior",
+          "organization": "SETI S.A.S",
+          "period": "Jun 2025 — Nov 2026",
+          "summary": "Desarrollo y mantenimiento de APIs y microservicios, atención de incidentes en ambientes productivos y pre productivos, e implementación de mejoras tecnológicas.",
+          "achievements": [
+            "Gestión de vulnerabilidades y deuda técnica en servicios en producción."
+          ],
+          "stack": ["Java", "Elixir", "Spring Boot", "Spring WebFlux", "AWS", "Kubernetes", "SonarQube", "Dynatrace", "Azure DevOps"]
         },
         {
-          "role": "[POR COMPLETAR] Primer puesto o prácticas",
-          "organization": "[POR COMPLETAR] Tipo de empresa o sector (sin nombres de clientes)",
-          "period": "[POR COMPLETAR] 2020 — 2021",
-          "summary": "[POR COMPLETAR] Qué aprendiste y en qué participaste.",
-          "achievements": ["[POR COMPLETAR] Logro medible"],
-          "stack": ["[POR COMPLETAR] Tecnología pública"]
+          "role": "Analista de desarrollo",
+          "organization": "Sistemas GYG S.A.",
+          "period": "Mar 2023 — Jun 2025",
+          "summary": "Desarrollo y optimización de soluciones en IBM i (RPG y SQL) y, después, aplicaciones web con Next.js y React y APIs en Go, con análisis de requerimientos, pruebas, despliegues y documentación técnica.",
+          "achievements": [
+            "Paso de soluciones empresariales en IBM i a aplicaciones web con Next.js, React y Go."
+          ],
+          "stack": ["RPG", "SQL", "DB2/400", "Next.js", "React", "Go", "GitLab"]
         }
       ]
     },
     "projects": {
       "id": "proyectos",
       "title": "Proyectos",
-      "intro": "[POR COMPLETAR] Una selección de trabajos personales o públicos (sin nombres de clientes ni de sistemas internos).",
+      "intro": "Proyectos personales y de formación. No publico los proyectos que desarrollo para mis empleadores.",
       "labels": {
         "stack": "Stack",
         "view": "Ver proyecto",
@@ -187,53 +196,56 @@
           ]
         },
         {
-          "slug": "api-rest",
-          "category": "Proyecto de ejemplo",
-          "title": "API REST de ejemplo",
-          "problem": "[POR COMPLETAR] Qué resuelve la API, qué expone y cuál fue tu papel.",
+          "slug": "proyecto-front",
+          "category": "Próximo proyecto personal",
+          "title": "Proyecto de interfaz web",
+          "problem": "Aplicación web centrada en el frontend, con el mismo stack de este portafolio. En preparación: aquí irá la descripción cuando esté publicada.",
           "stack": [
-            "Java",
-            "Spring Boot",
-            "SQL",
-            "Docker"
+            "Next.js",
+            "TypeScript",
+            "Tailwind CSS",
+            "Motion"
           ],
           "repo": "",
           "images": [
             {
-              "src": "/projects/api-rest-1.webp",
-              "alt": "[POR COMPLETAR] Diagrama de la arquitectura de la API"
+              "src": "/projects/proyecto-front-1.webp",
+              "alt": "[POR COMPLETAR] Captura de la pantalla principal"
             },
             {
-              "src": "/projects/api-rest-2.webp",
-              "alt": "[POR COMPLETAR] Captura de la documentación de los endpoints"
+              "src": "/projects/proyecto-front-2.webp",
+              "alt": "[POR COMPLETAR] Captura de una vista secundaria"
             },
             {
-              "src": "/projects/api-rest-3.webp",
-              "alt": "[POR COMPLETAR] Captura de las pruebas automatizadas"
+              "src": "/projects/proyecto-front-3.webp",
+              "alt": "[POR COMPLETAR] Captura en un móvil"
             }
           ]
         },
         {
-          "slug": "proyecto-3",
-          "category": "[POR COMPLETAR] Categoría",
-          "title": "[POR COMPLETAR] Nombre del proyecto 3",
-          "problem": "[POR COMPLETAR] Qué problema resuelve y cuál fue tu papel.",
+          "slug": "bootcamp",
+          "category": "Proyecto de formación",
+          "title": "Aplicación web del bootcamp",
+          "problem": "Aplicación web full stack del bootcamp de programación de MinTIC, con API en Java y Spring Boot, interfaz en React y persistencia en SQL.",
           "stack": [
-            "[POR COMPLETAR] Tecnología"
+            "Java",
+            "Spring Boot",
+            "React",
+            "SQL"
           ],
           "repo": "",
           "images": [
             {
-              "src": "/projects/proyecto-3-1.webp",
-              "alt": "[POR COMPLETAR] Descripción de la imagen 1"
+              "src": "/projects/bootcamp-1.webp",
+              "alt": "[POR COMPLETAR] Captura de la pantalla principal"
             },
             {
-              "src": "/projects/proyecto-3-2.webp",
-              "alt": "[POR COMPLETAR] Descripción de la imagen 2"
+              "src": "/projects/bootcamp-2.webp",
+              "alt": "[POR COMPLETAR] Captura de una vista secundaria"
             },
             {
-              "src": "/projects/proyecto-3-3.webp",
-              "alt": "[POR COMPLETAR] Descripción de la imagen 3"
+              "src": "/projects/bootcamp-3.webp",
+              "alt": "[POR COMPLETAR] Captura de la persistencia de datos"
             }
           ]
         }
@@ -242,13 +254,13 @@
     "contact": {
       "id": "contacto",
       "title": "Contacto",
-      "intro": "[POR COMPLETAR] Invitación a escribirte y para qué tipo de proyectos.",
+      "intro": "Si necesitas una API, un microservicio, una interfaz web o ayuda con una base de datos, escríbeme y vemos cómo puedo ayudarte.",
       "ctaIntro": "¿Tienes un proyecto o una vacante? Cuéntamelo.",
       "linksTitle": "Dónde encontrarme",
       "links": [
-        { "kind": "email", "label": "Correo", "value": "[POR COMPLETAR] correo@ejemplo.com" },
-        { "kind": "linkedin", "label": "LinkedIn", "value": "[POR COMPLETAR] https://www.linkedin.com/in/tu-usuario" },
-        { "kind": "github", "label": "GitHub", "value": "[POR COMPLETAR] https://github.com/tu-usuario" }
+        { "kind": "email", "label": "Correo", "value": "miltonpacheco2912@gmail.com" },
+        { "kind": "linkedin", "label": "LinkedIn", "value": "https://www.linkedin.com/in/miltonpacheco01" },
+        { "kind": "github", "label": "GitHub", "value": "https://github.com/MiltonPacheco29" }
       ],
       "pendingLink": "pendiente",
       "cv": {
@@ -310,7 +322,7 @@
     }
   },
   "footer": {
-    "note": "[POR COMPLETAR] © Año Tu nombre",
+    "note": "© 2026 Milton Pacheco",
     "backToTop": "Volver arriba"
   },
   "notFound": {

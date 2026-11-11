@@ -39,7 +39,7 @@ Next.js (App Router, `output: "export"`), TypeScript, Tailwind CSS y Motion (`mo
 - Navegación completa con teclado y etiquetas accesibles.
 - No uses server actions, rutas de API ni middleware (es un sitio estático).
 - Imágenes en WebP dentro de `public/`, siempre con `alt` descriptivo.
-- Nunca incluyas nombres de clientes, sistemas internos ni datos confidenciales en el contenido.
+- Se pueden nombrar empleadores y empresas donde trabajaste, pero nunca los proyectos, clientes finales, sistemas internos ni datos confidenciales que manejaste para ellos.
 - Nunca leas ni escribas archivos `.env` y no pongas secretos en el código.
 - Haz cambios pequeños y al final lista los archivos que tocaste.
 
