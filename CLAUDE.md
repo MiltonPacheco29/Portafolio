@@ -17,7 +17,7 @@ Next.js (App Router, `output: "export"`), TypeScript, Tailwind CSS y Motion (`mo
 ## Estructura
 
 - `app/`: solo rutas, layouts y metadata (`layout.tsx` y `page.tsx` en la raíz; `global-not-found.tsx` para la 404).
-- `components/sections/`: una sección de la página por archivo. Las que tienen varias piezas van en subcarpeta (`experience/`, `projects/`, `contact/`). `sectionStyles.ts` guarda las clases compartidas.
+- `components/sections/`: una sección de la página por archivo. Las que tienen varias piezas van en subcarpeta (`hero/`, `experience/`, `projects/`, `contact/`). `sectionStyles.ts` guarda las clases compartidas.
 - `components/layout/`: chrome fijo del sitio (navbar, tema).
 - `components/providers/`: configuración global sin UI propia (`MotionProvider`, `ThemeScript`).
 - `components/ui/`: piezas reutilizables sin lógica de página (botones, imágenes, decorativos).

@@ -22,13 +22,28 @@
     "toDark": "Cambiar a tema oscuro"
   },
   "cta": {
-    "contact": "Hablemos de tu proyecto"
+    "contact": "Hablemos de tu proyecto",
+    "projects": "Ver proyectos"
   },
   "hero": {
+    "availability": {
+      "show": true,
+      "label": "Disponible para nuevos proyectos"
+    },
     "name": "Milton Pacheco",
     "role": "Desarrollador de software",
-    "title": ["De la idea al producto,"],
+    "title": ["De la idea al", "producto,"],
     "tagline": "y todo lo que ocurre en el medio.",
+    "stack": {
+      "label": "Tecnologías principales",
+      "items": [
+        { "id": "react", "name": "React" },
+        { "id": "next", "name": "Next.js" },
+        { "id": "java", "name": "Java" },
+        { "id": "aws", "name": "AWS" },
+        { "id": "database", "name": "Bases de datos" }
+      ]
+    },
     "avatar": {
       "src": "/avatar/avatar-hola.webp",
       "alt": "Ilustración estilo cyberpunk de Milton saludando con la mano: lleva gafas, barba y una chaqueta negra con detalles cian y magenta",

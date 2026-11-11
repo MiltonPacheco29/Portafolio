@@ -113,6 +113,12 @@ export function Navbar({
       activeSection === key ? "text-primary" : "text-fg-muted"
     }`;
 
+  /* Indicador de sección activa (escritorio): línea que crece desde la izquierda. */
+  const indicatorClass = (key: SectionKey) =>
+    `relative after:absolute after:inset-x-3 after:bottom-2 after:h-px after:origin-left after:bg-primary hover:after:scale-x-100 motion-safe:after:transition-transform motion-safe:after:duration-300 ${
+      activeSection === key ? "after:scale-x-100" : "after:scale-x-0"
+    }`;
+
   return (
     <header
       ref={headerRef}
@@ -126,8 +132,8 @@ export function Navbar({
         style={{ borderRadius: compact ? 9999 : 0 }}
         className={`pointer-events-auto flex items-center gap-2 border-border motion-safe:transition-[background-color,border-color,box-shadow] motion-safe:duration-300 ${
           compact
-            ? "mt-[var(--nav-float-gap)] w-fit max-w-[calc(100%-1.5rem)] border border-border-strong bg-surface py-1.5 pr-1.5 pl-4 shadow-glow-primary"
-            : "w-full border-b bg-bg px-gutter py-3"
+            ? "mt-[var(--nav-float-gap)] w-fit max-w-[calc(100%-1.5rem)] border border-border-strong bg-surface/85 py-1.5 pr-1.5 pl-4 shadow-glow-primary backdrop-blur-md"
+            : "w-full border-b bg-bg/70 px-gutter py-3 backdrop-blur-md"
         }`}
       >
         <motion.a
@@ -155,7 +161,7 @@ export function Navbar({
                 <a
                   href={`#${link.id}`}
                   aria-current={activeSection === link.key ? "location" : undefined}
-                  className={linkClass(link.key)}
+                  className={`${linkClass(link.key)} ${indicatorClass(link.key)}`}
                 >
                   {link.title}
                 </a>

@@ -13,7 +13,7 @@ Referencias usadas **solo como gramática visual y como datos**: `docs/referenci
 
 ### Dónde va la audacia
 
-1. **Hero:** el avatar al 90 % de la altura (hasta 860 px), pegado al borde inferior a la derecha, con la mano que saluda junto al titular. A la izquierda, nombre y cargo pequeños arriba y el titular "Del dato a la pantalla." en tres líneas, con su tamaño limitado por su columna y por la altura. Nada se solapa.
+1. **Hero:** composición de hasta 90rem en dos columnas (~55/45) sobre un video en bucle de una calle nocturna (`public/hero/night-city.mp4`) que se funde con el fondo. Capas: video con velo del color de fondo (más denso bajo el texto), luz ambiental radial, retícula de puntos y esquinas de marco (solo escritorio). A la izquierda, centrados en vertical: etiqueta de disponibilidad (`hero.availability.show`), nombre y cargo, el titular "De la idea al / producto," en dos líneas (la segunda en `--primary`), la frase, dos botones (contacto y "Ver proyectos") y una fila de chips de tecnologías con iconos de línea propios. A la derecha, el avatar pegado al borde inferior con un halo ambiental. En móvil y tableta, una columna de alto flexible con el avatar debajo, alineado a la derecha.
 2. **Proyectos:** las tarjetas que se apilan al hacer scroll.
 
 El resto (Sobre mí, Qué hago, Experiencia, Contacto) se apoya en la misma escala tipográfica y en el ritmo de secciones, sin decoración añadida.
@@ -24,7 +24,7 @@ Objetivo único (de `landing-page-design`): **que me contacten**. El botón de c
 
 | Orden | Bloque | Ancla | Notas |
 |---|---|---|---|
-| 1 | Hero | `inicio` | `h1` con nombre y cargo, titular de valor "Del dato a la pantalla.", frase en texto corrido (`text-lead`) con lugar y año, y botón de contacto |
+| 1 | Hero | `inicio` | Etiqueta de disponibilidad, `h1` con nombre y cargo, titular "De la idea al producto,", frase en texto corrido (`text-lead`), botones de contacto y de proyectos, chips de tecnologías y video de fondo con botón de pausa |
 | 2 | Franja de skills | sin ancla | Decorativa en movimiento, con una lista accesible única |
 | 3 | Sobre mí | `sobre-mi` | Revelado por carácter, avatar y botón de contacto |
 | 4 | Qué hago | `que-hago` | Fondo invertido, 5 servicios numerados |
@@ -101,17 +101,20 @@ Máximo tres familias, todas con `next/font/google` (se sirven desde el propio d
 
 | Token | Valor | Uso |
 |---|---|---|
-| `--fs-hero` | móvil `clamp(3rem, min(15vw, 10svh), 10rem)`; desde 64rem `clamp(3.5rem, min(17cqi, calc((var(--hero-h) - 26rem) / 3)), 9rem)` | Titular del Hero en tres líneas ("DEL DATO" / "A LA" / "PANTALLA."), `font-stretch` 75 %, interlineado 0.86. `17cqi` mide su columna; el divisor 3 deja holgura sobre el alto real de tres líneas (2.58) |
+| `--fs-hero` | móvil `clamp(2.25rem, 16cqi, 6.5rem)`; desde 64rem `clamp(3.5rem, min(16cqi, calc((var(--hero-h) - 24.5rem) / 3.1)), 9rem)` | Titular del Hero en dos líneas ("DE LA IDEA AL" / "PRODUCTO,"), `font-stretch` 75 %, interlineado 0.86. La frase del Hero usa la misma tipografía al 70 % (`.hero-tagline`, `text-wrap: balance`) dentro del mismo `@container`. `16cqi` mide la columna para que quepa la línea más larga; el divisor 3.1 cubre el titular y dos líneas de la frase |
 | `--fs-name` | `clamp(1.375rem, 1rem + 1vw, 2.25rem)` | Nombre (Archivo 800, sin mayúsculas) y cargo (serif cursiva) del Hero, `text-name` |
 | `--hero-h` | `calc(100svh - var(--nav-height))` | Alto útil del Hero |
-| `--hero-avatar` | móvil `clamp(10rem, calc(var(--hero-h) - 2.58 * var(--fs-hero) - 20rem), 100%)`; desde 64rem `min(calc(var(--hero-h) * 0.9), 46vw, 860px)` | Lado del avatar del Hero (cuadrado; 860 px queda por debajo de los 900 nativos) |
+| `.hero-avatar` | móvil `min(75vw, 24rem)`; desde 48rem `min(55vw, 28rem)`; desde 64rem `min(100%, calc(var(--hero-h) * 0.9), 860px)` | Lado del avatar del Hero (cuadrado; 860 px queda por debajo de los 900 nativos) |
+| `--hero-max` | `90rem` | Ancho máximo de la composición del Hero (el video ocupa todo el ancho) |
 | `--hero-gap` | `clamp(1.5rem, 3vw, 3rem)` | Hueco entre el texto y el avatar del Hero |
-| `--hero-inset` | `clamp(2.5rem, 7vw, 8rem)` | Margen lateral del Hero desde 64rem (en lugar del gutter), para que texto y avatar queden más centrados |
+| `--hero-inset` | `--gutter`; desde 64rem `clamp(2.5rem, 6vw, 6rem)` | Margen lateral del Hero dentro de `--hero-max` |
+| `--hero-video-*` | oscuro: opacidad 0.45, `screen`, `saturate(1.15)`; claro: 0.16, `multiply`, `grayscale(1) sepia(0.35) contrast(1.1)` | Mezcla del video de fondo con `--bg` |
+| `--status` | oscuro #3DDC84; claro #2E7D4F | Punto de la etiqueta de disponibilidad (decorativo; el texto va en `--fg`) |
 | `--fs-display` | `clamp(3rem, 12vw, 10rem)` | Títulos de sección |
 | `--fs-number` | `clamp(3rem, 10vw, 8.75rem)` | Números de Qué hago y de proyectos |
 | `--fs-band` | `clamp(2.25rem, 6vw, 5.5rem)` | Franja de skills |
 | `--fs-subtitle` | `clamp(1.5rem, 1rem + 2.4vw, 3rem)` | Subtítulo en serif cursiva |
-| `--fs-lead` | `clamp(1.125rem, 1rem + 0.8vw, 1.5rem)` | Párrafo de Sobre mí y frase del Hero (pila del sistema, ancho máximo 34rem en el Hero) |
+| `--fs-lead` | `clamp(1.125rem, 1rem + 0.8vw, 1.5rem)` | Párrafo de Sobre mí (pila del sistema) |
 | `--fs-meta` | 0.75rem (12 px, mínimo) | Metadatos y etiquetas verticales, mayúsculas por CSS, `--tracking-meta` 0.14em |
 | `--fs-3xl` | `clamp(1.75rem, 1.4rem + 1.6vw, 2.5rem)` | Título de la 404 (`text-title`) |
 
@@ -145,7 +148,8 @@ Color en hover y foco: 200 ms (`motion-safe:duration-200`), nunca menos.
 
 | Pieza | Comportamiento | Movimiento reducido |
 |---|---|---|
-| Entrada del Hero | CSS (`.enter`): navbar (y −20) y el avatar, que sube desde el corte inferior (translateY 18 % → 0, sin opacidad, 0.7 s, retraso 0.1 s, recortado por su contenedor). En pausa mientras existe el preloader (`@media (scripting: enabled)`), así que arranca al abrirse las cortinas. El resto del Hero no se anima | Sin animación |
+| Entrada del Hero | CSS (`.enter`, retrasos en `hero/Hero.tsx`): navbar (y −20); fondo en fundido (0 s, 1.2 s); etiqueta (0.15 s), nombre (0.25 s), cargo (0.4 s, solo opacidad); titular con máscara por línea (0.5 s y 0.58 s, sube un 105 % dentro de su recorte); frase con la misma máscara (0.75 s); botones (0.9 s y 0.98 s); chips (desde 1.1 s, cada 0.05 s); avatar (0.2 s, 1.15 s, x 6 % → 0 con fundido). Todo con `transform` y `opacity`. En pausa mientras existe el preloader (`@media (scripting: enabled)`), así que arranca al abrirse las cortinas | Sin animación |
+| Video del Hero | Bucle silenciado; botón de pausa/reproducción (WCAG 2.2.2); se pausa fuera de pantalla | No arranca solo; el botón permite reproducirlo |
 | `FadeIn` | `motion/react`, al entrar en pantalla, una vez, margen 50px, 0.7s, `--ease-fade`. Lo que ya está visible al cargar no se oculta | Sin animación |
 | Franja de skills | `translateX` = ±(scrollY − topSección + altoVentana) × 0.3 − 200; listener pasivo, agrupado por `requestAnimationFrame`, `will-change: transform` | Estática |
 | `AnimatedText` | Opacidad por carácter de **0.65** a 1 (offset "start 0.8" → "end 0.2"); una sola variable CSS de progreso | Opacidad 1 |

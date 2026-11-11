@@ -46,7 +46,7 @@ export function HeroVideo({ src, playLabel, pauseLabel }: HeroVideoProps) {
 
   return (
     <>
-      <div aria-hidden="true" className="hero-video">
+      <div aria-hidden="true" className="hero-video enter [--enter-dur:1.2s] [--enter-y:0]">
         <video
           ref={videoRef}
           src={src}
@@ -66,14 +66,11 @@ export function HeroVideo({ src, playLabel, pauseLabel }: HeroVideoProps) {
         type="button"
         onClick={toggle}
         aria-label={playing ? pauseLabel : playLabel}
-        className="absolute right-gutter bottom-4 z-10 inline-flex size-11 items-center justify-center rounded-pill border-2 border-border-strong bg-bg/70 text-fg backdrop-blur-sm hover:border-primary hover:text-primary motion-safe:transition-colors motion-safe:duration-200"
+        title={playing ? pauseLabel : playLabel}
+        className="hero-video-toggle inline-flex size-11 items-center justify-center rounded-pill border border-border-strong bg-bg/70 text-fg backdrop-blur-sm hover:border-primary hover:text-primary motion-safe:transition-colors motion-safe:duration-200"
       >
-        <svg aria-hidden="true" viewBox="0 0 16 16" className="size-4 fill-current">
-          {playing ? (
-            <path d="M4 3h3v10H4zM9 3h3v10H9z" />
-          ) : (
-            <path d="M5 2.5v11l9-5.5z" />
-          )}
+        <svg aria-hidden="true" focusable="false" viewBox="0 0 16 16" className="size-4 fill-current">
+          {playing ? <path d="M4 3h3v10H4zM9 3h3v10H9z" /> : <path d="M5 2.5v11l9-5.5z" />}
         </svg>
       </button>
     </>
