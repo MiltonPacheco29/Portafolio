@@ -283,7 +283,7 @@
       "id": "contacto",
       "title": "Contacto",
       "headline": ["¿Construimos", "lo que sigue?"],
-      "intro": "Si necesitas una API, un microservicio, una interfaz web o ayuda con una base de datos, escríbeme y vemos cómo puedo ayudarte.",
+      "intro": "Si necesitas una API, un microservicio, una interfaz web o ayuda con una base de datos, escríbeme.",
       "emailLabel": "Escríbeme a",
       "copyEmail": "Copiar correo",
       "copied": "Correo copiado",
