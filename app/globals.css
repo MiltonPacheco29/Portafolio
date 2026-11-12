@@ -636,8 +636,9 @@
     display: inline-block;
     max-width: 100%;
     font-family: var(--font-family-display);
-    /* El correo mide ~15em: a 6.4cqi ocupa ~96 % de la columna. */
-    font-size: clamp(1.25rem, 6.4cqi, 4rem);
+    /* El correo mide ~15em: el tope de 2.125rem (~510px) lo alinea con el final de la fila
+       de botones (copiar, LinkedIn, GitHub); en móvil baja con la columna. */
+    font-size: clamp(1.25rem, 6.4cqi, 2rem);
     font-weight: 900;
     font-stretch: 75%;
     line-height: 1;
