@@ -15,18 +15,18 @@ type ContactFormProps = {
   texts: FormTexts;
 };
 
-type Field = "name" | "email" | "message";
+type Field = "topic" | "name" | "email" | "message";
 type Values = Record<Field, string>;
 type Errors = Partial<Record<Field | "turnstile", string>>;
 type Status = "idle" | "submitting" | "success" | "error";
 
-const FIELDS: Field[] = ["name", "email", "message"];
+const FIELDS: Field[] = ["topic", "name", "email", "message"];
 const MAX_NAME = 100;
 const MIN_MESSAGE = 10;
 const MAX_MESSAGE = 2000;
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const TURNSTILE_SCRIPT = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
-const EMPTY: Values = { name: "", email: "", message: "" };
+const EMPTY: Values = { topic: "", name: "", email: "", message: "" };
 
 type TurnstileApi = {
   render: (container: HTMLElement, options: Record<string, unknown>) => string;
@@ -41,6 +41,7 @@ declare global {
 
 function validate(values: Values, token: string | null, t: FormTexts["errors"]): Errors {
   const errors: Errors = {};
+  if (!values.topic) errors.topic = t.topicRequired;
   if (!values.name.trim()) errors.name = t.nameRequired;
   if (!values.email.trim()) errors.email = t.emailRequired;
   else if (!EMAIL_PATTERN.test(values.email.trim())) errors.email = t.emailInvalid;
@@ -52,6 +53,9 @@ function validate(values: Values, token: string | null, t: FormTexts["errors"]):
   return errors;
 }
 
+/* Envío sin backend: valida en el cliente y publica el FormData en Formspree, que reenvía
+   el mensaje por correo (reply-to = campo email). Antispam: Turnstile en modo
+   "interaction-only" (solo se ve si Cloudflare pide interacción) y el campo trampa _gotcha. */
 export function ContactForm({ texts }: ContactFormProps) {
   const id = useId();
   const [values, setValues] = useState<Values>(EMPTY);
@@ -76,6 +80,7 @@ export function ContactForm({ texts }: ContactFormProps) {
       theme: theme ?? "auto",
       language: siteLang,
       size: "flexible",
+      appearance: "interaction-only",
       callback: (newToken: string) => {
         setToken(newToken);
         setTurnstileFailed(false);
@@ -114,11 +119,12 @@ export function ContactForm({ texts }: ContactFormProps) {
     if (widgetId.current) window.turnstile?.reset(widgetId.current);
   };
 
+  const fieldIds = (field: Field) => ({ input: `${id}-${field}`, error: `${id}-${field}-error` });
+
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (status === "submitting") return;
-    const form = event.currentTarget;
-    const data = new FormData(form);
+    const data = new FormData(event.currentTarget);
 
     if (String(data.get("_gotcha") ?? "").trim()) {
       setStatus("success");
@@ -130,7 +136,7 @@ export function ContactForm({ texts }: ContactFormProps) {
     setAttempted(true);
     const firstInvalid = FIELDS.find((field) => found[field]);
     if (firstInvalid) {
-      (form.elements.namedItem(firstInvalid) as HTMLElement | null)?.focus();
+      document.getElementById(fieldIds(firstInvalid).input)?.focus();
       return;
     }
     if (found.turnstile) {
@@ -138,8 +144,11 @@ export function ContactForm({ texts }: ContactFormProps) {
       return;
     }
 
-    setStatus("submitting");
+    const topicLabel = texts.topic.options.find((option) => option.value === values.topic)?.label ?? values.topic;
+    data.set("_subject", fillTemplate(texts.subject, { topic: topicLabel, name: values.name.trim() }));
     data.set("cf-turnstile-response", token ?? "");
+
+    setStatus("submitting");
     try {
       const response = await fetch(endpoint, {
         method: "POST",
@@ -160,26 +169,19 @@ export function ContactForm({ texts }: ContactFormProps) {
   if (!showForm) {
     return (
       <div className="flex flex-col items-start gap-4">
-        <h4 ref={successRef} tabIndex={-1} className="font-display text-2xl font-semibold text-primary outline-none">
+        <h4 ref={successRef} tabIndex={-1} className="font-display text-3xl font-black text-primary outline-none">
           {texts.success.title}
         </h4>
-        <p className="text-fg-muted">{texts.success.body}</p>
-        <button
-          type="button"
-          onClick={() => setStatus("idle")}
-          className={ghostClass}
-        >
+        <p className="max-w-prose text-fg-muted">{texts.success.body}</p>
+        <button type="button" onClick={() => setStatus("idle")} className={ghostClass}>
           {texts.success.again}
         </button>
       </div>
     );
   }
 
-  const fieldIds = (field: Field) => ({ input: `${id}-${field}`, error: `${id}-${field}-error` });
   const describedBy = (field: Field, extra?: string) =>
     [errors[field] ? fieldIds(field).error : null, extra].filter(Boolean).join(" ") || undefined;
-  const inputClass = (field: Field) =>
-    `w-full rounded-sm border bg-bg px-3 py-2 text-fg ${errors[field] ? "border-accent" : "border-border-strong"}`;
   const errorText = (field: Field | "turnstile", errorId: string, ref?: Ref<HTMLParagraphElement>) =>
     errors[field] ? (
       <p id={errorId} ref={ref} tabIndex={ref ? -1 : undefined} className="flex gap-1 text-sm text-accent outline-none">
@@ -189,7 +191,9 @@ export function ContactForm({ texts }: ContactFormProps) {
     ) : null;
   const errorCount = Object.values(errors).filter(Boolean).length;
   const countId = `${id}-message-count`;
+  const privacyId = `${id}-privacy`;
   const submitting = status === "submitting";
+  const labelClass = "font-mono text-sm text-fg-muted";
 
   return (
     <>
@@ -200,11 +204,8 @@ export function ContactForm({ texts }: ContactFormProps) {
         onError={() => setTurnstileFailed(true)}
       />
 
-      <form onSubmit={onSubmit} noValidate className="flex flex-col gap-5" aria-busy={submitting}>
-        <div className="flex flex-col gap-1 text-sm text-fg-muted">
-          <p>{texts.intro}</p>
-          <p>{texts.privacy}</p>
-        </div>
+      <form onSubmit={onSubmit} noValidate className="flex flex-col gap-8" aria-busy={submitting}>
+        <p className="text-sm text-fg-muted">{texts.intro}</p>
 
         {attempted && errorCount > 0 && (
           <p role="alert" className="flex gap-2 rounded-sm border border-accent p-3 text-sm text-fg">
@@ -213,47 +214,78 @@ export function ContactForm({ texts }: ContactFormProps) {
           </p>
         )}
 
-        <div className="flex flex-col gap-1">
-          <label htmlFor={fieldIds("name").input} className="font-mono text-sm text-fg">
-            {texts.fields.name}
-          </label>
-          <input
-            id={fieldIds("name").input}
-            name="name"
-            type="text"
-            autoComplete="name"
-            maxLength={MAX_NAME}
-            value={values.name}
-            onChange={(e) => update("name", e.target.value)}
-            aria-invalid={errors.name ? true : undefined}
-            aria-describedby={describedBy("name")}
-            className={inputClass("name")}
-          />
-          {errorText("name", fieldIds("name").error)}
+        <fieldset
+          aria-describedby={describedBy("topic")}
+          className="flex flex-col gap-3"
+        >
+          <legend className={`${labelClass} mb-3`}>{texts.topic.legend}</legend>
+          <div className="flex flex-wrap gap-2">
+            {texts.topic.options.map((option, i) => {
+              const optionId = i === 0 ? fieldIds("topic").input : `${fieldIds("topic").input}-${i}`;
+              return (
+                <span key={option.value} className="relative">
+                  <input
+                    id={optionId}
+                    type="radio"
+                    name="tipo"
+                    value={option.value}
+                    checked={values.topic === option.value}
+                    onChange={() => update("topic", option.value)}
+                    className="sr-only"
+                  />
+                  <label htmlFor={optionId} className="topic-pill">
+                    {option.label}
+                  </label>
+                </span>
+              );
+            })}
+          </div>
+          {errorText("topic", fieldIds("topic").error)}
+        </fieldset>
+
+        <div className="grid gap-8 sm:grid-cols-2 sm:gap-6">
+          <div className="flex flex-col gap-1">
+            <label htmlFor={fieldIds("name").input} className={labelClass}>
+              {texts.fields.name}
+            </label>
+            <input
+              id={fieldIds("name").input}
+              name="name"
+              type="text"
+              autoComplete="name"
+              maxLength={MAX_NAME}
+              value={values.name}
+              onChange={(e) => update("name", e.target.value)}
+              aria-invalid={errors.name ? true : undefined}
+              aria-describedby={describedBy("name")}
+              className="form-line"
+            />
+            {errorText("name", fieldIds("name").error)}
+          </div>
+
+          <div className="flex flex-col gap-1">
+            <label htmlFor={fieldIds("email").input} className={labelClass}>
+              {texts.fields.email}
+            </label>
+            <input
+              id={fieldIds("email").input}
+              name="email"
+              type="email"
+              inputMode="email"
+              autoComplete="email"
+              spellCheck={false}
+              value={values.email}
+              onChange={(e) => update("email", e.target.value)}
+              aria-invalid={errors.email ? true : undefined}
+              aria-describedby={describedBy("email")}
+              className="form-line"
+            />
+            {errorText("email", fieldIds("email").error)}
+          </div>
         </div>
 
         <div className="flex flex-col gap-1">
-          <label htmlFor={fieldIds("email").input} className="font-mono text-sm text-fg">
-            {texts.fields.email}
-          </label>
-          <input
-            id={fieldIds("email").input}
-            name="email"
-            type="email"
-            inputMode="email"
-            autoComplete="email"
-            spellCheck={false}
-            value={values.email}
-            onChange={(e) => update("email", e.target.value)}
-            aria-invalid={errors.email ? true : undefined}
-            aria-describedby={describedBy("email")}
-            className={inputClass("email")}
-          />
-          {errorText("email", fieldIds("email").error)}
-        </div>
-
-        <div className="flex flex-col gap-1">
-          <label htmlFor={fieldIds("message").input} className="font-mono text-sm text-fg">
+          <label htmlFor={fieldIds("message").input} className={labelClass}>
             {texts.fields.message}
           </label>
           <textarea
@@ -265,9 +297,9 @@ export function ContactForm({ texts }: ContactFormProps) {
             onChange={(e) => update("message", e.target.value)}
             aria-invalid={errors.message ? true : undefined}
             aria-describedby={describedBy("message", countId)}
-            className={`${inputClass("message")} resize-y`}
+            className="form-line form-line--ruled resize-y"
           />
-          <p id={countId} className="font-mono text-xs text-fg-muted">
+          <p id={countId} className="self-end font-mono text-xs text-fg-muted">
             {fillTemplate(texts.messageCount, { count: values.message.length, max: MAX_MESSAGE })}
           </p>
           {errorText("message", fieldIds("message").error)}
@@ -280,8 +312,8 @@ export function ContactForm({ texts }: ContactFormProps) {
           </label>
         </div>
 
-        <div className="flex flex-col gap-1">
-          <div ref={widgetRef} aria-label={texts.turnstile} role="group" className="min-h-[65px]" />
+        <div className="-my-4 flex flex-col gap-1">
+          <div ref={widgetRef} aria-label={texts.turnstile} role="group" />
           {turnstileFailed && <p className="text-sm text-accent">{texts.errors.turnstileFailed}</p>}
           {errorText("turnstile", `${id}-turnstile-error`, turnstileErrorRef)}
         </div>
@@ -293,10 +325,11 @@ export function ContactForm({ texts }: ContactFormProps) {
           </div>
         )}
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-6">
           <button
             type="submit"
             aria-disabled={submitting}
+            aria-describedby={privacyId}
             className={`${ctaClass} gap-2 aria-disabled:cursor-wait aria-disabled:opacity-90`}
           >
             {submitting && (
@@ -307,6 +340,9 @@ export function ContactForm({ texts }: ContactFormProps) {
             )}
             {submitting ? texts.sending : texts.submit}
           </button>
+          <p id={privacyId} className="max-w-[36ch] text-sm text-fg-muted">
+            {texts.privacy}
+          </p>
           <p role="status" className="sr-only">
             {submitting ? texts.sending : ""}
           </p>

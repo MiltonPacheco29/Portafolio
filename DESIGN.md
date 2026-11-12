@@ -15,8 +15,9 @@ Referencias usadas **solo como gramática visual y como datos**: `docs/referenci
 
 1. **Hero:** composición de hasta 90rem en dos columnas (~55/45) sobre un video en bucle de una calle nocturna (`public/hero/night-city.mp4`) que se funde con el fondo. Capas: video con velo del color de fondo (más denso bajo el texto), luz ambiental radial, retícula de puntos y esquinas de marco (solo escritorio). A la izquierda, centrados en vertical: etiqueta de disponibilidad (`hero.availability.show`), nombre y cargo, el titular "De la idea al / producto," en dos líneas (la segunda en `--primary`), la frase, dos botones (contacto y "Ver proyectos") y una fila de chips de tecnologías con iconos de línea propios. A la derecha, el avatar pegado al borde inferior con un halo ambiental. En móvil y tableta, una columna de alto flexible con el avatar debajo, alineado a la derecha.
 2. **Proyectos:** las tarjetas que se apilan al hacer scroll.
+3. **Contacto:** el correo en tipografía de cartel (Archivo 900, `font-stretch` 75 %, `--primary`), medido con `cqi` sobre el panel para ocupar su ancho.
 
-El resto (Sobre mí, Qué hago, Experiencia, Contacto) se apoya en la misma escala tipográfica y en el ritmo de secciones, sin decoración añadida.
+El resto (Sobre mí, Qué hago, Experiencia) se apoya en la misma escala tipográfica y en el ritmo de secciones, sin decoración añadida.
 
 ## 2. Estructura de la página
 
@@ -30,7 +31,7 @@ Objetivo único (de `landing-page-design`): **que me contacten**. El botón de c
 | 4 | Qué hago | `que-hago` | Fondo invertido, 5 servicios numerados |
 | 5 | Experiencia | `experiencia` | Línea de tiempo actual más formación |
 | 6 | Proyectos | `proyectos` | Tarjetas apiladas con filtros |
-| 7 | Contacto | `contacto` | Formulario, enlaces, CV en código de barras |
+| 7 | Contacto | `contacto` | Desde 64rem cabe en una pantalla: la sección mide `100svh − --nav-offset` y el panel va en dos columnas (7/5: invitación, correo, enlaces y CV | formulario con el mensaje de 4 renglones); en móvil, una columna con rayas entre ambas partes. Un panel (`.contact-panel`: `--surface`, `--corner-card`, retícula de puntos y luz ambiental): arriba etiqueta de disponibilidad, titular "¿Construimos / lo que sigue?" (segunda línea en `--primary`, a todo el ancho del panel) e intro; el correo gigante (`.contact-email`, enlace `mailto`) con botón "Copiar correo", LinkedIn y GitHub; rayas; abajo el formulario (tipo de consulta, nombre, correo, mensaje) con campos de ficha impresa (`.form-line`, mensaje rayado) y al lado el CV en código de barras. Envío a Formspree con Turnstile en modo `interaction-only` |
 
 Se elimina la sección Skills (la sustituye la franja). Los datos de "Sobre mí" (ubicación, experiencia) pasan a la frase del Hero y la formación pasa a Experiencia.
 
@@ -178,6 +179,7 @@ El 0.65 inicial del revelado garantiza 4.5:1 en ambos temas en todo momento (a 0
 | `Preloader` | cliente | capa del color de fondo en el HTML estático; un único reloj rAF (`engine.ts`) calcula todo desde el tiempo y escribe `--p`, `--full` y el contador; el estado de cada segmento sale solo del CSS; `role="progressbar"` con `aria-valuenow`; bloquea el scroll compensando la barra en `body` y en `[data-scroll-lock-compensate]`; red de seguridad JS a los 9 s y CSS a los 10 s |
 | `StripeDivider` | servidor | rayas diagonales de 12px, periodo 24px, `aria-hidden` |
 | `VerticalLabel` | servidor | `writing-mode: vertical-rl`, `aria-hidden`, solo desde `lg` |
+| `CopyEmailButton` | cliente | botón fantasma que copia el correo; el icono pasa a check 2 s y el resultado se anuncia en `role="status"`; si falla, indica copiarlo a mano |
 | `CvBarcodeLink` | servidor | barras SVG `aria-hidden` sin datos reales, texto visible "Descargar CV · PDF · ES" y nombre accesible con formato, idioma y tamaño |
 
 ## 8. Imágenes

@@ -282,8 +282,12 @@
     "contact": {
       "id": "contacto",
       "title": "Contacto",
+      "headline": ["¿Construimos", "lo que sigue?"],
       "intro": "Si necesitas una API, un microservicio, una interfaz web o ayuda con una base de datos, escríbeme y vemos cómo puedo ayudarte.",
-      "ctaIntro": "¿Tienes un proyecto o una vacante? Cuéntamelo.",
+      "emailLabel": "Escríbeme a",
+      "copyEmail": "Copiar correo",
+      "copied": "Correo copiado",
+      "copyFailed": "No se pudo copiar. Selecciona el correo y cópialo a mano.",
       "linksTitle": "Dónde encontrarme",
       "links": [
         {
@@ -314,7 +318,7 @@
         "pending": "Falta el archivo public/cv/cv-es.pdf"
       },
       "form": {
-        "title": "Formulario de contacto",
+        "title": "O déjame un mensaje",
         "intro": "Todos los campos son obligatorios.",
         "privacy": "Uso tu nombre y tu correo solo para responderte.",
         "fields": {
@@ -322,18 +326,28 @@
           "email": "Correo electrónico",
           "message": "Mensaje"
         },
+        "topic": {
+          "legend": "¿Qué necesitas?",
+          "options": [
+            { "value": "proyecto", "label": "Un proyecto" },
+            { "value": "vacante", "label": "Una vacante" },
+            { "value": "otro", "label": "Otra cosa" }
+          ]
+        },
+        "subject": "Portafolio: {topic} — {name}",
         "messageCount": "{count} de {max} caracteres",
         "honeypot": "No rellenes este campo",
         "turnstile": "Verificación de seguridad",
         "errors": {
           "summary": "El formulario tiene errores. Revisa los campos marcados.",
+          "topicRequired": "Elige qué necesitas.",
           "nameRequired": "Escribe tu nombre.",
           "emailRequired": "Escribe tu correo electrónico.",
           "emailInvalid": "Escribe un correo válido, por ejemplo nombre@dominio.com.",
           "messageRequired": "Escribe tu mensaje.",
           "messageShort": "El mensaje debe tener al menos {min} caracteres.",
           "messageLong": "El mensaje no puede superar los {max} caracteres.",
-          "turnstile": "Completa la verificación de seguridad antes de enviar.",
+          "turnstile": "La verificación de seguridad aún no ha terminado. Espera unos segundos y vuelve a enviar.",
           "turnstileFailed": "No se pudo cargar la verificación de seguridad. Recarga la página e inténtalo de nuevo."
         },
         "submit": "Enviar mensaje",

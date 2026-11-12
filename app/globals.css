@@ -579,6 +579,165 @@
     }
   }
 
+  /* Panel de contacto: la última hoja del cartel. Desde 64rem cabe en una pantalla: dos
+     columnas (invitación y correo | formulario) y la sección mide el alto visible. */
+  .contact-panel {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding: clamp(1.25rem, 4vw, 3rem);
+    border: 1px solid var(--border);
+    border-radius: var(--corner-card);
+    background-color: var(--surface);
+  }
+  .contact-panel-glow,
+  .contact-panel-dots {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+  }
+  .contact-panel-glow {
+    background:
+      radial-gradient(45% 40% at 100% 100%, var(--hero-ambient-b), transparent 70%),
+      radial-gradient(35% 35% at 90% 0%, var(--hero-ambient-a), transparent 70%);
+  }
+  .contact-panel-dots {
+    opacity: 0.5;
+    background-image: radial-gradient(
+      color-mix(in srgb, var(--fg) 22%, transparent) 1px,
+      transparent 1.5px
+    );
+    background-size: 24px 24px;
+    mask-image: radial-gradient(55% 45% at 85% 15%, #000, transparent 75%);
+  }
+  /* La columna de la invitación mide su ancho (cqi): titular y correo se ajustan a ella. */
+  .contact-intro {
+    container-type: inline-size;
+  }
+  /* El textarea baja a cuatro renglones en escritorio para que el panel quepa en pantalla. */
+  @media (width >= 64rem) {
+    .contact-panel .form-line--ruled {
+      height: calc(var(--rule) * 4 + 0.5rem);
+    }
+  }
+  .contact-headline {
+    font-family: var(--font-family-display);
+    /* "¿CONSTRUIMOS" mide ~7.4em: a 12cqi ocupa ~90 % de la columna. */
+    font-size: clamp(2.5rem, 12cqi, 6rem);
+    font-weight: 900;
+    font-stretch: 75%;
+    line-height: 0.88;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+  }
+  /* El correo es la pieza protagonista: tipografía de cartel que ocupa el ancho del panel. */
+  .contact-email {
+    display: inline-block;
+    max-width: 100%;
+    font-family: var(--font-family-display);
+    /* El correo mide ~15em: a 6.4cqi ocupa ~96 % de la columna. */
+    font-size: clamp(1.25rem, 6.4cqi, 4rem);
+    font-weight: 900;
+    font-stretch: 75%;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    overflow-wrap: anywhere;
+    color: var(--primary);
+    text-decoration-line: underline;
+    text-decoration-color: transparent;
+    text-decoration-thickness: 0.06em;
+    text-underline-offset: 0.12em;
+  }
+  a.contact-email:hover,
+  a.contact-email:focus-visible {
+    text-decoration-color: currentColor;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    a.contact-email {
+      transition: text-decoration-color 200ms;
+    }
+  }
+  @media (forced-colors: active) {
+    .contact-panel-glow,
+    .contact-panel-dots {
+      display: none;
+    }
+    a.contact-email {
+      text-decoration-color: currentColor;
+    }
+  }
+
+  /* Formulario de contacto como ficha impresa: líneas en lugar de cajas y un área de
+     mensaje rayada al ritmo del interlineado. */
+  .form-line {
+    width: 100%;
+    border: 0;
+    border-bottom: 1px solid var(--border-strong);
+    border-radius: 0;
+    background-color: transparent;
+    padding: 0.5rem 0;
+    color: var(--fg);
+  }
+  .form-line:focus {
+    border-bottom: 2px solid var(--primary);
+    padding-bottom: calc(0.5rem - 1px);
+  }
+  .form-line[aria-invalid="true"] {
+    border-bottom-color: var(--accent);
+  }
+  .form-line--ruled {
+    --rule: 2rem;
+    padding-top: 0;
+    line-height: var(--rule);
+    background-image: linear-gradient(transparent calc(var(--rule) - 1px), var(--border) 0);
+    background-size: 100% var(--rule);
+    background-attachment: local;
+  }
+  /* Píldoras del tipo de consulta: el radio nativo queda oculto pero conserva el foco. */
+  .topic-pill {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--corner-pill);
+    padding-inline: 1.1rem;
+    color: var(--fg);
+    cursor: pointer;
+  }
+  .topic-pill:hover {
+    border-color: var(--primary);
+  }
+  :checked + .topic-pill {
+    border-color: var(--primary);
+    background-color: var(--primary);
+    color: var(--on-primary);
+  }
+  :focus-visible + .topic-pill {
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .topic-pill {
+      transition:
+        color 200ms,
+        background-color 200ms,
+        border-color 200ms;
+    }
+  }
+  @media (forced-colors: active) {
+    .form-line {
+      border-bottom-color: CanvasText;
+    }
+    .form-line--ruled {
+      background-image: none;
+    }
+    :checked + .topic-pill {
+      border-width: 3px;
+    }
+  }
+
   /* Video de fondo del Hero: se funde con el fondo (screen en oscuro, multiply en papel)
      y un velo del color de fondo protege el contraste del texto y cierra el borde inferior. */
   .hero-video {

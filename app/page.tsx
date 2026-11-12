@@ -45,7 +45,7 @@ export default function HomePage() {
       <StripeDivider />
       <ProjectsSection projects={s.projects} />
       <StripeDivider />
-      <ContactSection contact={s.contact} ctaLabel={cta.contact} />
+      <ContactSection contact={s.contact} availability={hero.availability} />
     </>
   );
 }
